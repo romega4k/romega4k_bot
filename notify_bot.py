@@ -68,7 +68,7 @@ def build_wa_message(c: dict) -> str:
         f"• 8 luni → {price(prices[3], country)} _(+4 GRATUITE)_\n\n"
         f"{footer}\n"
         f"━━━━━━━━━━━━━━━━━━\n"
-        f"💬 Scrieți numărul de luni dorit și vă contactăm!\n\n"
+        f"💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n"
         f"— *Ro Mega 4K Team* 📺"
     )
 

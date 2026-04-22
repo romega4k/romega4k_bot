@@ -1,7 +1,6 @@
 """
 Ro Mega 4K — Bot Notificări Telegram
-Rulează zilnic la 09:00 și trimite alerte pentru clienții ce expiră în 3 zile și 24h.
-Deploy pe Render.com (gratuit).
+Trimite notificări personalizate fiecărui user pe Chat ID-ul lui propriu.
 """
 
 import os
@@ -10,11 +9,9 @@ from datetime import date, datetime
 import httpx
 from supabase import create_client
 
-# ══ CONFIG din variabile de mediu ══
 SUPABASE_URL  = os.environ["SUPABASE_URL"]
 SUPABASE_KEY  = os.environ["SUPABASE_SERVICE_KEY"]
 TG_BOT_TOKEN  = os.environ["TELEGRAM_BOT_TOKEN"]
-TG_CHAT_ID    = os.environ["TELEGRAM_CHAT_ID"]
 
 sb = create_client(SUPABASE_URL, SUPABASE_KEY)
 
@@ -72,82 +69,90 @@ def build_wa_message(c: dict) -> str:
         f"— *Ro Mega 4K Team* 📺"
     )
 
-async def send_telegram(text: str):
+async def send_telegram(chat_id: str, text: str):
     url = f"https://api.telegram.org/bot{TG_BOT_TOKEN}/sendMessage"
     async with httpx.AsyncClient() as client:
         await client.post(url, json={
-            "chat_id": TG_CHAT_ID,
+            "chat_id": chat_id,
             "text": text,
             "parse_mode": "Markdown"
         })
 
 async def run_check():
-    print(f"[{datetime.now()}] Verificare clienți...")
+    print(f"[{datetime.now()}] Verificare clienți pentru toți userii...")
 
-    result = sb.table("clients").select("*").execute()
-    clients = result.data or []
-
-    expired   = [c for c in clients if days_until(c["expiry"]) < 0]
-    urgent_24 = [c for c in clients if days_until(c["expiry"]) in (0, 1)]
-    warn_3d   = [c for c in clients if days_until(c["expiry"]) in (2, 3)]
-
-    total_alert = len(expired) + len(urgent_24) + len(warn_3d)
-
-    if total_alert == 0:
-        print("Nicio alertă astăzi.")
+    # Obține toți userii cu Chat ID configurat
+    profiles_result = sb.table("profiles").select("id, telegram_chat_id, full_name").execute()
+    profiles = profiles_result.data or []
+    
+    users_with_telegram = [p for p in profiles if p.get("telegram_chat_id")]
+    
+    if not users_with_telegram:
+        print("Niciun user nu are Chat ID Telegram configurat.")
         return
 
-    # ── Mesaj sumar pe Telegram ──
-    lines = [f"🔔 *Ro Mega 4K — Alerte {date.today().strftime('%d.%m.%Y')}*\n"]
+    print(f"Găsiți {len(users_with_telegram)} useri cu Telegram configurat.")
 
-    if expired:
-        lines.append(f"💀 *EXPIRATE ({len(expired)}):*")
-        for c in expired:
-            d = abs(days_until(c["expiry"]))
-            lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — expirat de {d}z | {c.get('phone','fără nr')}")
+    for profile in users_with_telegram:
+        user_id    = profile["id"]
+        chat_id    = profile["telegram_chat_id"]
+        user_name  = profile.get("full_name") or "User"
 
-    if urgent_24:
-        lines.append(f"\n🔴 *24H — EXPIRĂ AZI/MÂINE ({len(urgent_24)}):*")
-        for c in urgent_24:
-            d = days_until(c["expiry"])
-            when = "AZI" if d == 0 else "mâine"
-            lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — {when} | {c.get('phone','fără nr')}")
+        # Obține clienții acestui user
+        result = sb.table("clients").select("*").eq("user_id", user_id).execute()
+        clients = result.data or []
 
-    if warn_3d:
-        lines.append(f"\n🟡 *3 ZILE ({len(warn_3d)}):*")
-        for c in warn_3d:
-            d = days_until(c["expiry"])
-            lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — în {d} zile | {c.get('phone','fără nr')}")
+        expired   = [c for c in clients if days_until(c["expiry"]) < 0]
+        urgent_24 = [c for c in clients if days_until(c["expiry"]) in (0, 1)]
+        warn_3d   = [c for c in clients if days_until(c["expiry"]) in (2, 3)]
 
-    lines.append(f"\n📱 Deschide aplicația pentru a trimite mesajele WhatsApp.")
-    summary = "\n".join(lines)
+        total_alert = len(expired) + len(urgent_24) + len(warn_3d)
 
-    await send_telegram(summary)
-    print(f"Trimis sumar: {total_alert} alerte")
+        if total_alert == 0:
+            print(f"[{user_name}] Nicio alertă.")
+            continue
 
-    # ── Mesaje individuale pentru fiecare client urgent ──
-    for c in urgent_24:
-        wa_msg = build_wa_message(c)
-        tg_text = (
-            f"📤 *Mesaj gata pentru {c['name']}*\n"
-            f"📞 {c.get('phone', 'fără număr')}\n\n"
-            f"Copiază și trimite pe WhatsApp:\n\n"
-            f"```\n{wa_msg}\n```"
-        )
-        await send_telegram(tg_text)
-        await asyncio.sleep(1)  # evită rate limit Telegram
+        # Mesaj sumar
+        lines = [f"🔔 *Ro Mega 4K — Alertele tale {date.today().strftime('%d.%m.%Y')}*\n"]
 
-    # ── Mesaje individuale pentru 3 zile ──
-    for c in warn_3d:
-        wa_msg = build_wa_message(c)
-        tg_text = (
-            f"⏰ *Reînnoire în 3 zile — {c['name']}*\n"
-            f"📞 {c.get('phone', 'fără număr')}\n\n"
-            f"Copiază și trimite pe WhatsApp:\n\n"
-            f"```\n{wa_msg}\n```"
-        )
-        await send_telegram(tg_text)
+        if expired:
+            lines.append(f"💀 *EXPIRATE ({len(expired)}):*")
+            for c in expired:
+                d = abs(days_until(c["expiry"]))
+                lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — expirat de {d}z | {c.get('phone','fără nr')}")
+
+        if urgent_24:
+            lines.append(f"\n🔴 *AZI/MÂINE ({len(urgent_24)}):*")
+            for c in urgent_24:
+                d = days_until(c["expiry"])
+                when = "AZI" if d == 0 else "mâine"
+                lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — {when} | {c.get('phone','fără nr')}")
+
+        if warn_3d:
+            lines.append(f"\n🟡 *3 ZILE ({len(warn_3d)}):*")
+            for c in warn_3d:
+                d = days_until(c["expiry"])
+                lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — în {d} zile | {c.get('phone','fără nr')}")
+
+        summary = "\n".join(lines)
+        await send_telegram(chat_id, summary)
+        print(f"[{user_name}] Trimis sumar: {total_alert} alerte")
+
+        # Mesaje individuale WA
+        for c in urgent_24 + warn_3d:
+            wa_msg = build_wa_message(c)
+            label = "24h" if days_until(c["expiry"]) <= 1 else "3 zile"
+            tg_text = (
+                f"📤 *{c['name']}* — expiră în {label}\n"
+                f"📞 {c.get('phone', 'fără număr')}\n\n"
+                f"```\n{wa_msg}\n```"
+            )
+            await send_telegram(chat_id, tg_text)
+            await asyncio.sleep(0.5)
+
         await asyncio.sleep(1)
+
+    print("Gata!")
 
 if __name__ == "__main__":
     asyncio.run(run_check())

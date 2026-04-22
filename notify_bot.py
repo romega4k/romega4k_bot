@@ -80,7 +80,7 @@ async def send_telegram(chat_id: str, text: str):
             "parse_mode": "Markdown"
         })
 
-async def send_push(user_id: str, title: str, message: str, url: str = "https://manager-clienti-pro.netlify.app"):
+async def send_push(user_id: str, title: str, message: str, url: str = "https://manager-clienti-pro.netlify.app/#notif"):
     """Trimite push notification prin OneSignal către un user specific"""
     async with httpx.AsyncClient() as client:
         resp = await client.post(
@@ -134,39 +134,44 @@ async def run_check():
 
         print(f"[{user_name}] {total_alert} alerte — trimitem notificări...")
 
-        # ── PUSH NOTIFICATION ──
-        if expired:
-            push_msg = f"💀 {len(expired)} expirați"
-            if urgent_24:
-                push_msg += f" · 🔴 {len(urgent_24)} azi/mâine"
-            if warn_3d:
-                push_msg += f" · ⚡ {len(warn_3d)} în 3 zile"
-            
-            await send_push(
-                user_id=user_id,
-                title=f"🔔 Ro Mega 4K — {total_alert} alerte",
-                message=push_msg
-            )
-        
-        if urgent_24:
-            names = ", ".join([c["name"] for c in urgent_24[:3]])
-            if len(urgent_24) > 3:
-                names += f" +{len(urgent_24)-3} alții"
-            await send_push(
-                user_id=user_id,
-                title=f"🔴 Expiră azi/mâine ({len(urgent_24)})",
-                message=f"{names} — trimite mesaj WhatsApp acum!"
-            )
+        # ── PUSH NOTIFICATION — o singură notificare cu toți ──
+        all_urgent = urgent_24 + warn_3d + expired
 
-        if warn_3d:
-            names = ", ".join([c["name"] for c in warn_3d[:3]])
-            if len(warn_3d) > 3:
-                names += f" +{len(warn_3d)-3} alții"
-            await send_push(
-                user_id=user_id,
-                title=f"⚡ Expiră în 3 zile ({len(warn_3d)})",
-                message=f"{names}"
-            )
+        # Build title
+        if urgent_24 and warn_3d:
+            title = f"🔴 {len(urgent_24)} azi/mâine · ⚡ {len(warn_3d)} în 3 zile"
+        elif urgent_24:
+            title = f"🔴 {len(urgent_24)} client{'i' if len(urgent_24)>1 else ''} expiră azi/mâine!"
+        elif warn_3d:
+            title = f"⚡ {len(warn_3d)} client{'i' if len(warn_3d)>1 else ''} expiră în 3 zile"
+        else:
+            title = f"💀 {len(expired)} client{'i' if len(expired)>1 else ''} expirati"
+
+        # Build message with all names
+        names_24 = [c["name"] for c in urgent_24]
+        names_3d = [c["name"] for c in warn_3d]
+        names_exp = [c["name"] for c in expired[:3]]
+
+        msg_parts = []
+        if names_24:
+            msg_parts.append("Azi/Mâine: " + ", ".join(names_24[:5]))
+        if names_3d:
+            msg_parts.append("3 zile: " + ", ".join(names_3d[:5]))
+        if names_exp:
+            msg_parts.append("Expirați: " + ", ".join(names_exp))
+
+        push_message = " · ".join(msg_parts)
+
+        # Build URL with all urgent client IDs
+        all_ids = [str(c.get("id","")) for c in all_urgent]
+        ids_param = ",".join(all_ids)
+
+        await send_push(
+            user_id=user_id,
+            title=f"🔔 Ro Mega 4K — {title}",
+            message=push_message,
+            url=f"https://manager-clienti-pro.netlify.app/#urgent-{ids_param}"
+        )
 
         # ── TELEGRAM (dacă are Chat ID configurat) ──
         if chat_id:

@@ -1,227 +1,206 @@
-"""
-Ro Mega 4K — Bot Notificări
-Trimite notificări Telegram + OneSignal push pentru fiecare user.
-"""
-
-import os
-import asyncio
-from datetime import date, datetime
-import httpx
+from datetime import datetime
+import pytz
 from supabase import create_client
+import requests
+import os
+from apscheduler.schedulers.background import BackgroundScheduler
 
-SUPABASE_URL     = os.environ["SUPABASE_URL"]
-SUPABASE_KEY     = os.environ["SUPABASE_SERVICE_KEY"]
-TG_BOT_TOKEN     = os.environ["TELEGRAM_BOT_TOKEN"]
-ONESIGNAL_APP_ID = "ed44b50b-7a45-47d5-bf64-15ba99836e30"
-ONESIGNAL_KEY    = os.environ.get("ONESIGNAL_API_KEY", "")
+SUPABASE_URL = os.getenv(“SUPABASE_URL”)
+SUPABASE_KEY = os.getenv(“SUPABASE_KEY”)
+TELEGRAM_BOT_TOKEN = os.getenv(“TELEGRAM_BOT_TOKEN”)
+ONESIGNAL_APP_ID = os.getenv(“ONESIGNAL_APP_ID”)
+ONESIGNAL_API_KEY = os.getenv(“ONESIGNAL_API_KEY”)
 
 sb = create_client(SUPABASE_URL, SUPABASE_KEY)
+scheduler = BackgroundScheduler()
 
-EU_COUNTRIES = {"IT","FR","DE","AT","ES","GR","NL","BE","PT","SE","NO","DK",
-                "FI","CH","PL","CZ","HU","SK","HR","IE","LU","CY","MT","SI",
-                "BG","LT","LV","EE","EU"}
+def send_telegram(chat_id, message):
+try:
+url = f”https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage”
+r = requests.post(url, json={“chat_id”: chat_id, “text”: message, “parse_mode”: “Markdown”})
+print(f”Telegram {chat_id}: {r.status_code}”)
+except Exception as e:
+print(f”Telegram error: {e}”)
 
-def days_until(expiry_str):
-    return (date.fromisoformat(expiry_str) - date.today()).days
+def send_onesignal(user_id, message):
+try:
+url = “https://onesignal.com/api/v1/notifications”
+headers = {“Authorization”: f”Basic {ONESIGNAL_API_KEY}”, “Content-Type”: “application/json”}
+payload = {
+“app_id”: ONESIGNAL_APP_ID,
+“filters”: [{“field”: “tag”, “key”: “user_id”, “value”: user_id}],
+“headings”: {“en”: “Ro Mega 4K”},
+“contents”: {“en”: message}
+}
+r = requests.post(url, json=payload, headers=headers)
+print(f”OneSignal {user_id}: {r.status_code} - {r.text}”)
+except Exception as e:
+print(f”OneSignal error: {e}”)
 
-def is_eu(country):
-    return (country or "GB") in EU_COUNTRIES
+def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
+try:
+today = datetime.now().date()
 
-def flag(country):
-    flags = {"GB":"🇬🇧","IT":"🇮🇹","FR":"🇫🇷","DE":"🇩🇪","AT":"🇦🇹","ES":"🇪🇸",
-             "GR":"🇬🇷","RO":"🇷🇴","NL":"🇳🇱","BE":"🇧🇪","PT":"🇵🇹","SE":"🇸🇪",
-             "NO":"🇳🇴","DK":"🇩🇰","FI":"🇫🇮","CH":"🇨🇭","PL":"🇵🇱","CZ":"🇨🇿",
-             "HU":"🇭🇺","SK":"🇸🇰","HR":"🇭🇷","IE":"🇮🇪","BG":"🇧🇬"}
-    return flags.get(country or "GB", "🌍")
+```
+    # Calculează max zile în baza perioadelor active
+    max_days = 0
+    if notif_7d: max_days = 7
+    if notif_3d: max_days = max(max_days, 3)
+    if notif_24h: max_days = max(max_days, 1)
 
-def bold_num(n):
-    m = {'0':'𝟬','1':'𝟭','2':'𝟮','3':'𝟯','4':'𝟰','5':'𝟱','6':'𝟲','7':'𝟳','8':'𝟴','9':'𝟵'}
-    return ''.join(m.get(c,c) for c in str(n))
+    if max_days == 0:
+        print(f"No periods active for {user_id}")
+        return
 
-def sym(n, eu):
-    return f"{bold_num(n)}€" if eu else f"£{bold_num(n)}"
+    # Obține clienții
+    clients = sb.from_("clients").select("name,expiry").eq("user_id", user_id).execute().data or []
 
-def build_wa_message(c, user_packages=None):
-    d = days_until(c["expiry"])
-    multi = (c.get("max_con") or 1) >= 2
-    eu = is_eu(c.get("country","GB"))
-    country = c.get("country","GB")
+    # Obține prețurile user-ului
+    prices_resp = sb.from_("prices").select("*").eq("user_id", user_id).execute()
+    prices = prices_resp.data or []
 
-    if d < 0:
-        urg = f"⚠️ *Serviciul tău a EXPIRAT acum {abs(d)} {'zi' if abs(d)==1 else 'zile'}!*"
-    elif d == 0:
-        urg = "⚠️ *Serviciul tău EXPIRĂ AZI!*"
-    elif d == 1:
-        urg = "⏰ *Serviciul tău expiră MÂINE!*"
+    # Dacă nu are prețuri custom, folosește default £
+    if not prices:
+        pkg_lines = "• 1 lună → £13\n• 3 luni → £36 _(+1 GRATIS)_\n• 5 luni → £65 _(+2 GRATUITE)_\n• 8 luni → £100 _(+4 GRATUITE)_"
     else:
-        urg = f"⏰ *Serviciul tău expiră în {d} zile*"
+        lines = []
+        for p in prices:
+            label = p.get("label", "")
+            price = p.get("price", 0)
+            bonus = p.get("bonus", "")
+            if bonus:
+                lines.append(f"• {label} → £{price} _({bonus})_")
+            else:
+                lines.append(f"• {label} → £{price}")
+        pkg_lines = "\n".join(lines)
 
-    # Build package lines from user's custom packages
-    pkg_lines = ""
-    if user_packages and user_packages.get("packages"):
-        pkgs = user_packages["packages"]
-        pkg_order = [
-            ("1m","1 Lună"),("2m","2 Luni"),("3m","3 Luni"),("3p1","3+1 Luni"),
-            ("5p1","5+1 Luni"),("5p2","5+2 Luni"),("6m","6 Luni"),
-            ("8p4","8+4 Luni"),("9p3","9+3 Luni"),("12m","12 Luni"),
-        ]
-        for pid, plabel in pkg_order:
-            pkg = pkgs.get(pid)
-            if not pkg or not pkg.get("on"):
-                continue
-            price = pkg.get("multi" if multi else "single", 0)
-            if price:
-                pkg_lines += f"• {plabel} → {sym(price, eu)}\n"
-
-    # Fallback to defaults
-    if not pkg_lines:
-        prices = [15,46,75,120] if multi else [13,36,65,100]
-        pkg_lines = (
-            f"• 1 lună → {sym(prices[0], eu)}\n"
-            f"• 3+1 luni → {sym(prices[1], eu)}\n"
-            f"• 5+2 luni → {sym(prices[2], eu)}\n"
-            f"• 8+4 luni → {sym(prices[3], eu)}\n"
-        )
-
-    footer = "_(2-3 televizoare pe aceeași rețea/casă)_" if multi else "_(1 televizor / 1 adresă IP)_"
-
-    return (
-        f"Bună ziua *{c['name']}* 👋\n\n"
-        f"{urg}\n\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"📦 *REÎNNOIRE ABONAMENT:*\n\n"
-        f"{pkg_lines}\n"
-        f"{footer}\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n"
-        f"— *Ro Mega 4K Team* 📺"
-    )
-
-async def send_telegram(chat_id, text):
-    url = f"https://api.telegram.org/bot{TG_BOT_TOKEN}/sendMessage"
-    async with httpx.AsyncClient(timeout=15) as client:
-        r = await client.post(url, json={
-            "chat_id": chat_id,
-            "text": text,
-            "parse_mode": "Markdown"
-        })
-        return r.json()
-
-async def send_push(user_id, title, message, url="https://manager-clienti-pro.netlify.app/#notif"):
-    if not ONESIGNAL_KEY:
-        return
-    async with httpx.AsyncClient(timeout=15) as client:
-        await client.post(
-            "https://api.onesignal.com/notifications",
-            headers={"Authorization": f"Key {ONESIGNAL_KEY}", "Content-Type": "application/json"},
-            json={
-                "app_id": ONESIGNAL_APP_ID,
-                "filters": [{"field":"tag","key":"user_id","relation":"=","value":user_id}],
-                "headings": {"en": title, "ro": title},
-                "contents": {"en": message, "ro": message},
-                "url": url
-            }
-        )
-
-async def run_check():
-    print(f"[{datetime.now()}] Verificare clienți...")
-
-    # Get all profiles
-    profiles = sb.table("profiles").select("id, telegram_chat_id, full_name, prices").execute().data or []
-
-    if not profiles:
-        print("Niciun profil găsit.")
-        return
-
-    for profile in profiles:
-        user_id   = profile["id"]
-        chat_id   = profile.get("telegram_chat_id","")
-        user_name = profile.get("full_name") or "User"
-        user_prices = profile.get("prices") or {}
-
-        # Get clients for this user
-        clients = sb.table("clients").select("*").eq("user_id", user_id).execute().data or []
-
-        expired   = [c for c in clients if days_until(c["expiry"]) < 0]
-        urgent_24 = [c for c in clients if days_until(c["expiry"]) in (0,1)]
-        warn_3d   = [c for c in clients if days_until(c["expiry"]) in (2,3)]
-        all_alert = urgent_24 + warn_3d
-
-        total = len(expired) + len(urgent_24) + len(warn_3d)
-        if total == 0:
-            print(f"[{user_name}] Nicio alertă.")
+    # Filtrează clienți după perioadele active
+    expiring = []
+    for c in clients:
+        try:
+            days = (datetime.fromisoformat(c["expiry"]).date() - today).days
+            if days <= max_days:
+                expiring.append({"name": c["name"], "days": days})
+        except:
             continue
 
-        print(f"[{user_name}] {total} alerte — urgent:{len(urgent_24)}, 3zile:{len(warn_3d)}, expirat:{len(expired)}")
+    if not expiring:
+        print(f"No expiring clients for {user_id}")
+        return
 
-        # ── TELEGRAM ──
-        if chat_id:
-            # Main summary message
-            lines = [f"🔔 *Notificări Ro Mega 4K*\n"]
+    print(f"Found {len(expiring)} expiring clients for {user_id}")
 
-            if len(all_alert) > 0:
-                lines.append(f"{len(all_alert)} {'client' if len(all_alert)==1 else 'clienți'} trebuie reînnoiți:\n")
-                for c in urgent_24:
-                    d = days_until(c["expiry"])
-                    when = "AZI" if d==0 else "mâine"
-                    lines.append(f"🔴 *{c['name']}* - {when}")
-                for c in warn_3d:
-                    d = days_until(c["expiry"])
-                    lines.append(f"🟡 *{c['name']}* - în {d} zile")
+    # Trimite mesaj per client
+    for c in expiring:
+        name = c["name"]
+        days = c["days"]
 
-            if expired:
-                lines.append(f"\n💀 *Expirați ({len(expired)}):*")
-                for c in expired[:5]:
-                    d = abs(days_until(c["expiry"]))
-                    lines.append(f"  {flag(c.get('country','GB'))} {c['name']} — {d}z | {c.get('phone','fără nr')}")
+        # Titlu în baza urgentei
+        if days < 0:
+            title = f"🔴 Expirat — {name}"
+            status = "⚠️ *Serviciul tău A EXPIRAT!*"
+        elif days == 0:
+            title = f"🔴 Expiră AZI — {name}"
+            status = "⚠️ *Serviciul tău EXPIRĂ AZI!*"
+        elif days == 1:
+            title = f"🔴 Reînnoire în 1 zi — {name}"
+            status = "⚠️ *Serviciul tău expiră MÂINE!*"
+        elif days <= 3:
+            title = f"🟡 Reînnoire în {days} zile — {name}"
+            status = f"⚠️ *Serviciul tău expiră în {days} zile!*"
+        else:
+            title = f"🕐 Reînnoire în {days} zile — {name}"
+            status = f"⚠️ *Serviciul tău expiră în {days} zile!*"
 
-            lines.append(f"\n📱 Mergi în app pentru a copia mesajul WhatsApp")
-            lines.append(f"👉 https://manager-clienti-pro.netlify.app")
+        msg = f"""{title}
+```
 
-            result = await send_telegram(chat_id, "\n".join(lines))
-            if result.get("ok"):
-                print(f"[{user_name}] ✅ Telegram trimis")
-            else:
-                print(f"[{user_name}] ❌ Telegram eroare: {result}")
+Copiază și trimite pe WhatsApp:
 
-            # Individual WA messages for urgent clients
-            for c in urgent_24 + warn_3d:
-                wa_msg = build_wa_message(c, user_prices)
-                d = days_until(c["expiry"])
-                label = "AZI" if d==0 else "mâine" if d==1 else f"în {d} zile"
-                tg = (
-                    f"📤 *{c['name']}* — expiră {label}\n"
-                    f"📞 {c.get('phone','fără număr')} {flag(c.get('country','GB'))}\n\n"
-                    f"```\n{wa_msg}\n```"
-                )
-                await send_telegram(chat_id, tg)
-                await asyncio.sleep(0.5)
+Bună ziua *{name}* 👋
 
-        # ── ONESIGNAL PUSH ──
-        if all_alert or expired:
-            # Build push message
-            names_urgent = [c["name"] for c in urgent_24]
-            names_3d = [c["name"] for c in warn_3d]
-            
-            push_parts = []
-            if names_urgent:
-                push_parts.append("🔴 " + ", ".join(names_urgent[:3]))
-            if names_3d:
-                push_parts.append("🟡 " + ", ".join(names_3d[:3]))
-            
-            push_title = f"🔔 Ro Mega 4K — {total} alerte"
-            push_msg = " · ".join(push_parts) if push_parts else f"{total} clienți necesită atenție"
-            
-            # Build URL with all urgent client IDs
-            all_ids = ",".join([str(c.get("id","")) for c in urgent_24+warn_3d])
-            push_url = f"https://manager-clienti-pro.netlify.app/#urgent-{all_ids}"
-            
-            await send_push(user_id, push_title, push_msg, push_url)
-            print(f"[{user_name}] ✅ Push trimis")
+{status}
 
-        await asyncio.sleep(1)
+━━━━━━━━━━━━━━━━━━
+📦 *REÎNNOIRE ABONAMENT:*
 
-    print("✅ Gata!")
+{pkg_lines}
 
-if __name__ == "__main__":
-    asyncio.run(run_check())
+*(1 conexiune / 1 adresă IP)*
+━━━━━━━━━━━━━━━━━━
+💬 Alegeți opțiunea dorită și revenim cu detalii de plată!
+
+— *Ro Mega 4K Team* 📺”””
+
+```
+        send_telegram(chat_id, msg)
+
+    # OneSignal push sumar
+    send_onesignal(user_id, f"🔔 {len(expiring)} client(i) trebuie reînnoiți azi!")
+
+except Exception as e:
+    print(f"Error notify_user {user_id}: {e}")
+```
+
+def schedule_all():
+try:
+print(“🔄 Refreshing schedules…”)
+users = sb.from_(“profiles”).select(“id,notif_time,notif_timezone,telegram_chat_id,notif_7d,notif_3d,notif_24h”).execute().data or []
+print(f”Found {len(users)} users”)
+
+```
+    for job in scheduler.get_jobs():
+        if job.id != 'refresh':
+            scheduler.remove_job(job.id)
+
+    for u in users:
+        uid = u.get("id")
+        chat_id = u.get("telegram_chat_id")
+        notif_time = u.get("notif_time") or "09:00"
+        notif_tz = u.get("notif_timezone") or "UTC"
+        notif_7d = u.get("notif_7d", False)
+        notif_3d = u.get("notif_3d", True)
+        notif_24h = u.get("notif_24h", True)
+
+        if not chat_id:
+            print(f"No chat_id for {uid}")
+            continue
+
+        try:
+            h, m = map(int, notif_time.split(':'))
+            tz = pytz.timezone(notif_tz)
+            now = datetime.now(tz)
+            sched = now.replace(hour=h, minute=m, second=0, microsecond=0).astimezone(pytz.UTC)
+
+            scheduler.add_job(
+                notify_user,
+                'cron',
+                hour=sched.hour,
+                minute=sched.minute,
+                id=f"notif_{uid}",
+                replace_existing=True,
+                args=[uid, chat_id, notif_7d, notif_3d, notif_24h]
+            )
+            print(f"✅ {uid}: {notif_time} {notif_tz} → {sched.hour}:{sched.minute:02d} UTC")
+
+        except Exception as e:
+            print(f"Error scheduling {uid}: {e}")
+
+except Exception as e:
+    print(f"Error schedule_all: {e}")
+```
+
+if **name** == “**main**”:
+print(“🚀 Ro Mega 4K Bot Starting…”)
+scheduler.start()
+print(“✅ Scheduler started!”)
+schedule_all()
+scheduler.add_job(schedule_all, ‘interval’, minutes=5, id=‘refresh’, replace_existing=True)
+print(“🔄 Auto-refresh la fiecare 5 minute”)
+try:
+while True:
+import time
+time.sleep(60)
+except:
+scheduler.shutdown()
+print(“Bot stopped.”)

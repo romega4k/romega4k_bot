@@ -33,7 +33,7 @@ def send_onesignal(user_id, message):
             "contents": {"en": message}
         }
         r = requests.post(url, json=payload, headers=headers)
-        print(f"OneSignal {user_id}: {r.status_code} {r.text}")
+        print(f"OneSignal {user_id}: {r.status_code}")
     except Exception as e:
         print(f"OneSignal error: {e}")
 
@@ -125,18 +125,16 @@ def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
 
 
 def run_all():
-    print("🚀 Ro Mega 4K Bot — One-shot run")
+    print("🚀 Ro Mega 4K Bot — running")
     try:
         users = sb.from_("profiles").select(
-            "id,notif_time,notif_timezone,telegram_chat_id,notif_7d,notif_3d,notif_24h"
+            "id,telegram_chat_id,notif_7d,notif_3d,notif_24h"
         ).execute().data
         print(f"Found {len(users)} users")
 
         for u in users:
             uid = u.get("id")
             chat_id = u.get("telegram_chat_id")
-            notif_time = u.get("notif_time") or "09:00"
-            notif_tz = u.get("notif_timezone") or "UTC"
             notif_7d = u.get("notif_7d", False)
             notif_3d = u.get("notif_3d", True)
             notif_24h = u.get("notif_24h", True)
@@ -144,17 +142,6 @@ def run_all():
             if not chat_id:
                 print(f"No chat_id for {uid}")
                 continue
-
-            try:
-                tz = pytz.timezone(notif_tz)
-                now_local = datetime.now(tz)
-                h, m = map(int, notif_time.split(":"))
-                diff = abs(now_local.hour * 60 + now_local.minute - h * 60 - m)
-                if diff > 30:
-                    print(f"Skipping {uid}: not notif time ({notif_time} {notif_tz}, now {now_local.strftime('%H:%M')})")
-                    continue
-            except Exception as e:
-                print(f"Timezone error for {uid}: {e}")
 
             notify_user(uid, chat_id, notif_7d, notif_3d, notif_24h)
 

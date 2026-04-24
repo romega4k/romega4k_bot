@@ -36,10 +36,10 @@ def send_telegram_notification(chat_id, message):
         payload = {
             "chat_id": chat_id,
             "text": message,
-            "parse_mode": "HTML"
+            "parse_mode": "Markdown"
         }
-        requests.post(url, json=payload)
-        print(f"Telegram notification sent to {chat_id}")
+        response = requests.post(url, json=payload)
+        print(f"Telegram sent to {chat_id}: {response.status_code}")
     except Exception as e:
         print(f"Error sending Telegram notification: {e}")
 
@@ -69,56 +69,133 @@ def send_onesignal_notification(user_id, message):
     except Exception as e:
         print(f"Error sending OneSignal notification: {e}")
 
+def build_whatsapp_message(client_name, days_until, packages):
+    """Construiește mesajul WhatsApp în formatul original"""
+    if days_until < 0:
+        status = "⚠️ *Serviciul tău A EXPIRAT!*"
+    elif days_until == 0:
+        status = "⚠️ *Serviciul tău EXPIRĂ AZI!*"
+    elif days_until == 1:
+        status = "⚠️ *Serviciul tău expiră MÂINE!*"
+    else:
+        status = f"⚠️ *Serviciul tău expiră în {days_until} zile!*"
+
+    # Construiește lista pachete
+    pkg_lines = ""
+    for pkg in packages:
+        label = pkg.get("label", "")
+        price_s = pkg.get("ds", 0)
+        price_m = pkg.get("dm", 0)
+        if price_s <= 0:
+            continue
+        # Detectează bonus
+        parts = label.split("+")
+        if len(parts) == 2:
+            base = parts[0].strip()
+            bonus = parts[1].replace("Luni", "").replace("Lună", "").strip()
+            months = int(parts[0].strip().split()[0])
+            if bonus == "1":
+                bonus_text = f" _(+1 GRATIS)_"
+            elif bonus == "2":
+                bonus_text = f" _(+2 GRATUITE)_"
+            elif bonus == "3":
+                bonus_text = f" _(+3 GRATUITE)_"
+            elif bonus == "4":
+                bonus_text = f" _(+4 GRATUITE)_"
+            else:
+                bonus_text = ""
+            pkg_lines += f"• {months} luni → {price_m}€{bonus_text}\n"
+        else:
+            months = label.replace("Luni", "").replace("Lună", "").strip().split()[0]
+            pkg_lines += f"• {months} lun{'ă' if months=='1' else 'i'} → {price_m}€\n"
+
+    msg = f"""Bună ziua *{client_name}* 👋
+
+{status}
+
+━━━━━━━━━━━━━━━━━━
+📦 *REÎNNOIRE ABONAMENT:*
+
+{pkg_lines.strip()}
+
+_(2-3 conexiuni pe aceeași rețea/casă)_
+━━━━━━━━━━━━━━━━━━
+💬 Alegeți opțiunea dorită și revenim cu detalii de plată!
+
+— *Ro Mega 4K Team* 📺"""
+    return msg
+
 def send_notifications_for_user(user_id):
     """Trimite notificări pentru un user specific"""
     try:
-        # Obține profilul user-ului (notif_time și notif_timezone)
-        profile_response = sb.from_("profiles").select("telegram_chat_id").eq("id", user_id).single().execute()
+        # Obține profilul user-ului
+        profile_response = sb.from_("profiles").select("telegram_chat_id,notif_3d,notif_7d,notif_24h").eq("id", user_id).single().execute()
         profile = profile_response.data
-        
+
         if not profile or not profile.get("telegram_chat_id"):
+            print(f"No telegram_chat_id for user {user_id}")
             return
-        
+
+        # Obține perioadele setate
+        notif_24h = profile.get("notif_24h", True)
+        notif_3d = profile.get("notif_3d", True)
+        notif_7d = profile.get("notif_7d", False)
+
+        max_days = 0
+        if notif_7d: max_days = 7
+        if notif_3d: max_days = max(max_days, 3)
+        if notif_24h: max_days = max(max_days, 1)
+
+        if max_days == 0:
+            return
+
+        # Obține pachetele user-ului
+        prices_response = sb.from_("user_prices").select("*").eq("user_id", user_id).execute()
+        packages = prices_response.data or []
+
+        # Dacă nu are pachete custom, folosește pachetele default
+        if not packages:
+            packages = [
+                {"label": "1 Lună", "ds": 13, "dm": 15},
+                {"label": "3+1 Luni", "ds": 36, "dm": 46},
+                {"label": "5+2 Luni", "ds": 65, "dm": 75},
+                {"label": "8+4 Luni", "ds": 100, "dm": 120},
+            ]
+
         # Obține clienții care expiră
-        clients = get_expiring_clients(user_id)
-        
-        # Filtrează clienți care expiră în 24h sau 3 zile
-        from datetime import timedelta
+        all_clients = get_expiring_clients(user_id)
         today = datetime.now().date()
         expiring_clients = []
-        
-        for client in clients:
-            expiry_date = datetime.fromisoformat(client.get("expiry", "")).date()
-            days_until = (expiry_date - today).days
-            
-            if 0 <= days_until <= 3:
-                expiring_clients.append({
-                    "name": client.get("name"),
-                    "days": days_until
-                })
-        
+
+        for client in all_clients:
+            try:
+                expiry_date = datetime.fromisoformat(client.get("expiry", "")).date()
+                days_until = (expiry_date - today).days
+                if days_until <= max_days:
+                    expiring_clients.append({
+                        "name": client.get("name"),
+                        "days": days_until
+                    })
+            except:
+                continue
+
         if not expiring_clients:
+            print(f"No expiring clients for user {user_id}")
             return
-        
-        # Construiește mesaj
-        message = f"<b>🔔 Notificări Ro Mega 4K</b>\n\n"
-        message += f"<b>{len(expiring_clients)} client(i) trebuie reînnoiți:</b>\n\n"
-        
-        for client in expiring_clients:
-            if client["days"] == 0:
-                message += f"🔴 <b>{client['name']}</b> - AZI\n"
-            elif client["days"] == 1:
-                message += f"🔴 <b>{client['name']}</b> - MÂINE\n"
-            else:
-                message += f"🟡 <b>{client['name']}</b> - în {client['days']} zile\n"
-        
-        message += f"\n<i>Mergi în app pentru a copia mesajul WhatsApp</i>"
-        
-        # Trimite notificări
+
         chat_id = profile.get("telegram_chat_id")
-        send_telegram_notification(chat_id, message)
-        send_onesignal_notification(user_id, f"{len(expiring_clients)} client(i) trebuie reînnoiți azi!")
-        
+
+        # Trimite mesaj SEPARAT pentru fiecare client (formatul original)
+        for client in expiring_clients:
+            msg = build_whatsapp_message(client["name"], client["days"], packages)
+            send_telegram_notification(chat_id, msg)
+
+        # OneSignal push - un singur mesaj sumar
+        summary = f"🔔 {len(expiring_clients)} client(i) trebuie reînnoiți azi!"
+        send_onesignal_notification(user_id, summary)
+
+        print(f"✅ Sent {len(expiring_clients)} notifications for user {user_id}")
+
     except Exception as e:
         print(f"Error sending notifications for user {user_id}: {e}")
 

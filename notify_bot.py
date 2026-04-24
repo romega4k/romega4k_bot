@@ -77,15 +77,10 @@ def get_pkg_lines(user_id):
 def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
     today = datetime.now().date()
 
-    max_days = 0
-    if notif_7d:
-        max_days = max(max_days, 7)
-    if notif_3d:
-        max_days = max(max_days, 3)
-    if notif_24h:
-        max_days = max(max_days, 1)
-    if not max_days:
-        max_days = 3
+    # Daca toate notificarile sunt dezactivate, nu trimite nimic
+    if not notif_7d and not notif_3d and not notif_24h:
+        print(f"  All notifications disabled for {user_id}, skipping")
+        return
 
     try:
         clients = sb.from_("clients").select("name,expiry").eq("user_id", user_id).execute().data
@@ -97,16 +92,25 @@ def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
     for c in clients:
         try:
             days = (datetime.fromisoformat(c["expiry"]).date() - today).days
-            if days <= max_days:
+
+            # Includem clientul DOAR daca categoria lui este activata
+            # Expirat (days < 0) sau Azi (days == 0) sau Maine (days == 1) -> notif_24h
+            # 2-3 zile -> notif_3d
+            # 4-7 zile -> notif_7d
+            if days <= 1 and notif_24h:
+                expiring.append({"name": c["name"], "days": days})
+            elif 2 <= days <= 3 and notif_3d:
+                expiring.append({"name": c["name"], "days": days})
+            elif 4 <= days <= 7 and notif_7d:
                 expiring.append({"name": c["name"], "days": days})
         except Exception:
             continue
 
     if not expiring:
-        print(f"No expiring clients for {user_id}")
+        print(f"  No expiring clients for {user_id} (based on enabled categories)")
         return
 
-    print(f"Found {len(expiring)} expiring clients for {user_id}")
+    print(f"  Found {len(expiring)} expiring clients for {user_id}")
 
     pkg_lines = get_pkg_lines(user_id)
     sent_ok = 0
@@ -150,7 +154,7 @@ def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
         else:
             sent_err += 1
 
-    print(f"Sent: {sent_ok} OK, {sent_err} errors")
+    print(f"  Sent: {sent_ok} OK, {sent_err} errors")
     send_onesignal(user_id, f"🔔 {len(expiring)} client(i) trebuie reinnoiti azi!")
 
 
@@ -188,6 +192,7 @@ def run_all():
             notif_24h = u.get("notif_24h", True)
 
             print(f"\nUser {uid}: chat_id={chat_id}, time={notif_time}, tz={notif_tz}")
+            print(f"  Flags: 7d={notif_7d}, 3d={notif_3d}, 24h={notif_24h}")
 
             if not chat_id:
                 print(f"  No Telegram chat_id, skipping")

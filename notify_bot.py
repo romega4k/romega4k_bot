@@ -179,13 +179,30 @@ def schedule_user_notifications():
 # Inițializare la start
 if __name__ == "__main__":
     print("🚀 Ro Mega 4K Notification Bot - Starting...")
+    
+    # Pornește scheduler
+    if not scheduler.running:
+        scheduler.start()
+    
+    # Programează orele inițial
     schedule_user_notifications()
     
-    # Keep scheduler running
+    # Re-verifică orele din Supabase la fiecare 30 minute
+    # Astfel dacă un user schimbă ora, botul o preia automat
+    scheduler.add_job(
+        schedule_user_notifications,
+        'interval',
+        minutes=30,
+        id='refresh_schedules',
+        replace_existing=True
+    )
+    print("🔄 Auto-refresh activ: orele se actualizează la fiecare 30 minute")
+    
+    # Keep running
     try:
         while True:
             import time
-            time.sleep(1)
+            time.sleep(60)
     except (KeyboardInterrupt, SystemExit):
         scheduler.shutdown()
         print("Bot stopped.")

@@ -12,17 +12,24 @@ ONESIGNAL_API_KEY = os.getenv("ONESIGNAL_API_KEY")
 
 sb = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+# Preturi default daca tabela prices nu exista sau e goala
+DEFAULT_PKG_LINES = "• 1 luna -> £13\n• 3 luni -> £36 _(+1 GRATIS)_\n• 5 luni -> £65 _(+2 GRATUITE)_\n• 8 luni -> £100 _(+4 GRATUITE)_"
+
 
 def send_telegram(chat_id, message):
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         r = requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"})
-        print(f"Telegram {chat_id}: {r.status_code}")
+        print(f"Telegram {chat_id}: {r.status_code} {r.text[:100]}")
+        return r.status_code == 200
     except Exception as e:
         print(f"Telegram error: {e}")
+        return False
 
 
 def send_onesignal(user_id, message):
+    if not ONESIGNAL_APP_ID or not ONESIGNAL_API_KEY:
+        return
     try:
         url = "https://onesignal.com/api/v1/notifications"
         headers = {"Authorization": f"Basic {ONESIGNAL_API_KEY}", "Content-Type": "application/json"}
@@ -38,118 +45,159 @@ def send_onesignal(user_id, message):
         print(f"OneSignal error: {e}")
 
 
-def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
+def get_pkg_lines(user_id):
+    """Incarca preturile din Supabase, sau returneaza default daca tabela nu exista."""
     try:
-        today = datetime.now().date()
-        max_days = 0
-        if notif_7d:
-            max_days = max(max_days, 7)
-        if notif_3d:
-            max_days = max(max_days, 3)
-        if notif_24h:
-            max_days = max(max_days, 1)
-        if not max_days:
-            print(f"No periods active for {user_id}")
-            return
-
-        clients = sb.from_("clients").select("name,expiry").eq("user_id", user_id).execute().data
-        prices_resp = sb.from_("prices").select("*").eq("user_id", user_id).execute()
-        prices = prices_resp.data if prices_resp.data else []
-
+        resp = sb.from_("prices").select("*").eq("user_id", user_id).execute()
+        prices = resp.data if resp.data else []
         if not prices:
-            pkg_lines = "• 1 luna -> £13\n• 3 luni -> £36 _(+1 GRATIS)_\n• 5 luni -> £65 _(+2 GRATUITE)_\n• 8 luni -> £100 _(+4 GRATUITE)_"
-        else:
-            lines = []
-            for p in prices:
-                label = p.get("label", "")
-                price = p.get("price", "")
-                bonus = p.get("bonus", "")
-                if bonus:
-                    lines.append(f"• {label} -> £{price} _({bonus})_")
-                else:
-                    lines.append(f"• {label} -> £{price}")
-            pkg_lines = "\n".join(lines)
-
-        expiring = []
-        for c in clients:
-            try:
-                days = (datetime.fromisoformat(c["expiry"]).date() - today).days
-                if days <= max_days:
-                    expiring.append({"name": c["name"], "days": days})
-            except Exception:
-                continue
-
-        if not expiring:
-            print(f"No expiring clients for {user_id}")
-            return
-
-        print(f"Found {len(expiring)} expiring clients for {user_id}")
-
-        for client in expiring:
-            name = client["name"]
-            days = client["days"]
-            if days < 0:
-                title = f"🔴 Expirat — {name}"
-                status = "⚠️ *Serviciul tau A EXPIRAT!*"
-            elif days == 0:
-                title = f"🔴 Expira AZI — {name}"
-                status = "⚠️ *Serviciul tau EXPIRA AZI!*"
-            elif days == 1:
-                title = f"🔴 Reinnoire in 1 zi — {name}"
-                status = "⚠️ *Serviciul tau expira MAINE!*"
-            elif days <= 3:
-                title = f"🟡 Reinnoire in {days} zile — {name}"
-                status = f"⚠️ *Serviciul tau expira in {days} zile!*"
+            return DEFAULT_PKG_LINES
+        lines = []
+        for p in prices:
+            label = p.get("label", "")
+            price = p.get("price", "")
+            bonus = p.get("bonus", "")
+            if bonus:
+                lines.append(f"• {label} -> £{price} _({bonus})_")
             else:
-                title = f"🕐 Reinnoire in {days} zile — {name}"
-                status = f"⚠️ *Serviciul tau expira in {days} zile!*"
-
-            msg = (
-                f"{title}\n\n"
-                f"Buna ziua *{name}* 👋\n\n"
-                f"{status}\n\n"
-                f"━━━━━━━━━━━━━━━━━━\n"
-                f"📦 *REINNOIRE ABONAMENT:*\n\n"
-                f"{pkg_lines}\n\n"
-                f"*(1 conexiune / 1 adresa IP)*\n"
-                f"━━━━━━━━━━━━━━━━━━\n\n"
-                f"💬 Alegeti optiunea dorita si revenim cu detalii de plata!\n"
-                f"— *Ro Mega 4K Team* 📺"
-            )
-            send_telegram(chat_id, msg)
-
-        send_onesignal(user_id, f"🔔 {len(expiring)} client(i) trebuie reinnoiti azi!")
-
+                lines.append(f"• {label} -> £{price}")
+        return "\n".join(lines)
     except Exception as e:
-        print(f"Error notify_user {user_id}: {e}")
+        print(f"prices table error (using default): {e}")
+        return DEFAULT_PKG_LINES
+
+
+def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
+    today = datetime.now().date()
+
+    max_days = 0
+    if notif_7d:
+        max_days = max(max_days, 7)
+    if notif_3d:
+        max_days = max(max_days, 3)
+    if notif_24h:
+        max_days = max(max_days, 1)
+    if not max_days:
+        max_days = 3  # default: notifica cu 3 zile inainte
+
+    # Clientii acestui user
+    try:
+        clients = sb.from_("clients").select("name,expiry").eq("user_id", user_id).execute().data
+    except Exception as e:
+        print(f"Error fetching clients for {user_id}: {e}")
+        return
+
+    # Filtrare clienti care expira
+    expiring = []
+    for c in clients:
+        try:
+            days = (datetime.fromisoformat(c["expiry"]).date() - today).days
+            if days <= max_days:
+                expiring.append({"name": c["name"], "days": days})
+        except Exception:
+            continue
+
+    if not expiring:
+        print(f"No expiring clients for {user_id}")
+        return
+
+    print(f"Found {len(expiring)} expiring clients for {user_id}")
+
+    pkg_lines = get_pkg_lines(user_id)
+
+    for client in expiring:
+        name = client["name"]
+        days = client["days"]
+
+        if days < 0:
+            title = f"🔴 Expirat — {name}"
+            status = "⚠️ *Serviciul tau A EXPIRAT!*"
+        elif days == 0:
+            title = f"🔴 Expira AZI — {name}"
+            status = "⚠️ *Serviciul tau EXPIRA AZI!*"
+        elif days == 1:
+            title = f"🔴 Reinnoire in 1 zi — {name}"
+            status = "⚠️ *Serviciul tau expira MAINE!*"
+        elif days <= 3:
+            title = f"🟡 Reinnoire in {days} zile — {name}"
+            status = f"⚠️ *Serviciul tau expira in {days} zile!*"
+        else:
+            title = f"🕐 Reinnoire in {days} zile — {name}"
+            status = f"⚠️ *Serviciul tau expira in {days} zile!*"
+
+        msg = (
+            f"{title}\n\n"
+            f"Buna ziua *{name}* 👋\n\n"
+            f"{status}\n\n"
+            f"━━━━━━━━━━━━━━━━━━\n"
+            f"📦 *REINNOIRE ABONAMENT:*\n\n"
+            f"{pkg_lines}\n\n"
+            f"*(1 conexiune / 1 adresa IP)*\n"
+            f"━━━━━━━━━━━━━━━━━━\n\n"
+            f"💬 Alegeti optiunea dorita si revenim cu detalii de plata!\n"
+            f"— *Ro Mega 4K Team* 📺"
+        )
+        send_telegram(chat_id, msg)
+
+    send_onesignal(user_id, f"🔔 {len(expiring)} client(i) trebuie reinnoiti azi!")
+
+
+def should_notify_now(notif_time, notif_tz):
+    """
+    Verifica daca trebuie sa trimitem notificarea acum.
+    Compara ora curenta in timezone-ul userului cu ora setata.
+    Fereastra: ±59 minute (prinde intotdeauna run-ul orar).
+    """
+    try:
+        tz = pytz.timezone(notif_tz or "UTC")
+        now_local = datetime.now(tz)
+        h, m = map(int, (notif_time or "09:00").split(":"))
+        now_min = now_local.hour * 60 + now_local.minute
+        target_min = h * 60 + m
+        diff = abs(now_min - target_min)
+        # Prinde si cazul de miezul noptii (ex: 23:30 vs 00:10)
+        diff = min(diff, 1440 - diff)
+        print(f"  User time: {notif_time} {notif_tz} | Now local: {now_local.strftime('%H:%M')} | Diff: {diff}min")
+        return diff <= 59
+    except Exception as e:
+        print(f"  Timezone error: {e}, sending anyway")
+        return True
 
 
 def run_all():
-    print("🚀 Ro Mega 4K Bot — running")
+    print("🚀 Ro Mega 4K Bot — hourly check")
     try:
         users = sb.from_("profiles").select(
-            "id,telegram_chat_id,notif_7d,notif_3d,notif_24h"
+            "id,telegram_chat_id,notif_time,notif_timezone,notif_7d,notif_3d,notif_24h"
         ).execute().data
         print(f"Found {len(users)} users")
 
         for u in users:
             uid = u.get("id")
             chat_id = u.get("telegram_chat_id")
+            notif_time = u.get("notif_time") or "09:00"
+            notif_tz = u.get("notif_timezone") or "UTC"
             notif_7d = u.get("notif_7d", False)
             notif_3d = u.get("notif_3d", True)
             notif_24h = u.get("notif_24h", True)
 
+            print(f"\nUser {uid}: chat_id={chat_id}, time={notif_time}, tz={notif_tz}")
+
             if not chat_id:
-                print(f"No chat_id for {uid}")
+                print(f"  No Telegram chat_id configured, skipping")
                 continue
 
-            notify_user(uid, chat_id, notif_7d, notif_3d, notif_24h)
+            if should_notify_now(notif_time, notif_tz):
+                print(f"  -> Sending notifications")
+                notify_user(uid, chat_id, notif_7d, notif_3d, notif_24h)
+            else:
+                print(f"  -> Not notif time, skipping")
 
     except Exception as e:
         print(f"Error run_all: {e}")
         raise
 
-    print("✅ Done!")
+    print("\n✅ Done!")
 
 
 if __name__ == "__main__":

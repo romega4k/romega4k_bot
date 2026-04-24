@@ -1,2 +1,4 @@
 supabase
-httpx
+requests
+pytz
+apscheduler

@@ -223,7 +223,7 @@ async function main() {
 
       // Trimite mesajul WA în <code> block — tap pe el = copy instant în Telegram
       const waMsg  = buildWaMsg(c, packages);
-      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc.waMsg)}</code>`;
+      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc(waMsg)}</code>`;
 
       await tgSend(chatId, waText, {
         reply_markup: {

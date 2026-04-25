@@ -125,7 +125,9 @@ async function main() {
   console.log('🚀 Bot pornit —', new Date().toISOString());
 
   const currentHourUTC = new Date().getUTCHours();
+  const isManual = process.env.GITHUB_EVENT_NAME === 'workflow_dispatch';
   console.log(`⏰ Ora curentă UTC: ${currentHourUTC}:00`);
+  if (isManual) console.log('🔧 Run manual — se trimit notificări indiferent de oră');
 
   const { data: profiles, error: profErr } = await sb
     .from('profiles')
@@ -147,23 +149,19 @@ async function main() {
     const want3d = profile.notif_3d  !== false;
     const want1d = profile.notif_24h !== false;
 
-    // Calculează ora target în UTC
     let targetHourUTC = notifH;
     try {
-      // Get the UTC offset for the user's timezone correctly
-      // e.g. Europe/London in summer = UTC+1, so offset = +60 minutes
       const now = new Date();
       const localMs = new Date(now.toLocaleString('en-US', { timeZone: tz })).getTime();
       const utcMs2  = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' })).getTime();
-      const offsetH = Math.round((localMs - utcMs2) / 3600000); // e.g. +1 for London summer
-      // If user wants 9:00 local and offset is +1, then UTC target = 9 - 1 = 8
+      const offsetH = Math.round((localMs - utcMs2) / 3600000);
       targetHourUTC = ((notifH - offsetH) % 24 + 24) % 24;
     } catch(e) { console.warn(`⚠️ Timezone invalid "${tz}"`); }
 
     console.log(`\n👤 ${profile.id} | ora: ${notifH}:00 ${tz} → ${targetHourUTC}:00 UTC | acum: ${currentHourUTC}:00`);
 
-    if (currentHourUTC !== targetHourUTC) {
-      console.log(`⏭️  Sărim.`);
+    if (!isManual && currentHourUTC !== targetHourUTC) {
+      console.log(`⏭️  Sărim — nu e ora notificării (${targetHourUTC}:00 UTC).`);
       continue;
     }
 
@@ -199,7 +197,6 @@ async function main() {
       continue;
     }
 
-    // Rezumat
     let summary = `📺 <b>Ro Mega 4K — Raport zilnic</b>\n`;
     if (profile.full_name) summary += `👤 ${esc(profile.full_name)}\n`;
     summary += `\n`;

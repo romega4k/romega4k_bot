@@ -53,10 +53,30 @@ function buildWaMsg(client, packages) {
   const multi = (client.max_con || 1) >= 2;
   const s     = n => sym(n, eu);
 
+  // Salut dinamic după ora locală a țării clientului
+  const TZ_MAP = {
+    GB:'Europe/London', IT:'Europe/Rome', FR:'Europe/Paris', DE:'Europe/Berlin',
+    AT:'Europe/Vienna', ES:'Europe/Madrid', GR:'Europe/Athens', RO:'Europe/Bucharest',
+    NL:'Europe/Amsterdam', BE:'Europe/Brussels', PT:'Europe/Lisbon', SE:'Europe/Stockholm',
+    NO:'Europe/Oslo', DK:'Europe/Copenhagen', FI:'Europe/Helsinki', CH:'Europe/Zurich',
+    PL:'Europe/Warsaw', CZ:'Europe/Prague', HU:'Europe/Budapest', SK:'Europe/Bratislava',
+    HR:'Europe/Zagreb', IE:'Europe/Dublin', LU:'Europe/Luxembourg', CY:'Asia/Nicosia',
+    MT:'Europe/Malta', SI:'Europe/Ljubljana', BG:'Europe/Sofia', LT:'Europe/Vilnius',
+    LV:'Europe/Riga', EE:'Europe/Tallinn'
+  };
+  let salut = 'Bună ziua';
+  try {
+    const tz = TZ_MAP[client.country] || 'UTC';
+    const localHour = parseInt(new Date().toLocaleString('en-US', {timeZone: tz, hour: 'numeric', hour12: false}));
+    if (localHour >= 5 && localHour < 12) salut = 'Bună dimineața';
+    else if (localHour >= 12 && localHour < 18) salut = 'Bună ziua';
+    else salut = 'Bună seara';
+  } catch(e) {}
+
   let urgLine;
   if (d === null)  urgLine = `⚠️ *Serviciul tău — dată necunoscută*`;
   else if (d < 0)  urgLine = `⚠️ *Serviciul tău a EXPIRAT acum ${Math.abs(d)} ${Math.abs(d)===1?'zi':'zile'}!*`;
-  else if (d === 0) urgLine = `⚠️ *Serviciul tău EXPIRă AZI!*`;
+  else if (d === 0) urgLine = `⚠️ *Serviciul tău EXPIRĂ AZI!*`;
   else if (d === 1) urgLine = `⏰ *Serviciul tău expiră MÂINE!*`;
   else              urgLine = `⏰ *Serviciul tău expiră în ${d} zile*`;
 
@@ -100,7 +120,7 @@ function buildWaMsg(client, packages) {
     pkgLines = `• 1 Lună → ${s(a)}\n• 3+1 Luni → ${s(b)} _(+1 GRATIS)_\n• 5+2 Luni → ${s(c2)} _(+2 GRATUITE)_\n• 8+4 Luni → ${s(dd)} _(+4 GRATUITE)_\n`;
   }
 
-  return `Bună ziua *${client.name}* 👋\n\n${urgLine}\n\n━━━━━━━━━━━━━━━━━━\n📦 *REÎNNOIRE ABONAMENT:*\n\n${pkgLines}\n${footer}\n━━━━━━━━━━━━━━━━━━\n💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n— *Ro Mega 4K Team* 📺`;
+  return `${salut} *${client.name}* 👋\n\n${urgLine}\n\n━━━━━━━━━━━━━━━━━━\n📦 *REÎNNOIRE ABONAMENT:*\n\n${pkgLines}\n${footer}\n━━━━━━━━━━━━━━━━━━\n💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n— *Ro Mega 4K Team* 📺`;
 }
 
 // ── Escape HTML pentru Telegram ─────────────────────
@@ -166,9 +186,6 @@ async function main() {
       continue;
     }
 
-    console.log(`🔕 want7d: ${want7d} | want3d: ${want3d} | want1d: ${want1d}`);
-    console.log(`🔛 notif_7d: ${profile.notif_7d} | notif_3d: ${profile.notif_3d} | notif_24h: ${profile.notif_24h}`);
-
     const packages = (profile.prices?.packages) || {};
 
     const { data: clients, error: cliErr } = await sb
@@ -179,21 +196,21 @@ async function main() {
     if (cliErr) { console.error('❌ Clienți error:', cliErr.message); continue; }
     console.log(`📋 Clienți: ${clients?.length || 0}`);
 
-    const expired=[], in1d=[], in3d=[], in7d=[];
+    const in1d=[], in3d=[], in7d=[];
     for (const c of (clients || [])) {
       const d = daysUntil(c.expiry);
       if (d === null) continue;
-      if (d < 0)               expired.push(c);          // expirați: mereu incluși
+      if (d < 0) continue;                               // expirați: ignorați
       else if (d <= 1 && want1d) in1d.push(c);           // 24h: doar dacă ON
       else if (d <= 3 && want3d) in3d.push(c);           // 3 zile: doar dacă ON
       else if (d <= 7 && want7d) in7d.push(c);           // 7 zile: doar dacă ON
     }
 
     const sortAsc = (a,b) => new Date(a.expiry) - new Date(b.expiry);
-    [expired, in1d, in3d, in7d].forEach(arr => arr.sort(sortAsc));
-    const allAlerts = [...expired, ...in1d, ...in3d, ...in7d];
+    [in1d, in3d, in7d].forEach(arr => arr.sort(sortAsc));
+    const allAlerts = [...in1d, ...in3d, ...in7d];
 
-    console.log(`🔔 ${expired.length} expirate | ${in1d.length} în 24h | ${in3d.length} în 3z | ${in7d.length} în 7z`);
+    console.log(`🔔 ${in1d.length} în 24h | ${in3d.length} în 3z | ${in7d.length} în 7z`);
 
     if (allAlerts.length === 0) {
       await tgSend(chatId, `✅ <b>Ro Mega 4K — Totul în regulă!</b>\n\nNu ai clienți care expiră în curând.\n\n<i>— Ro Mega 4K Manager 📺</i>`);
@@ -204,7 +221,6 @@ async function main() {
     let summary = `📺 <b>Ro Mega 4K — Raport zilnic</b>\n`;
     if (profile.full_name) summary += `👤 ${esc(profile.full_name)}\n`;
     summary += `\n`;
-    if (expired.length) summary += `🔴 <b>${expired.length} expirat${expired.length>1?'e':''}</b>\n`;
     if (in1d.length)    summary += `🟠 <b>${in1d.length} expiră azi/mâine</b>\n`;
     if (in3d.length)    summary += `🟡 <b>${in3d.length} expiră în 2-3 zile</b>\n`;
     if (in7d.length)    summary += `🔵 <b>${in7d.length} expiră în 4-7 zile</b>\n`;
@@ -215,8 +231,7 @@ async function main() {
       const d   = daysUntil(c.expiry);
       const fl  = flag(c.country);
       let label;
-      if (d < 0)       label = `🔴 Reînnoire în ${Math.abs(d)}z — ${fl} <b>${esc(c.name)}</b>`;
-      else if (d === 0) label = `🟠 Reînnoire AZI — ${fl} <b>${esc(c.name)}</b>`;
+      if (d === 0)  label = `🟠 Reînnoire AZI — ${fl} <b>${esc(c.name)}</b>`;
       else if (d === 1) label = `🟠 Reînnoire MÂINE — ${fl} <b>${esc(c.name)}</b>`;
       else if (d <= 3)  label = `🟡 Reînnoire în ${d}z — ${fl} <b>${esc(c.name)}</b>`;
       else              label = `🔵 Reînnoire în ${d}z — ${fl} <b>${esc(c.name)}</b>`;
@@ -224,14 +239,13 @@ async function main() {
 
       await tgSend(chatId, label);
 
-      // Tap pe textul din <code> = copiat instant în Telegram
       const waMsg  = buildWaMsg(c, packages);
-      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n<i>(apasă pe text pentru a copia)</i>\n\n<code>${esc(waMsg)}</code>`;
+      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc(waMsg)}</code>`;
 
       await tgSend(chatId, waText);
 
       totalSent++;
-      console.log(`  inclusya ${c.name}`);
+      console.log(`  ✅ ${c.name}`);
       await new Promise(r => setTimeout(r, 400));
     }
   }

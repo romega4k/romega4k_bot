@@ -159,9 +159,19 @@ def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
 
 
 def should_notify_now(notif_time, notif_tz):
-    # TEST MODE: always send regardless of time
-    print(f"  TEST MODE: forcing send for time={notif_time} tz={notif_tz}")
-    return True
+    try:
+        tz = pytz.timezone(notif_tz or "UTC")
+        now_local = datetime.now(tz)
+        h, m = map(int, (notif_time or "09:00").split(":"))
+        now_min = now_local.hour * 60 + now_local.minute
+        target_min = h * 60 + m
+        diff = abs(now_min - target_min)
+        diff = min(diff, 1440 - diff)
+        print(f"  Time: {notif_time} {notif_tz} | Now: {now_local.strftime('%H:%M')} | Diff: {diff}min")
+        return diff <= 59
+    except Exception as e:
+        print(f"  Timezone error: {e}, sending anyway")
+        return True
 
 
 def run_all():

@@ -2410,8 +2410,7 @@ function renderPkgBtns(){
     btn.className='pkg-btn'+(idx===0?' active-pkg':'');
     btn.setAttribute('onclick','setPkg('+pkg.months+',this)');
     var price=isMulti?pkg.dm:pkg.ds;
-    var cur=userCurrency||'£';
-    btn.textContent=pkg.label+(price?' ('+cur+price+')':'');
+    btn.textContent=pkg.label+(price?' ('+price+')':'');
     container.appendChild(btn);
   });
   if(pkgs.length===0){
@@ -2419,17 +2418,25 @@ function renderPkgBtns(){
   }
 }
 (function(){
-  var _origOpenAdd=openAdd;
+  var _orig=openAdd;
   openAdd=function(){
-    _origOpenAdd.apply(this,arguments);
-    setTimeout(renderPkgBtns,0);
+    _orig.apply(this,arguments);
+    setTimeout(renderPkgBtns,10);
   };
-  document.addEventListener('DOMContentLoaded',function(){
+  var _origToggle=togglePkg;
+  togglePkg=function(id){
+    _origToggle.apply(this,arguments);
+    renderPkgBtns();
+  };
+  function addConListener(){
     var sel=document.getElementById('f-maxcon');
     if(sel) sel.addEventListener('change',renderPkgBtns);
-  });
-  var sel=document.getElementById('f-maxcon');
-  if(sel) sel.addEventListener('change',renderPkgBtns);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',addConListener);
+  } else {
+    addConListener();
+  }
 })();
 // === END PATCH ===
 </script>

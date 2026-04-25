@@ -145,9 +145,10 @@ async function main() {
     const chatId = profile.telegram_chat_id;
     const notifH = parseInt(profile.notif_time ?? '9', 10);
     const tz     = profile.notif_timezone || 'UTC';
-    const want7d = profile.notif_7d  !== false;
-    const want3d = profile.notif_3d  !== false;
-    const want1d = profile.notif_24h !== false;
+    // Dacă e NULL în Supabase = dezactivat (false), nu activat
+    const want7d = profile.notif_7d  === true;
+    const want3d = profile.notif_3d  === true;
+    const want1d = profile.notif_24h === true;
 
     let targetHourUTC = notifH;
     try {
@@ -165,6 +166,9 @@ async function main() {
       continue;
     }
 
+    console.log(`🔕 want7d: ${want7d} | want3d: ${want3d} | want1d: ${want1d}`);
+    console.log(`🔛 notif_7d: ${profile.notif_7d} | notif_3d: ${profile.notif_3d} | notif_24h: ${profile.notif_24h}`);
+
     const packages = (profile.prices?.packages) || {};
 
     const { data: clients, error: cliErr } = await sb
@@ -179,10 +183,10 @@ async function main() {
     for (const c of (clients || [])) {
       const d = daysUntil(c.expiry);
       if (d === null) continue;
-      if (d < 0)               expired.push(c);
-      else if (d <= 1 && want1d) in1d.push(c);
-      else if (d <= 3 && want3d) in3d.push(c);
-      else if (d <= 7 && want7d) in7d.push(c);
+      if (d < 0)               expired.push(c);          // expirați: mereu incluși
+      else if (d <= 1 && want1d) in1d.push(c);           // 24h: doar dacă ON
+      else if (d <= 3 && want3d) in3d.push(c);           // 3 zile: doar dacă ON
+      else if (d <= 7 && want7d) in7d.push(c);           // 7 zile: doar dacă ON
     }
 
     const sortAsc = (a,b) => new Date(a.expiry) - new Date(b.expiry);
@@ -220,17 +224,14 @@ async function main() {
 
       await tgSend(chatId, label);
 
+      // Tap pe textul din <code> = copiat instant în Telegram
       const waMsg  = buildWaMsg(c, packages);
-      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc(waMsg)}</code>`;
+      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n<i>(apasă pe text pentru a copia)</i>\n\n<code>${esc(waMsg)}</code>`;
 
-      await tgSend(chatId, waText, {
-        reply_markup: {
-          inline_keyboard: [[{ text: '📋 COPY CODE', callback_data: 'copy' }]]
-        }
-      });
+      await tgSend(chatId, waText);
 
       totalSent++;
-      console.log(`  ✅ ${c.name}`);
+      console.log(`  inclusya ${c.name}`);
       await new Promise(r => setTimeout(r, 400));
     }
   }

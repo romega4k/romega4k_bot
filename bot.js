@@ -56,7 +56,7 @@ function buildWaMsg(client, packages) {
   let urgLine;
   if (d === null)  urgLine = `⚠️ *Serviciul tău — dată necunoscută*`;
   else if (d < 0)  urgLine = `⚠️ *Serviciul tău a EXPIRAT acum ${Math.abs(d)} ${Math.abs(d)===1?'zi':'zile'}!*`;
-  else if (d === 0) urgLine = `⚠️ *Serviciul tău EXPIRĂ AZI!*`;
+  else if (d === 0) urgLine = `⚠️ *Serviciul tău EXPIRă AZI!*`;
   else if (d === 1) urgLine = `⏰ *Serviciul tău expiră MÂINE!*`;
   else              urgLine = `⏰ *Serviciul tău expiră în ${d} zile*`;
 
@@ -150,10 +150,14 @@ async function main() {
     // Calculează ora target în UTC
     let targetHourUTC = notifH;
     try {
-      const now   = new Date();
-      const local = new Date(now.toLocaleString('en-US', { timeZone: tz }));
-      const utc   = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
-      targetHourUTC = ((notifH + Math.round((utc - local) / 3600000)) % 24 + 24) % 24;
+      // Get the UTC offset for the user's timezone correctly
+      // e.g. Europe/London in summer = UTC+1, so offset = +60 minutes
+      const now = new Date();
+      const localMs = new Date(now.toLocaleString('en-US', { timeZone: tz })).getTime();
+      const utcMs2  = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' })).getTime();
+      const offsetH = Math.round((localMs - utcMs2) / 3600000); // e.g. +1 for London summer
+      // If user wants 9:00 local and offset is +1, then UTC target = 9 - 1 = 8
+      targetHourUTC = ((notifH - offsetH) % 24 + 24) % 24;
     } catch(e) { console.warn(`⚠️ Timezone invalid "${tz}"`); }
 
     console.log(`\n👤 ${profile.id} | ora: ${notifH}:00 ${tz} → ${targetHourUTC}:00 UTC | acum: ${currentHourUTC}:00`);
@@ -206,7 +210,6 @@ async function main() {
     summary += `\n<i>Mesajele WhatsApp gata de trimis 👇</i>`;
     await tgSend(chatId, summary);
 
-    // Un mesaj per client: header + mesaj WA în code block + COPY CODE
     for (const c of allAlerts) {
       const d   = daysUntil(c.expiry);
       const fl  = flag(c.country);
@@ -218,18 +221,14 @@ async function main() {
       else              label = `🔵 Reînnoire în ${d}z — ${fl} <b>${esc(c.name)}</b>`;
       if (c.phone) label += `\n📱 ${esc(c.phone)}`;
 
-      // Trimite header
       await tgSend(chatId, label);
 
-      // Trimite mesajul WA în <code> block — tap pe el = copy instant în Telegram
       const waMsg  = buildWaMsg(c, packages);
       const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc(waMsg)}</code>`;
 
       await tgSend(chatId, waText, {
         reply_markup: {
-          inline_keyboard: [[
-            { text: '📋 COPY CODE', callback_data: 'copy' }
-          ]]
+          inline_keyboard: [[{ text: '📋 COPY CODE', callback_data: 'copy' }]]
         }
       });
 

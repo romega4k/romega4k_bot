@@ -1,4 +1,4 @@
-name: Ro Mega 4K - Notificari Zilnice
+name: Ro Mega 4K - Notificari Telegram
 
 on:
   schedule:
@@ -7,19 +7,25 @@ on:
 
 jobs:
   notify:
+    name: Trimite notificari Telegram
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout cod
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.11'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run notification bot
+          node-version: '20'
+
+      - name: Instaleaza dependente
+        run: npm install
+
+      - name: Ruleaza botul
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
-          ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
-        run: python notify_bot.py
+          TELEGRAM_BOT_TOKEN:   ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: node bot.js

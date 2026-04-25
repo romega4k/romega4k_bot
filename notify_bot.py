@@ -94,10 +94,13 @@ def notify_user(user_id, chat_id, notif_7d, notif_3d, notif_24h):
             days = (datetime.fromisoformat(c["expiry"]).date() - today).days
 
             # Includem clientul DOAR daca categoria lui este activata
-            # Expirat (days < 0) sau Azi (days == 0) sau Maine (days == 1) -> notif_24h
+            # Nu includem clientii deja expirat (days < 0)
+            # Azi (days == 0) sau Maine (days == 1) -> notif_24h
             # 2-3 zile -> notif_3d
             # 4-7 zile -> notif_7d
-            if days <= 1 and notif_24h:
+            if days < 0:
+                continue  # Ignoram clientii deja expirat
+            elif days <= 1 and notif_24h:
                 expiring.append({"name": c["name"], "days": days})
             elif 2 <= days <= 3 and notif_3d:
                 expiring.append({"name": c["name"], "days": days})

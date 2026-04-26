@@ -1,15 +1,15 @@
 name: Ro Mega 4K - Notificari Telegram
 
 on:
-  schedule:
-        - cron: '*/5 * * * *' # Runs every 5 minutes
   workflow_dispatch:
+  repository_dispatch:
+    types: [cron-trigger]
 
 jobs:
   notify:
     name: Trimite notificari Telegram
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - name: Checkout cod
@@ -25,7 +25,8 @@ jobs:
 
       - name: Ruleaza botul
         env:
-          SUPABASE_URL:         ${{ secrets.SUPABASE_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          TELEGRAM_BOT_TOKEN:   ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TRIGGERED_BY: ${{ github.event_name }}
         run: node bot.js

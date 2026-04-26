@@ -164,25 +164,23 @@ async function main() {
   for (const profile of profiles) {
     const chatId = profile.telegram_chat_id;
     const notifH = parseInt(profile.notif_time ?? '9', 10);
-    const tz     = profile.notif_timezone || 'UTC';
+    const tz     = profile.notif_timezone || 'Europe/London';
     // Dacă e NULL în Supabase = dezactivat (false), nu activat
     const want7d = profile.notif_7d  === true;
     const want3d = profile.notif_3d  === true;
     const want1d = profile.notif_24h === true;
 
-    let targetHourUTC = notifH;
+  let localHourNow = currentHourUTC;
     try {
-      const now = new Date();
-      const localMs = new Date(now.toLocaleString('en-US', { timeZone: tz })).getTime();
-      const utcMs2  = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' })).getTime();
-      const offsetH = Math.round((localMs - utcMs2) / 3600000);
-      targetHourUTC = ((notifH - offsetH) % 24 + 24) % 24;
+      localHourNow = parseInt(new Date().toLocaleString('en-US', {
+        timeZone: tz, hour: 'numeric', hour12: false
+      }));
     } catch(e) { console.warn(`⚠️ Timezone invalid "${tz}"`); }
 
-    console.log(`\n👤 ${profile.id} | ora: ${notifH}:00 ${tz} → ${targetHourUTC}:00 UTC | acum: ${currentHourUTC}:00`);
+    console.log(`\n👤 ${profile.id} | ora setată: ${notifH}:00 | ora locală acum: ${localHourNow}:00 (${tz})`);
 
-    if (!isManual && currentHourUTC !== targetHourUTC) {
-      console.log(`⏭️  Sărim — nu e ora notificării (${targetHourUTC}:00 UTC).`);
+    if (!isManual && localHourNow !== notifH) {
+      console.log(`⏭️  Sărim — ora locală (${localHourNow}:00) ≠ ora setată (${notifH}:00).`);
       continue;
     }
 

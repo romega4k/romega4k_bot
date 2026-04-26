@@ -1,7 +1,8 @@
-// ══════════════════════════════════════════════════
-//  Ro Mega 4K — Bot Telegram via GitHub Actions
-//  Notificări zilnice în format WhatsApp + COPY CODE
-// ══════════════════════════════════════════════════
+// ================================================
+// Ro Mega 4K - Bot Telegram via GitHub Actions
+// Notificari zilnice in format WhatsApp + COPY CODE
+// Timezone referinta: Europe/Bucharest (Romania)
+// ================================================
 
 const { createClient } = require('@supabase/supabase-js');
 
@@ -18,240 +19,137 @@ const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: { persistSession: false }
 });
 
-// ── Calculează zile până la expirare ───────────────
+// -- Calculează zile până la expirare --------
 function daysUntil(expiryStr) {
   if (!expiryStr) return null;
-  const today  = new Date(); today.setHours(0,0,0,0);
-  const expiry = new Date(expiryStr); expiry.setHours(0,0,0,0);
-  return Math.round((expiry - today) / 86400000);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const exp   = new Date(expiryStr); exp.setHours(0,0,0,0);
+  return Math.round((exp - today) / 86400000);
 }
 
-// ── Simbol monedă ───────────────────────────────────
-function sym(price, isEuCountry) {
-  if (!price) return '';
-  return isEuCountry ? `€${price}` : `£${price}`;
+// -- Emoji steag din country code ------------
+function flag(cc) {
+  if (!cc || cc.length !== 2) return '';
+  return [...cc.toUpperCase()].map(c => String.fromCodePoint(0x1F1E0 - 65 + c.charCodeAt(0))).join('');
 }
 
-// ── Emoji flag ──────────────────────────────────────
-function flag(country) {
-  const F = {GB:'🇬🇧',IT:'🇮🇹',FR:'🇫🇷',DE:'🇩🇪',AT:'🇦🇹',ES:'🇪🇸',
-             GR:'🇬🇷',RO:'🇷🇴',NL:'🇳🇱',BE:'🇧🇪',PT:'🇵🇹',SE:'🇸🇪',
-             NO:'🇳🇴',DK:'🇩🇰',FI:'🇫🇮',CH:'🇨🇭',PL:'🇵🇱',CZ:'🇨🇿',
-             HU:'🇭🇺',SK:'🇸🇰',HR:'🇭🇷',IE:'🇮🇪',LU:'🇱🇺',CY:'🇨🇾',
-             MT:'🇲🇹',SI:'🇸🇮',BG:'🇧🇬',LT:'🇱🇹',LV:'🇱🇻',EE:'🇪🇪'};
-  return F[country] || '🌍';
+// -- Simbol abonament ------------------------
+function sym(label) {
+  const l = (label || '').toLowerCase();
+  if (l.includes('basico') || l.includes('basic')) return '🥉';
+  if (l.includes('standard'))                       return '🥈';
+  if (l.includes('premium') || l.includes('full'))  return '🥇';
+  return '📦';
 }
 
-const EU_COUNTRIES = ['IT','FR','DE','AT','ES','GR','NL','BE','PT','SE',
-                      'NO','DK','FI','CH','PL','CZ','HU','SK','HR','IE',
-                      'LU','CY','MT','SI','BG','LT','LV','EE','RO'];
-
-// ── Construiește mesajul WhatsApp exact ca în aplicație ──
-function buildWaMsg(client, packages) {
-  const d     = daysUntil(client.expiry);
-  const eu    = EU_COUNTRIES.includes(client.country);
-  const multi = (client.max_con || 1) >= 2;
-  const s     = n => sym(n, eu);
-
-  // Salut dinamic după ora locală a țării clientului
-  const TZ_MAP = {
-    GB:'Europe/London', IT:'Europe/Rome', FR:'Europe/Paris', DE:'Europe/Berlin',
-    AT:'Europe/Vienna', ES:'Europe/Madrid', GR:'Europe/Athens', RO:'Europe/Bucharest',
-    NL:'Europe/Amsterdam', BE:'Europe/Brussels', PT:'Europe/Lisbon', SE:'Europe/Stockholm',
-    NO:'Europe/Oslo', DK:'Europe/Copenhagen', FI:'Europe/Helsinki', CH:'Europe/Zurich',
-    PL:'Europe/Warsaw', CZ:'Europe/Prague', HU:'Europe/Budapest', SK:'Europe/Bratislava',
-    HR:'Europe/Zagreb', IE:'Europe/Dublin', LU:'Europe/Luxembourg', CY:'Asia/Nicosia',
-    MT:'Europe/Malta', SI:'Europe/Ljubljana', BG:'Europe/Sofia', LT:'Europe/Vilnius',
-    LV:'Europe/Riga', EE:'Europe/Tallinn'
-  };
-  let salut = 'Bună ziua';
-  try {
-    const tz = TZ_MAP[client.country] || 'UTC';
-    const localHour = parseInt(new Date().toLocaleString('en-US', {timeZone: tz, hour: 'numeric', hour12: false}));
-    if (localHour >= 5 && localHour < 12) salut = 'Bună dimineața';
-    else if (localHour >= 12 && localHour < 18) salut = 'Bună ziua';
-    else salut = 'Bună seara';
-  } catch(e) {}
-
-  let urgLine;
-  if (d === null)  urgLine = `⚠️ *Serviciul tău — dată necunoscută*`;
-  else if (d < 0)  urgLine = `⚠️ *Serviciul tău a EXPIRAT acum ${Math.abs(d)} ${Math.abs(d)===1?'zi':'zile'}!*`;
-  else if (d === 0) urgLine = `⚠️ *Serviciul tău EXPIRĂ AZI!*`;
-  else if (d === 1) urgLine = `⏰ *Serviciul tău expiră MÂINE!*`;
-  else              urgLine = `⏰ *Serviciul tău expiră în ${d} zile*`;
-
-  const footer = multi
-    ? `_(2-3 conexiuni pe aceeași rețea/casă)_`
-    : `_(1 conexiune / 1 adresă IP)_`;
-
-  const ALL_PACKAGES = [
-    {id:'1m',  label:'1 Lună',   ds:13,  dm:15,  on:true },
-    {id:'2m',  label:'2 Luni',   ds:0,   dm:0,   on:false},
-    {id:'3m',  label:'3 Luni',   ds:0,   dm:0,   on:false},
-    {id:'3p1', label:'3+1 Luni', ds:36,  dm:46,  on:true },
-    {id:'5p1', label:'5+1 Luni', ds:0,   dm:0,   on:false},
-    {id:'5p2', label:'5+2 Luni', ds:65,  dm:75,  on:true },
-    {id:'6m',  label:'6 Luni',   ds:0,   dm:0,   on:false},
-    {id:'9p3', label:'9+3 Luni', ds:0,   dm:0,   on:false},
-    {id:'8p4', label:'8+4 Luni', ds:100, dm:120, on:true },
-    {id:'12m', label:'12 Luni',  ds:0,   dm:0,   on:false},
-  ];
-
-  let pkgLines = '';
-  ALL_PACKAGES.forEach(p => {
-    const pkg  = packages[p.id];
-    const isOn = pkg ? pkg.on : p.on;
-    if (!isOn) return;
-    const price = multi ? (pkg ? pkg.multi : p.dm) : (pkg ? pkg.single : p.ds);
-    if (!price) return;
-    let bonus = '';
-    if (p.label.includes('+')) {
-      const n = parseInt(p.label.split('+')[1]);
-      if (n === 1)      bonus = ' _(+1 GRATIS)_';
-      else if (n === 2) bonus = ' _(+2 GRATUITE)_';
-      else if (n === 3) bonus = ' _(+3 GRATUITE)_';
-      else if (n === 4) bonus = ' _(+4 GRATUITE)_';
-    }
-    pkgLines += `• ${p.label} → ${s(price)}${bonus}\n`;
-  });
-
-  if (!pkgLines) {
-    const [a,b,c2,dd] = multi ? [15,46,75,120] : [13,36,65,100];
-    pkgLines = `• 1 Lună → ${s(a)}\n• 3+1 Luni → ${s(b)} _(+1 GRATIS)_\n• 5+2 Luni → ${s(c2)} _(+2 GRATUITE)_\n• 8+4 Luni → ${s(dd)} _(+4 GRATUITE)_\n`;
-  }
-
-  return `${salut} *${client.name}* 👋\n\n${urgLine}\n\n━━━━━━━━━━━━━━━━━━\n📦 *REÎNNOIRE ABONAMENT:*\n\n${pkgLines}\n${footer}\n━━━━━━━━━━━━━━━━━━\n💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n— *Ro Mega 4K Team* 📺`;
+// -- Salut dinamic dupa ora Romania ----------
+function salut() {
+  const h = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Bucharest' })).getHours();
+  if (h >= 5  && h < 12) return 'Bună dimineața';
+  if (h >= 12 && h < 18) return 'Bună ziua';
+  return 'Bună seara';
 }
 
-// ── Escape HTML pentru Telegram ─────────────────────
-function esc(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+// -- Escape Markdown -------------------------
+function esc(t) {
+  return String(t ?? '').replace(/[_*[]()~`>#+-=|{}.!\\]/g, '\\$&');
 }
 
-// ── Trimite mesaj simplu Telegram ───────────────────
-async function tgSend(chatId, text, extra = {}) {
-  const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+// -- Construieste mesaj WhatsApp -------------
+function buildWaMsg(c, clients) {
+  const prices = Array.isArray(c.prices) ? c.prices : [];
+  const lines = prices.map(p => {
+    const d = daysUntil(p.expiry);
+    if (d === null || d < 0) return null;
+    const bar = d <= 3 ? '🔴' : d <= 7 ? '🟡' : '🟢';
+    return `${sym(p.label)} ${esc(p.label)} — ${bar} *${d} zile*`;
+  }).filter(Boolean);
+
+  if (!lines.length) return null;
+
+  const header = `${salut()} ${esc(c.full_name)} ${flag(c.country_code)} 👋`;
+  const body   = lines.join('\n');
+  const wa     = `${c.full_name?.split(' ')[0] || 'Salut'}! Abonamentul tău expiră în curând.\n\nDetalii:\n${prices.map(p => `- ${p.label}: ${p.expiry}`).join('\n')}\n\nPentru reînnoire contactează-ne.`;
+
+  return { header, body, wa };
+}
+
+// -- Trimite mesaj Telegram ------------------
+async function tgSend(chatId, text) {
+  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+  const r = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML', ...extra })
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
   });
-  const data = await res.json();
-  if (!data.ok) console.error(`❌ Telegram error:`, data.description);
-  return data.ok;
+  const j = await r.json();
+  if (!j.ok) console.error('TG error:', j.description);
+  return j;
 }
 
-// ── MAIN ────────────────────────────────────────────
+// -- MAIN ------------------------------------
 async function main() {
-  console.log('🚀 Bot pornit —', new Date().toISOString());
+  console.log(`🚀 Bot pornit — ${new Date().toISOString()}`);
 
-  const currentHourUTC = new Date().getUTCHours();
-  const isManual = process.env.GITHUB_EVENT_NAME === 'workflow_dispatch';
-  console.log(`⏰ Ora curentă UTC: ${currentHourUTC}:00`);
-  if (isManual) console.log('🔧 Run manual — se trimit notificări indiferent de oră');
+  // Ora curenta in Romania
+  const nowRO  = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Bucharest' }));
+  const horaRO = `${String(nowRO.getHours()).padStart(2,'0')}:${String(nowRO.getMinutes()).padStart(2,'0')}`;
+  console.log(`🕐 Ora curentă Romania: ${horaRO}`);
 
-  const { data: profiles, error: profErr } = await sb
+  // Citeste profilurile cu notif_time
+  const { data: profiles, error } = await sb
     .from('profiles')
-    .select('id, telegram_chat_id, full_name, notif_time, notif_timezone, notif_7d, notif_3d, notif_24h, prices')
-    .not('telegram_chat_id', 'is', null)
-    .neq('telegram_chat_id', '');
+    .select('*')
+    .not('telegram_chat_id', 'is', null);
 
-  if (profErr) { console.error('❌ Profiles error:', profErr.message); process.exit(1); }
-  console.log(`👥 Useri cu Telegram: ${profiles?.length || 0}`);
-  if (!profiles?.length) { console.log('⚠️ Niciun user. Ieșire.'); return; }
+  if (error) { console.error('❌ Supabase error:', error.message); process.exit(1); }
 
-  let totalSent = 0;
+  const active = profiles.filter(p => p.telegram_chat_id);
+  console.log(`👥 Useri cu Telegram: ${active.length}`);
 
-  for (const profile of profiles) {
-    const chatId = profile.telegram_chat_id;
-    const notifH = parseInt(profile.notif_time ?? '9', 10);
-    const tz     = profile.notif_timezone || 'Europe/London';
-    // Dacă e NULL în Supabase = dezactivat (false), nu activat
-    const want7d = profile.notif_7d  === true;
-    const want3d = profile.notif_3d  === true;
-    const want1d = profile.notif_24h === true;
+  let sent = 0;
 
-  let localHourNow = currentHourUTC;
-    try {
-      localHourNow = parseInt(new Date().toLocaleString('en-US', {
-        timeZone: tz, hour: 'numeric', hour12: false
-      }));
-    } catch(e) { console.warn(`⚠️ Timezone invalid "${tz}"`); }
+  for (const p of active) {
+    const notifTime = (p.notif_time || '').substring(0, 5); // "HH:MM"
 
-    console.log(`\n👤 ${profile.id} | ora setată: ${notifH}:00 | ora locală acum: ${localHourNow}:00 (${tz})`);
-
-    if (!isManual && localHourNow !== notifH) {
-      console.log(`⏭️  Sărim — ora locală (${localHourNow}:00) ≠ ora setată (${notifH}:00).`);
+    // Verifica daca acum e ora setata in Romania
+    if (notifTime && notifTime !== horaRO) {
+      console.log(`⏭ ${p.id} | ora setată: ${notifTime} | ora RO acum: ${horaRO} — sărim`);
       continue;
     }
 
-    const packages = (profile.prices?.packages) || {};
+    // Verifica setarile de notificare (7z/3z/24h)
+    const prices = Array.isArray(p.prices) ? p.prices : [];
+    const relevant = prices.filter(pr => {
+      const d = daysUntil(pr.expiry);
+      if (d === null || d < 0) return false;
+      if (p.notif_7d && d <= 7)  return true;
+      if (p.notif_3d && d <= 3)  return true;
+      if (p.notif_24h && d <= 1) return true;
+      // Daca nu are setari specifice, trimite oricum
+      if (!p.notif_7d && !p.notif_3d && !p.notif_24h) return true;
+      return false;
+    });
 
-    const { data: clients, error: cliErr } = await sb
-      .from('clients')
-      .select('name, phone, expiry, country, max_con')
-      .eq('user_id', profile.id);
-
-    if (cliErr) { console.error('❌ Clienți error:', cliErr.message); continue; }
-    console.log(`📋 Clienți: ${clients?.length || 0}`);
-
-    const in1d=[], in3d=[], in7d=[];
-    for (const c of (clients || [])) {
-      const d = daysUntil(c.expiry);
-      if (d === null) continue;
-      if (d < 0) continue;                               // expirați: ignorați
-      else if (d <= 1 && want1d) in1d.push(c);           // 24h: doar dacă ON
-      else if (d <= 3 && want3d) in3d.push(c);           // 3 zile: doar dacă ON
-      else if (d <= 7 && want7d) in7d.push(c);           // 7 zile: doar dacă ON
-    }
-
-    const sortAsc = (a,b) => new Date(a.expiry) - new Date(b.expiry);
-    [in1d, in3d, in7d].forEach(arr => arr.sort(sortAsc));
-    const allAlerts = [...in1d, ...in3d, ...in7d];
-
-    console.log(`🔔 ${in1d.length} în 24h | ${in3d.length} în 3z | ${in7d.length} în 7z`);
-
-    if (allAlerts.length === 0) {
-      await tgSend(chatId, `✅ <b>Ro Mega 4K — Totul în regulă!</b>\n\nNu ai clienți care expiră în curând.\n\n<i>— Ro Mega 4K Manager 📺</i>`);
-      totalSent++;
+    if (!relevant.length) {
+      console.log(`⏭ ${p.id} | niciun abonament relevant`);
       continue;
     }
 
-    let summary = `📺 <b>Ro Mega 4K — Raport zilnic</b>\n`;
-    if (profile.full_name) summary += `👤 ${esc(profile.full_name)}\n`;
-    summary += `\n`;
-    if (in1d.length)    summary += `🟠 <b>${in1d.length} expiră azi/mâine</b>\n`;
-    if (in3d.length)    summary += `🟡 <b>${in3d.length} expiră în 2-3 zile</b>\n`;
-    if (in7d.length)    summary += `🔵 <b>${in7d.length} expiră în 4-7 zile</b>\n`;
-    summary += `\n<i>Mesajele WhatsApp gata de trimis 👇</i>`;
-    await tgSend(chatId, summary);
+    const msg = buildWaMsg({ ...p, prices: relevant }, active);
+    if (!msg) continue;
 
-    for (const c of allAlerts) {
-      const d   = daysUntil(c.expiry);
-      const fl  = flag(c.country);
-      let label;
-      if (d === 0)  label = `🟠 Reînnoire AZI — ${fl} <b>${esc(c.name)}</b>`;
-      else if (d === 1) label = `🟠 Reînnoire MÂINE — ${fl} <b>${esc(c.name)}</b>`;
-      else if (d <= 3)  label = `🟡 Reînnoire în ${d}z — ${fl} <b>${esc(c.name)}</b>`;
-      else              label = `🔵 Reînnoire în ${d}z — ${fl} <b>${esc(c.name)}</b>`;
-      if (c.phone) label += `\n📱 ${esc(c.phone)}`;
+    const text = `${msg.header}\n\n${msg.body}\n\n` +
+      `📋 *Mesaj WhatsApp:*\n\`\`\`\n${msg.wa}\n\`\`\``;
 
-      await tgSend(chatId, label);
+    await tgSend(p.telegram_chat_id, text);
+    console.log(`✅ Trimis: ${p.full_name}`);
+    sent++;
 
-      const waMsg  = buildWaMsg(c, packages);
-      const waText = `📋 <b>Copiază și trimite pe WhatsApp:</b>\n\n<code>${esc(waMsg)}</code>`;
-
-      await tgSend(chatId, waText);
-
-      totalSent++;
-      console.log(`  ✅ ${c.name}`);
-      await new Promise(r => setTimeout(r, 400));
-    }
+    await new Promise(r => setTimeout(r, 300));
   }
 
-  console.log(`\n🏁 Gata! Mesaje trimise: ${totalSent}`);
+  console.log(`🏁 Gata! Mesaje trimise: ${sent}`);
 }
 
-main().catch(err => {
-  console.error('💥 Eroare fatală:', err);
-  process.exit(1);
-});
+main().catch(e => { console.error('💥 Eroare fatala:', e.message); process.exit(1); });

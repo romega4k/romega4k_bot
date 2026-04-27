@@ -659,7 +659,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div style="display:grid;gap:12px;">
       <div>
         <label class="fl" style="margin-bottom:.5rem;">ð Fusul orar (Timezone)</label>
-        <select id="notif-timezone" style="display:none" class="fi" style="font-size:16px;">
+        <select id="notif-timezone" style="display:none" style="display:none" class="fi" style="font-size:16px;">
           <option value="UTC">UTC Â±0</option>
           <option value="Europe/London">ð¬ð§ UK - GMT (UTC Â±0)</option>
           <option value="Europe/Bucharest">ð·ð´ RomÃ¢nia - EET (UTC +2)</option>
@@ -687,14 +687,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
       </div>
       <div>
         <label class="fl" style="margin-bottom:.5rem;">Ora notificÄrii zilnice</label>
-        <input id="notif-hour" style="display:none" type="time" class="fi" value="09:00" style="font-size:16px;">
+        <input id="notif-hour" style="display:none" style="display:none" type="time" class="fi" value="09:00" style="font-size:16px;">
       </div>
       <div style="font-size:11px;color:var(--text2);background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
         â¹ï¸ Serverul calculeazÄ ora Ã®n baza fusului orar selectat â notificarea vine la exact ora doritÄ
       </div>
     </div>
 
-    <div id="notif-time-status" style="display:none" style="display:none;font-size:12px;margin-top:1rem;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
+    <div id="notif-time-status" style="display:none" style="display:none" style="display:none;font-size:12px;margin-top:1rem;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
     
     <div style="display:flex;gap:8px;margin-top:1rem;">
       <button class="btn btn-gold btn-sm" onclick="saveNotifTime()">ð¾ SalveazÄ ora</button>
@@ -826,7 +826,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
         <div style="font-size:20px;flex-shrink:0;">ð</div>
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">PrimeÈti alerte automate zilnic la ora 12:00 (ora României)</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Zilnic, la ora pe care o setezi Ã®n SetÄri (orice fus orar), primeÈti notificÄri pe telefon, laptop/PC Èi Telegram cu clienÈii care expirÄ Ã®n 24h sau 3 zile. Nu mai pierzi niciun client.</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Zilnic la ora 12:00 (ora României) primeşti notificări pe Telegram cu clienții care expiră în 24h sau 3 zile.</div>
         </div>
       </div>
 

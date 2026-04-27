@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Ro Mega 4K â Manager ClienÈi</title>
+<title>Ro Mega 4K — Manager Clienți</title>
 
 <!-- Preview card pentru WhatsApp / Telegram / iMessage -->
-<meta name="description" content="PlatformÄ profesionalÄ de management Èi reÃ®nnoire abonamente. GestioneazÄ clienÈii, abonamentele Èi notificÄrile Ã®ntr-un singur loc.">
-<meta property="og:title" content="Ro Mega 4K â Manager ClienÈi Pro">
-<meta property="og:description" content="PlatformÄ profesionalÄ de management Èi reÃ®nnoire abonamente. GestioneazÄ abonamente, expirate Èi notificÄri.">
+<meta name="description" content="Platformă profesională de management și reînnoire abonamente. Gestionează clienții, abonamentele și notificările într-un singur loc.">
+<meta property="og:title" content="Ro Mega 4K — Manager Clienți Pro">
+<meta property="og:description" content="Platformă profesională de management și reînnoire abonamente. Gestionează abonamente, expirate și notificări.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&h=630&fit=crop&q=80">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ro Mega 4K">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ro Mega 4K â Manager ClienÈi Pro">
-<meta name="twitter:description" content="PlatformÄ profesionalÄ de management Èi reÃ®nnoire abonamente.">
+<meta name="twitter:title" content="Ro Mega 4K — Manager Clienți Pro">
+<meta name="twitter:description" content="Platformă profesională de management și reînnoire abonamente.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&h=630&fit=crop&q=80">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23C9A84C'/><text y='.9em' font-size='60' font-weight='bold' fill='%23000' font-family='Arial' x='12'>4K</text></svg>">
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
@@ -50,7 +50,7 @@
 html{height:100%;}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-/* ââ LOGIN SCREEN ââ */
+/* ── LOGIN SCREEN ── */
 .login-screen{
   display:flex;align-items:center;justify-content:center;
   min-height:100vh;padding:2rem;
@@ -81,7 +81,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .btn-google:hover{opacity:.9;}
 .login-note{font-size:11px;color:var(--text3);margin-top:1.25rem;line-height:1.5;}
 
-/* ââ APP LAYOUT ââ */
+/* ── APP LAYOUT ── */
 .app{display:none;min-height:100vh;}
 .shell{display:flex;min-height:100vh;}
 .sidebar{width:235px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
@@ -287,7 +287,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   .modal{border-radius:20px 20px 0 0;max-width:100%;width:100%;padding:1.5rem 1.25rem 2rem;max-height:85vh;}
   .fr2{grid-template-columns:1fr;}
 
-  /* Fix packages grid pe mobil - stivuire verticalÄ */
+  /* Fix packages grid pe mobil - stivuire verticală */
   #pkgs-grid{grid-template-columns:1fr !important;}
 
   /* Fix input font-size >= 16px pe mobil pentru a preveni zoom iOS la focus */
@@ -331,7 +331,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <div class="login-card" style="max-width:420px;">
     <div class="login-logo">4K</div>
     <div class="login-title">Ro Mega 4K</div>
-    <div class="login-sub">Manager ClienÈi Pro</div>
+    <div class="login-sub">Manager Clienți Pro</div>
 
     <!-- LOGIN FORM -->
     <div id="form-login">
@@ -340,18 +340,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
         <input class="fi" id="l-email" type="email" placeholder="email@example.com" style="background:var(--bg3);">
       </div>
       <div class="fg" style="text-align:left;margin-bottom:1.25rem;">
-        <label class="fl">ParolÄ</label>
+        <label class="fl">Parolă</label>
         <div style="position:relative;">
-          <input class="fi" id="l-pass" type="password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" style="background:var(--bg3);padding-right:40px;">
+          <input class="fi" id="l-pass" type="password" placeholder="••••••••" style="background:var(--bg3);padding-right:40px;">
           <button type="button" onclick="togglePass('l-pass','l-eye')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);padding:4px;line-height:0;">
             <svg id="l-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
       </div>
       <div id="l-err" style="color:var(--red);font-size:12px;margin-bottom:.75rem;display:none;"></div>
-      <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="loginEmail()">IntrÄ Ã®n cont</button>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="loginEmail()">Intră în cont</button>
       <div style="margin-top:1rem;font-size:12px;color:var(--text2);">
-        Nu ai cont? <button onclick="showReg()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">CreeazÄ cont</button>
+        Nu ai cont? <button onclick="showReg()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">Creează cont</button>
       </div>
     </div>
 
@@ -359,30 +359,30 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div id="form-reg" style="display:none;">
       <div class="fg" style="text-align:left;margin-bottom:.75rem;">
         <label class="fl">Nume</label>
-        <input class="fi" id="r-name" type="text" placeholder="Numele tÄu" style="background:var(--bg3);">
+        <input class="fi" id="r-name" type="text" placeholder="Numele tău" style="background:var(--bg3);">
       </div>
       <div class="fg" style="text-align:left;margin-bottom:.75rem;">
         <label class="fl">Email</label>
         <input class="fi" id="r-email" type="email" placeholder="email@example.com" style="background:var(--bg3);">
       </div>
       <div class="fg" style="text-align:left;margin-bottom:1.25rem;">
-        <label class="fl">ParolÄ (minim 6 caractere)</label>
+        <label class="fl">Parolă (minim 6 caractere)</label>
         <div style="position:relative;">
-          <input class="fi" id="r-pass" type="password" placeholder="â¢â¢â¢â¢â¢â¢â¢â¢" style="background:var(--bg3);padding-right:40px;">
+          <input class="fi" id="r-pass" type="password" placeholder="••••••••" style="background:var(--bg3);padding-right:40px;">
           <button type="button" onclick="togglePass('r-pass','r-eye')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);padding:4px;line-height:0;">
             <svg id="r-eye" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
       </div>
       <div id="r-err" style="color:var(--red);font-size:12px;margin-bottom:.75rem;display:none;"></div>
-      <div id="r-ok" style="color:var(--green);font-size:12px;margin-bottom:.75rem;display:none;">â Cont creat! VerificÄ emailul Èi confirmÄ Ã®nregistrarea.</div>
-      <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="registerEmail()">CreeazÄ cont</button>
+      <div id="r-ok" style="color:var(--green);font-size:12px;margin-bottom:.75rem;display:none;">✅ Cont creat! Verifică emailul și confirmă înregistrarea.</div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="registerEmail()">Creează cont</button>
       <div style="margin-top:1rem;font-size:12px;color:var(--text2);">
-        Ai deja cont? <button onclick="showLogin()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">AutentificÄ-te</button>
+        Ai deja cont? <button onclick="showLogin()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:12px;font-family:inherit;font-weight:600;">Autentifică-te</button>
       </div>
     </div>
 
-    <div class="login-note" style="margin-top:1.25rem;">Datele tale sunt private Èi securizate.</div>
+    <div class="login-note" style="margin-top:1.25rem;">Datele tale sunt private și securizate.</div>
   </div>
 </div>
 
@@ -407,12 +407,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </button>
     <button class="ni" onclick="goPage('clients',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-      ToÈi clienÈii
+      Toți clienții
       <span class="ni-badge nbd" id="nb-tot">0</span>
     </button>
     <button class="ni" onclick="goPage('notif',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-      NotificÄri
+      Notificări
       <span class="ni-badge nba" id="nb-notif" style="display:none"></span>
     </button>
     <button class="ni" id="ni-urgent" onclick="goPage('urgent',this)" style="display:none;">
@@ -422,7 +422,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </button>
     <button class="ni" onclick="goPage('settings',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-      SetÄri
+      Setări
     </button>
     <button class="ni" onclick="goPage('ghid',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
@@ -434,7 +434,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </button>
     <div style="padding:.5rem .75rem 0;">
       <button onclick="openInvite()" class="btn btn-gold" style="width:100%;justify-content:center;font-size:12px;padding:10px;border-radius:10px;box-shadow:0 0 20px rgba(201,168,76,0.25);">
-        âï¸ InvitÄ coleg
+        ✉️ Invită coleg
       </button>
     </div>
   </nav>
@@ -444,13 +444,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
 <div id="sb-user-box" style="margin:.75rem;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.75rem 1rem;display:flex;align-items:center;gap:10px;">
   <div class="sb-user-av" id="sb-av">?</div>
-  <div class="sb-user-name" id="sb-name">â</div>
-  <button class="sb-logout" onclick="logout()" title="Deconectare">â»</button>
+  <div class="sb-user-name" id="sb-name">—</div>
+  <button class="sb-logout" onclick="logout()" title="Deconectare">⏻</button>
 </div>
 
 <div class="sb-bottom">
   <div class="sb-clock" id="clock"></div>
-  <div class="sb-ver">v4.1 Â· Sandu Stoica</div>
+  <div class="sb-ver">v4.1 · Sandu Stoica</div>
 </div>
 </aside>
 
@@ -459,12 +459,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div id="mobile-topbar" style="display:none;position:sticky;top:0;z-index:200;background:var(--bg2);border-bottom:1px solid var(--border);padding:.625rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:8px;overflow-x:auto;">
   <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
     <div class="sb-user-av" id="mob-av" style="width:28px;height:28px;font-size:11px;">?</div>
-    <div style="font-size:12px;font-weight:600;color:var(--text);" id="mob-name">â</div>
+    <div style="font-size:12px;font-weight:600;color:var(--text);" id="mob-name">—</div>
   </div>
   <div style="display:flex;gap:6px;flex-shrink:0;">
-    <button id="mob-admin-btn" onclick="goPageMobile('admin')" style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;color:var(--purple);cursor:pointer;font-family:inherit;display:none;">ð Admin</button>
-    <button id="mob-invite-btn-top" onclick="openInvite()" style="background:var(--gold3);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;font-family:inherit;">âï¸ InvitÄ</button>
-    <button onclick="logout()" style="background:var(--red2);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;font-family:inherit;flex-shrink:0;">â»</button>
+    <button id="mob-admin-btn" onclick="goPageMobile('admin')" style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;color:var(--purple);cursor:pointer;font-family:inherit;display:none;">🔐 Admin</button>
+    <button id="mob-invite-btn-top" onclick="openInvite()" style="background:var(--gold3);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;font-family:inherit;">✉️ Invită</button>
+    <button onclick="logout()" style="background:var(--red2);border:1px solid rgba(248,113,113,.2);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--red);cursor:pointer;font-family:inherit;flex-shrink:0;">⏻</button>
   </div>
 </div>
 
@@ -474,15 +474,15 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <div class="hero-banner">
     <img class="hero-img" src="https://images.unsplash.com/photo-1593784991095-a205069470b6?w=1200&q=80" alt="">
     <div class="hero-overlay">
-      <div class="hero-tag">Ro Mega 4K Team Â· UK</div>
-      <div class="hero-title">Manager ClienÈi Pro</div>
-      <div class="hero-sub" id="hero-sub">Se Ã®ncarcÄ...</div>
+      <div class="hero-tag">Ro Mega 4K Team · UK</div>
+      <div class="hero-title">Manager Clienți Pro</div>
+      <div class="hero-sub" id="hero-sub">Se încarcă...</div>
     </div>
   </div>
   <div class="topbar">
-    <div><div class="page-title" id="greeting-title">BunÄ ziua ð</div><div class="page-sub" id="dash-date"></div></div>
+    <div><div class="page-title" id="greeting-title">Bună ziua 👋</div><div class="page-sub" id="dash-date"></div></div>
     <div style="display:flex;gap:8px;">
-      <button class="btn btn-ghost btn-sm" onclick="goPage('notif',document.querySelectorAll('.ni')[2])">NotificÄri</button>
+      <button class="btn btn-ghost btn-sm" onclick="goPage('notif',document.querySelectorAll('.ni')[2])">Notificări</button>
       <button class="btn btn-gold btn-sm" onclick="openAdd()">+ Client nou</button>
     </div>
   </div>
@@ -490,15 +490,15 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <div class="mini-grid">
     <div class="mini-card">
       <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=400&q=80" alt="">
-      <div class="mini-overlay"><div><div class="mini-label" id="mg-uk">â UK</div><div class="mini-sub">ClienÈi activi</div></div></div>
+      <div class="mini-overlay"><div><div class="mini-label" id="mg-uk">— UK</div><div class="mini-sub">Clienți activi</div></div></div>
     </div>
     <div class="mini-card">
       <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400&q=80" alt="">
-      <div class="mini-overlay"><div><div class="mini-label" id="mg-eu">â Europa</div><div class="mini-sub">ClienÈi EU Â· â¬</div></div></div>
+      <div class="mini-overlay"><div><div class="mini-label" id="mg-eu">— Europa</div><div class="mini-sub">Clienți EU · €</div></div></div>
     </div>
     <div class="mini-card">
       <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&q=80" alt="">
-      <div class="mini-overlay"><div><div class="mini-label" id="mg-on">â Online</div><div class="mini-sub">ConectaÈi acum</div></div></div>
+      <div class="mini-overlay"><div><div class="mini-label" id="mg-on">— Online</div><div class="mini-sub">Conectați acum</div></div></div>
     </div>
   </div>
   <div id="dash-alerts"></div>
@@ -509,33 +509,33 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div id="page-clients" class="page">
 <div class="page-inner">
   <div class="topbar">
-    <div><div class="page-title">ToÈi clienÈii</div><div class="page-sub" id="clients-sub"></div></div>
+    <div><div class="page-title">Toți clienții</div><div class="page-sub" id="clients-sub"></div></div>
     <div style="display:flex;gap:8px;">
-      <button class="btn btn-ghost btn-sm" onclick="downloadTemplate()">â¬ Template CSV</button>
-      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('csv-input').click()">ð¥ Import CSV</button>
+      <button class="btn btn-ghost btn-sm" onclick="downloadTemplate()">⬇ Template CSV</button>
+      <button class="btn btn-ghost btn-sm" onclick="document.getElementById('csv-input').click()">📥 Import CSV</button>
       <input type="file" id="csv-input" accept=".csv" style="display:none" onchange="importCSV(this)">
-      <button class="btn btn-gold btn-sm" onclick="openAdd()">+ AdaugÄ</button>
+      <button class="btn btn-gold btn-sm" onclick="openAdd()">+ Adaugă</button>
     </div>
   </div>
   <div class="toolbar">
     <div class="sw">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input class="si" id="search" placeholder="CautÄ nume, ID, notes..." oninput="renderClients()">
+      <input class="si" id="search" placeholder="Caută nume, ID, notes..." oninput="renderClients()">
     </div>
-    <button class="fp active" id="f-all" onclick="setF('all')">ToÈi</button>
+    <button class="fp active" id="f-all" onclick="setF('all')">Toți</button>
     <button class="fp" id="f-urg" onclick="setF('urg')">Urgent</button>
     <button class="fp" id="f-3d" onclick="setF('3d')">3 zile</button>
     <button class="fp" id="f-ok" onclick="setF('ok')">Activi</button>
-    <button class="fp" id="f-exp" onclick="setF('exp')">ExpiraÈi</button>
-    <button class="fp fp-eu" id="f-eu" onclick="setF('eu')">ð Europa</button>
-    <button class="fp fp-on" id="f-on" onclick="setF('on')">ð¢ Online</button>
+    <button class="fp" id="f-exp" onclick="setF('exp')">Expirați</button>
+    <button class="fp fp-eu" id="f-eu" onclick="setF('eu')">🌍 Europa</button>
+    <button class="fp fp-on" id="f-on" onclick="setF('on')">🟢 Online</button>
   </div>
   <div class="tbl">
     <div class="tbl-head">
-      <span>Nume / Notes</span><span>ID Â· ÈarÄ</span><span>ExpirÄ</span>
-      <span>Zile</span><span>Status</span><span style="text-align:right">AcÈiuni</span>
+      <span>Nume / Notes</span><span>ID · Țară</span><span>Expiră</span>
+      <span>Zile</span><span>Status</span><span style="text-align:right">Acțiuni</span>
     </div>
-    <div id="tbl-body"><div class="loading"><div class="spinner"></div>Se Ã®ncarcÄ clienÈii...</div></div>
+    <div id="tbl-body"><div class="loading"><div class="spinner"></div>Se încarcă clienții...</div></div>
   </div>
 </div>
 </div>
@@ -544,8 +544,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div id="page-notif" class="page">
 <div class="page-inner">
   <div class="topbar">
-    <div><div class="page-title">NotificÄri WhatsApp</div><div class="page-sub">ClienÈi cu abonament ce expirÄ curÃ¢nd</div></div>
-    <button class="btn btn-ghost btn-sm" onclick="loadClients()">â» ReÃ®ncarcÄ</button>
+    <div><div class="page-title">Notificări WhatsApp</div><div class="page-sub">Clienți cu abonament ce expiră curând</div></div>
+    <button class="btn btn-ghost btn-sm" onclick="loadClients()">↻ Reîncarcă</button>
   </div>
   <div id="notif-body"></div>
 </div>
@@ -556,10 +556,10 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div class="page-inner">
   <div class="topbar">
     <div>
-      <div class="page-title" style="color:var(--red);">â¡ Urgent acum</div>
-      <div class="page-sub">ClienÈii selectaÈi din notificare â trimite WhatsApp rapid</div>
+      <div class="page-title" style="color:var(--red);">⚡ Urgent acum</div>
+      <div class="page-sub">Clienții selectați din notificare — trimite WhatsApp rapid</div>
     </div>
-    <button class="btn btn-ghost btn-sm" onclick="goPage('notif',document.querySelectorAll('.ni')[2])">Vezi toÈi</button>
+    <button class="btn btn-ghost btn-sm" onclick="goPage('notif',document.querySelectorAll('.ni')[2])">Vezi toți</button>
   </div>
   <div id="urgent-body"></div>
 </div>
@@ -569,27 +569,27 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div id="page-settings" class="page">
 <div class="page-inner">
   <div class="topbar">
-    <div><div class="page-title">SetÄri</div><div class="page-sub">Configurare Telegram Èi pachete preÈuri</div></div>
+    <div><div class="page-title">Setări</div><div class="page-sub">Configurare Telegram și pachete prețuri</div></div>
   </div>
 
   <!-- Telegram Settings Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(0,136,204,0.15);border:1px solid rgba(0,136,204,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">âï¸</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(0,136,204,0.15);border:1px solid rgba(0,136,204,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">✈️</div>
       <div>
         <div style="font-size:15px;font-weight:700;color:var(--text);">Configurare Telegram</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">PrimeÈti zilnic alertele pentru clienÈii tÄi</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Primești zilnic alertele pentru clienții tăi</div>
       </div>
     </div>
 
     <!-- Ghid pas cu pas -->
     <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:1.125rem;margin-bottom:1.25rem;">
-      <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">ð Cum configurezi notificÄrile</div>
+      <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">📋 Cum configurezi notificările</div>
       
       <div style="display:flex;gap:10px;margin-bottom:.75rem;align-items:flex-start;">
         <div style="width:24px;height:24px;border-radius:50%;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--electric2);flex-shrink:0;">1</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.5;">
-          Deschide <strong style="color:var(--text);">Telegram</strong> pe telefon Èi cautÄ 
+          Deschide <strong style="color:var(--text);">Telegram</strong> pe telefon și caută 
           <a href="https://t.me/userinfobot" target="_blank" style="color:var(--electric2);font-weight:700;text-decoration:none;">@userinfobot</a>
         </div>
       </div>
@@ -597,27 +597,27 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
       <div style="display:flex;gap:10px;margin-bottom:.75rem;align-items:flex-start;">
         <div style="width:24px;height:24px;border-radius:50%;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--electric2);flex-shrink:0;">2</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.5;">
-          ApasÄ <strong style="color:var(--text);">Start</strong> sau trimite orice mesaj (ex: "id")
+          Apasă <strong style="color:var(--text);">Start</strong> sau trimite orice mesaj (ex: "id")
         </div>
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:.75rem;align-items:flex-start;">
         <div style="width:24px;height:24px;border-radius:50%;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--electric2);flex-shrink:0;">3</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.5;">
-          Botul Ã®Èi rÄspunde cu <strong style="color:var(--text);">Id: 123456789</strong> â copiazÄ acel numÄr
+          Botul îți răspunde cu <strong style="color:var(--text);">Id: 123456789</strong> — copiază acel număr
         </div>
       </div>
 
       <div style="display:flex;gap:10px;align-items:flex-start;">
         <div style="width:24px;height:24px;border-radius:50%;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--electric2);flex-shrink:0;">4</div>
         <div style="font-size:12px;color:var(--text2);line-height:1.5;">
-          LipeÈte numÄrul Ã®n cÃ¢mpul de mai jos Èi apasÄ <strong style="color:var(--text);">SalveazÄ</strong>
+          Lipește numărul în câmpul de mai jos și apasă <strong style="color:var(--text);">Salvează</strong>
         </div>
       </div>
 
       <div style="margin-top:1rem;padding-top:.875rem;border-top:1px solid var(--border);">
         <a href="https://t.me/userinfobot" target="_blank" class="btn btn-ghost btn-sm" style="text-decoration:none;display:inline-flex;">
-          âï¸ Deschide @userinfobot pe Telegram
+          ✈️ Deschide @userinfobot pe Telegram
         </a>
       </div>
     </div>
@@ -630,93 +630,93 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div id="tg-status" style="display:none;font-size:12px;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
 
     <div style="display:flex;gap:8px;">
-      <button class="btn btn-ghost btn-sm" onclick="testTelegram()">ð Trimite mesaj test</button>
-      <button class="btn btn-gold btn-sm" onclick="saveTelegramId()">SalveazÄ</button>
+      <button class="btn btn-ghost btn-sm" onclick="testTelegram()">🔔 Trimite mesaj test</button>
+      <button class="btn btn-gold btn-sm" onclick="saveTelegramId()">Salvează</button>
     </div>
   </div>
 
   <!-- Notification Time Settings Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🕐</div>
       <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text);">Ora notificÄrilor</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Notificările vin automat la ora 12:00 (ora României).</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);">Ora notificărilor</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">La ce ora vrei să primești alerta zilnică cu clienții ce expiră</div>
       </div>
     </div>
 
     <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:1.125rem;margin-bottom:1.25rem;">
-      <div style="font-size:11px;font-weight:700;color:var(--amber);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">â ï¸ Configurare corectÄ = ora exactÄ</div>
+      <div style="font-size:11px;font-weight:700;color:var(--amber);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">⚠️ Configurare corectă = ora exactă</div>
       <div style="font-size:12px;color:var(--text2);line-height:1.6;">
-        â SelecteazÄ corect <strong style="color:var(--text);">fusul orar din Èara ta</strong> mai jos Èi notificarea va veni <strong style="color:var(--text);">exact la ora aleasÄ</strong>.
+        ✅ Selectează corect <strong style="color:var(--text);">fusul orar din țara ta</strong> mai jos și notificarea va veni <strong style="color:var(--text);">exact la ora aleasă</strong>.
         <br/><br/>
-        DacÄ setezi <strong style="color:var(--text);">9:00 GMT+2 (RomÃ¢nia)</strong>, vei primi notificarea la exact <strong style="color:var(--text);">9:00</strong> ora RomÃ¢niei.
+        Dacă setezi <strong style="color:var(--text);">9:00 GMT+2 (România)</strong>, vei primi notificarea la exact <strong style="color:var(--text);">9:00</strong> ora României.
         <br/>
-        DacÄ setezi <strong style="color:var(--text);">9:00 GMT (UK)</strong>, vei primi la exact <strong style="color:var(--text);">9:00</strong> ora UK.
+        Dacă setezi <strong style="color:var(--text);">9:00 GMT (UK)</strong>, vei primi la exact <strong style="color:var(--text);">9:00</strong> ora UK.
       </div>
     </div>
 
     <div style="display:grid;gap:12px;">
       <div>
-        <label class="fl" style="margin-bottom:.5rem;">ð Fusul orar (Timezone)</label>
-        <select id="notif-timezone" style="display:none" style="display:none" class="fi" style="font-size:16px;">
-          <option value="UTC">UTC Â±0</option>
-          <option value="Europe/London">ð¬ð§ UK - GMT (UTC Â±0)</option>
-          <option value="Europe/Bucharest">ð·ð´ RomÃ¢nia - EET (UTC +2)</option>
-          <option value="Europe/Paris">ð«ð· FranÈa - CET (UTC +1)</option>
-          <option value="Europe/Berlin">ð©ðª Germania - CET (UTC +1)</option>
-          <option value="Europe/Rome">ð®ð¹ Italia - CET (UTC +1)</option>
-          <option value="Europe/Madrid">ðªð¸ Spania - CET (UTC +1)</option>
-          <option value="Europe/Amsterdam">ð³ð± Olanda - CET (UTC +1)</option>
-          <option value="Europe/Brussels">ð§ðª Belgia - CET (UTC +1)</option>
-          <option value="Europe/Vienna">ð¦ð¹ Austria - CET (UTC +1)</option>
-          <option value="Europe/Prague">ð¨ð¿ Cehia - CET (UTC +1)</option>
-          <option value="Europe/Budapest">ð­ðº Ungaria - CET (UTC +1)</option>
-          <option value="Europe/Warsaw">ðµð± Polonia - CET (UTC +1)</option>
-          <option value="Europe/Athens">ð¬ð· Grecia - EET (UTC +2)</option>
-          <option value="Europe/Istanbul">ð¹ð· Turcia - EET (UTC +2)</option>
-          <option value="America/New_York">ðºð¸ USA - EST (UTC -5)</option>
-          <option value="America/Chicago">ðºð¸ USA - CST (UTC -6)</option>
-          <option value="America/Denver">ðºð¸ USA - MST (UTC -7)</option>
-          <option value="America/Los_Angeles">ðºð¸ USA - PST (UTC -8)</option>
-          <option value="Asia/Tokyo">ð¯ðµ Japonia - JST (UTC +9)</option>
-          <option value="Asia/Hong_Kong">ð­ð° Hong Kong - HKT (UTC +8)</option>
-          <option value="Asia/Singapore">ð¸ð¬ Singapore - SGT (UTC +8)</option>
-          <option value="Australia/Sydney">ð¦ðº Australia - AEDT (UTC +11)</option>
+        <label class="fl" style="margin-bottom:.5rem;">🌍 Fusul orar (Timezone)</label>
+        <select id="notif-timezone" class="fi" style="font-size:16px;">
+          <option value="UTC">UTC ±0</option>
+          <option value="Europe/London">🇬🇧 UK - GMT (UTC ±0)</option>
+          <option value="Europe/Bucharest">🇷🇴 România - EET (UTC +2)</option>
+          <option value="Europe/Paris">🇫🇷 Franța - CET (UTC +1)</option>
+          <option value="Europe/Berlin">🇩🇪 Germania - CET (UTC +1)</option>
+          <option value="Europe/Rome">🇮🇹 Italia - CET (UTC +1)</option>
+          <option value="Europe/Madrid">🇪🇸 Spania - CET (UTC +1)</option>
+          <option value="Europe/Amsterdam">🇳🇱 Olanda - CET (UTC +1)</option>
+          <option value="Europe/Brussels">🇧🇪 Belgia - CET (UTC +1)</option>
+          <option value="Europe/Vienna">🇦🇹 Austria - CET (UTC +1)</option>
+          <option value="Europe/Prague">🇨🇿 Cehia - CET (UTC +1)</option>
+          <option value="Europe/Budapest">🇭🇺 Ungaria - CET (UTC +1)</option>
+          <option value="Europe/Warsaw">🇵🇱 Polonia - CET (UTC +1)</option>
+          <option value="Europe/Athens">🇬🇷 Grecia - EET (UTC +2)</option>
+          <option value="Europe/Istanbul">🇹🇷 Turcia - EET (UTC +2)</option>
+          <option value="America/New_York">🇺🇸 USA - EST (UTC -5)</option>
+          <option value="America/Chicago">🇺🇸 USA - CST (UTC -6)</option>
+          <option value="America/Denver">🇺🇸 USA - MST (UTC -7)</option>
+          <option value="America/Los_Angeles">🇺🇸 USA - PST (UTC -8)</option>
+          <option value="Asia/Tokyo">🇯🇵 Japonia - JST (UTC +9)</option>
+          <option value="Asia/Hong_Kong">🇭🇰 Hong Kong - HKT (UTC +8)</option>
+          <option value="Asia/Singapore">🇸🇬 Singapore - SGT (UTC +8)</option>
+          <option value="Australia/Sydney">🇦🇺 Australia - AEDT (UTC +11)</option>
         </select>
       </div>
       <div>
-        <label class="fl" style="margin-bottom:.5rem;">Ora notificÄrii zilnice</label>
-        <input id="notif-hour" style="display:none" style="display:none" type="time" class="fi" value="09:00" style="font-size:16px;">
+        <label class="fl" style="margin-bottom:.5rem;">Ora notificării zilnice</label>
+        <input id="notif-hour" type="time" class="fi" value="09:00" style="font-size:16px;">
       </div>
       <div style="font-size:11px;color:var(--text2);background:var(--bg4);border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
-        â¹ï¸ Serverul calculeazÄ ora Ã®n baza fusului orar selectat â notificarea vine la exact ora doritÄ
+        ℹ️ Serverul calculează ora în baza fusului orar selectat — notificarea vine la exact ora dorită
       </div>
     </div>
 
-    <div id="notif-time-status" style="display:none" style="display:none" style="display:none;font-size:12px;margin-top:1rem;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
+    <div id="notif-time-status" style="display:none;font-size:12px;margin-top:1rem;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
     
     <div style="display:flex;gap:8px;margin-top:1rem;">
-      <button class="btn btn-gold btn-sm" onclick="saveNotifTime()">ð¾ SalveazÄ ora</button>
+      <button class="btn btn-gold btn-sm" onclick="saveNotifTime()">💾 Salvează ora</button>
     </div>
   </div>
 
   <!-- Notification Periods Settings Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📅</div>
       <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text);">Perioade notificÄri</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Alege cÃ¢nd vrei sÄ fii alertat â cu cÃ¢t mai devreme sÄ Ètii cÄ un abonament expirÄ</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);">Perioade notificări</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Alege când vrei să fii alertat — cu cât mai devreme să știi că un abonament expiră</div>
       </div>
     </div>
 
     <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:1.125rem;margin-bottom:1.25rem;">
-      <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">ð¡ Cum funcÈioneazÄ</div>
+      <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">💡 Cum funcționează</div>
       <div style="font-size:12px;color:var(--text2);line-height:1.6;">
-        ActiveazÄ perioadele cÃ¢nd vrei sÄ fii alertat. DacÄ activezi <strong style="color:var(--text);">7 zile</strong>, vei primi notificare dacÄ un client expirÄ Ã®n urmÄtoarele 7 zile. AcelaÈi lucru pentru <strong style="color:var(--text);">3 zile</strong> Èi <strong style="color:var(--text);">24h</strong>.
+        Activează perioadele când vrei să fii alertat. Dacă activezi <strong style="color:var(--text);">7 zile</strong>, vei primi notificare dacă un client expiră în următoarele 7 zile. Același lucru pentru <strong style="color:var(--text);">3 zile</strong> și <strong style="color:var(--text);">24h</strong>.
         <br/><br/>
-        Mesajele WhatsApp vor conÈine doar clienÈii din perioadele pe care le-ai selectat.
+        Mesajele WhatsApp vor conține doar clienții din perioadele pe care le-ai selectat.
       </div>
     </div>
 
@@ -726,8 +726,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div style="width:16px;height:16px;border-radius:50%;background:var(--bg4);border:1px solid var(--border2);position:absolute;top:2px;left:2px;transition:all .2s;" id="dot-7d"></div>
         </div>
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);">ð 7 zile</div>
-          <div style="font-size:11px;color:var(--text2);">Alerta dacÄ abonamentul expirÄ Ã®n urmÄtoarele 7 zile</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);">📊 7 zile</div>
+          <div style="font-size:11px;color:var(--text2);">Alerta dacă abonamentul expiră în următoarele 7 zile</div>
         </div>
       </div>
 
@@ -736,8 +736,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div style="width:16px;height:16px;border-radius:50%;background:var(--text);position:absolute;top:2px;right:2px;transition:all .2s;" id="dot-3d"></div>
         </div>
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);">ð¡ 3 zile</div>
-          <div style="font-size:11px;color:var(--text2);">Alerta dacÄ abonamentul expirÄ Ã®n urmÄtoarele 3 zile</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);">🟡 3 zile</div>
+          <div style="font-size:11px;color:var(--text2);">Alerta dacă abonamentul expiră în următoarele 3 zile</div>
         </div>
       </div>
 
@@ -746,8 +746,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <div style="width:16px;height:16px;border-radius:50%;background:var(--text);position:absolute;top:2px;right:2px;transition:all .2s;" id="dot-24h"></div>
         </div>
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);">ð´ 24 ore</div>
-          <div style="font-size:11px;color:var(--text2);">Alerta dacÄ abonamentul expirÄ Ã®n urmÄtoarele 24 ore</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);">🔴 24 ore</div>
+          <div style="font-size:11px;color:var(--text2);">Alerta dacă abonamentul expiră în următoarele 24 ore</div>
         </div>
       </div>
     </div>
@@ -755,17 +755,17 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div id="notif-periods-status" style="display:none;font-size:12px;margin-top:1rem;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
     
     <div style="display:flex;gap:8px;margin-top:1rem;">
-      <button class="btn btn-gold btn-sm" onclick="saveNotifPeriods()">ð¾ SalveazÄ perioade</button>
+      <button class="btn btn-gold btn-sm" onclick="saveNotifPeriods()">💾 Salvează perioade</button>
     </div>
   </div>
 
   <!-- Prices Settings Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð°</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">💰</div>
       <div>
         <div style="font-size:15px;font-weight:700;color:var(--text);">Pachetele mele</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">ActiveazÄ pachetele dorite Èi seteazÄ preÈul â mesajele WhatsApp se genereazÄ automat</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Activează pachetele dorite și setează prețul — mesajele WhatsApp se generează automat</div>
       </div>
     </div>
 
@@ -773,13 +773,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
       <!-- 1 TV -->
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1rem;">
-        <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">ðº 1 Conexiune</div>
+        <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">📺 1 Conexiune</div>
         <div id="pkgs-single"></div>
       </div>
 
       <!-- 2-3 TV -->
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:1rem;">
-        <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">ðºðº 2-3 Conexiuni</div>
+        <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">📺📺 2-3 Conexiuni</div>
         <div id="pkgs-multi"></div>
       </div>
     </div>
@@ -787,124 +787,124 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     <div id="prices-status" style="display:none;font-size:12px;margin-bottom:.75rem;padding:8px 12px;border-radius:8px;"></div>
     
     <div style="display:flex;gap:8px;">
-      <button class="btn btn-ghost btn-sm" onclick="resetPrices()">âº Reset implicit</button>
-      <button class="btn btn-gold btn-sm" onclick="savePrices()">SalveazÄ pachetele</button>
+      <button class="btn btn-ghost btn-sm" onclick="resetPrices()">↺ Reset implicit</button>
+      <button class="btn btn-gold btn-sm" onclick="savePrices()">Salvează pachetele</button>
     </div>
   </div>
 
 </div>
 </div>
 
-<!-- PAGE: GHID (InformaÈii aplicaÈie + Cont) -->
+<!-- PAGE: GHID (Informații aplicație + Cont) -->
 <div id="page-ghid" class="page">
 <div class="page-inner">
   <div class="topbar">
-    <div><div class="page-title">Ghid & Cont</div><div class="page-sub">InformaÈii aplicaÈie Èi datele contului tÄu</div></div>
+    <div><div class="page-title">Ghid & Cont</div><div class="page-sub">Informații aplicație și datele contului tău</div></div>
   </div>
 
   <!-- App Overview Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid var(--border);">
-      <div style="width:44px;height:44px;border-radius:12px;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð±</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:var(--electric3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📱</div>
       <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text);">Ro Mega 4K â Manager ClienÈi Pro</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">PlatformÄ de management Èi reÃ®nnoire abonamente</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);">Ro Mega 4K — Manager Clienți Pro</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Platformă de management și reînnoire abonamente</div>
       </div>
     </div>
 
-    <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">Ce poÈi face cu aceastÄ aplicaÈie</div>
+    <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:1px;text-transform:uppercase;margin-bottom:.875rem;">Ce poți face cu această aplicație</div>
 
     <div style="display:grid;gap:10px;">
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð¥</div>
+        <div style="font-size:20px;flex-shrink:0;">👥</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Gestionezi toÈi clienÈii tÄi</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Adaugi clienÈi unul cÃ¢te unul sau importi o listÄ Ã®ntreagÄ din CSV. Fiecare client are nume, telefon, datÄ expirare, ÈarÄ Èi numÄr de conexiuni.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Gestionezi toți clienții tăi</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Adaugi clienți unul câte unul sau importi o listă întreagă din CSV. Fiecare client are nume, telefon, dată expirare, țară și număr de conexiuni.</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð</div>
+        <div style="font-size:20px;flex-shrink:0;">🔔</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">PrimeÈti alerte automate zilnic la ora 12:00 (ora României)</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Zilnic la ora 12:00 (ora României) primeşti notificări pe Telegram cu clienții care expiră în 24h sau 3 zile.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Primești alerte automate la ora aleasă</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Zilnic, la ora pe care o setezi în Setări (orice fus orar), primești notificări pe telefon, laptop/PC și Telegram cu clienții care expiră în 24h sau 3 zile. Nu mai pierzi niciun client.</div>
         </div>
       </div>
 
       <!-- PREMIUM: Push Notifications -->
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.1));border:1px solid rgba(139,92,246,0.3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð²</div>
+        <div style="font-size:20px;flex-shrink:0;">📲</div>
         <div style="flex:1;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;">
-            <div style="font-size:13px;font-weight:700;color:var(--text);">ð NotificÄri Push â Prioritate maximÄ</div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);">🌟 Notificări Push — Prioritate maximă</div>
             <span style="background:var(--gold3);color:var(--gold);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;">PREMIUM</span>
           </div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:1rem;">PrimeÈti notificÄri instant pe telefon Èi desktop chiar Èi cÃ¢nd nu eÈti pe app. NotificÄrile push sunt cel mai rapid mod sÄ afli imediat cÃ¢nd un client trebuie reÃ®nnoit.</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:1rem;">Primești notificări instant pe telefon și desktop chiar și când nu ești pe app. Notificările push sunt cel mai rapid mod să afli imediat când un client trebuie reînnoit.</div>
           
           <!-- Setup Steps -->
           <div style="background:var(--bg2);border-radius:10px;padding:1rem;margin-top:.75rem;border:1px solid var(--border);">
-            <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.75rem;">ð Cum se activeazÄ:</div>
+            <div style="font-size:11px;font-weight:700;color:var(--electric2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:.75rem;">🚀 Cum se activează:</div>
             <div style="display:grid;gap:8px;">
               <div style="display:flex;gap:10px;align-items:flex-start;">
                 <div style="background:var(--purple);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">1</div>
                 <div style="font-size:12px;color:var(--text);line-height:1.5;padding-top:2px;">
-                  <strong style="color:var(--text);">Clic pe "Subscribe"</strong> â va apÄrea la prima vizitÄ pe pagina SetÄri
+                  <strong style="color:var(--text);">Clic pe "Subscribe"</strong> — va apărea la prima vizită pe pagina Setări
                 </div>
               </div>
               <div style="display:flex;gap:10px;align-items:flex-start;">
                 <div style="background:var(--purple);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">2</div>
                 <div style="font-size:12px;color:var(--text);line-height:1.5;padding-top:2px;">
-                  <strong style="color:var(--text);">ApasÄ "Allow"</strong> cÃ¢nd browserul Ã®Èi cere permisiune pentru notificÄri
+                  <strong style="color:var(--text);">Apasă "Allow"</strong> când browserul îți cere permisiune pentru notificări
                 </div>
               </div>
               <div style="display:flex;gap:10px;align-items:flex-start;">
-                <div style="background:var(--green);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">â</div>
+                <div style="background:var(--green);color:white;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">✓</div>
                 <div style="font-size:12px;color:var(--text);line-height:1.5;padding-top:2px;">
-                  <strong style="color:var(--green);">Gata!</strong> NotificÄrile push vor veni instant pe telefon/desktop
+                  <strong style="color:var(--green);">Gata!</strong> Notificările push vor veni instant pe telefon/desktop
                 </div>
               </div>
             </div>
             
             <div style="background:var(--bg3);border-radius:8px;padding:.75rem;margin-top:.75rem;border-left:3px solid var(--electric2);">
               <div style="font-size:11px;color:var(--text2);line-height:1.6;">
-                ð¡ <strong>Tip:</strong> DacÄ nu ai primit pop-up-ul "Allow", verificÄ setÄrile browserului. Ãn Chrome/Edge, click pe iconul clichet din search bar â Site settings â Notifications â Allow.
+                💡 <strong>Tip:</strong> Dacă nu ai primit pop-up-ul "Allow", verifică setările browserului. În Chrome/Edge, click pe iconul clichet din search bar → Site settings → Notifications → Allow.
               </div>
             </div>
           </div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð¬</div>
+        <div style="font-size:20px;flex-shrink:0;">💬</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">TrimiÈi mesaje WhatsApp cu un click</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">AplicaÈia genereazÄ automat mesajul de reÃ®nnoire cu preÈurile corecte pentru fiecare client (1TV sau 2-3TV, UK sau Europa). Tu doar apeÈi "Trimite".</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Trimiți mesaje WhatsApp cu un click</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Aplicația generează automat mesajul de reînnoire cu prețurile corecte pentru fiecare client (1TV sau 2-3TV, UK sau Europa). Tu doar apeși "Trimite".</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð¦</div>
+        <div style="font-size:20px;flex-shrink:0;">📦</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">ReÃ®nnoire rapidÄ cu pachete prestabilite</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">CÃ¢nd editezi un client apasÄ direct pe pachetul dorit: 1 lunÄ, 3+1, 5+2 sau 8+4 luni â data se calculeazÄ automat. PoÈi modifica Èi manual.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Reînnoire rapidă cu pachete prestabilite</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Când editezi un client apasă direct pe pachetul dorit: 1 lună, 3+1, 5+2 sau 8+4 luni — data se calculează automat. Poți modifica și manual.</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð</div>
+        <div style="font-size:20px;flex-shrink:0;">📊</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Vezi statistici Ã®n timp real</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Dashboard cu numÄrul de clienÈi expiraÈi, cei care expirÄ azi/mÃ¢ine, Ã®n 3 zile Èi cei activi. Vezi Èi cÃ¢Èi sunt online Ã®n timp real.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Vezi statistici în timp real</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Dashboard cu numărul de clienți expirați, cei care expiră azi/mâine, în 3 zile și cei activi. Vezi și câți sunt online în timp real.</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð</div>
+        <div style="font-size:20px;flex-shrink:0;">🌍</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Suport pentru clienÈi din UK Èi toatÄ Europa</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">PreÈurile se afiÈeazÄ automat Ã®n Â£ pentru clienÈii din UK Èi â¬ pentru clienÈii din orice ÈarÄ europeanÄ.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Suport pentru clienți din UK și toată Europa</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Prețurile se afișează automat în £ pentru clienții din UK și € pentru clienții din orice țară europeană.</div>
         </div>
       </div>
       <div style="display:flex;gap:12px;align-items:flex-start;padding:.875rem;background:var(--bg3);border-radius:12px;">
-        <div style="font-size:20px;flex-shrink:0;">ð¥</div>
+        <div style="font-size:20px;flex-shrink:0;">📥</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Import Ã®n masÄ din CSV/Excel</div>
-          <div style="font-size:12px;color:var(--text2);line-height:1.5;">DescarcÄ template-ul CSV, completeazÄ lista de clienÈi Ã®n Excel Èi importÄ-i pe toÈi dintr-o singurÄ acÈiune. Ideal pentru a adÄuga zeci sau sute de clienÈi rapid.</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">Import în masă din CSV/Excel</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.5;">Descarcă template-ul CSV, completează lista de clienți în Excel și importă-i pe toți dintr-o singură acțiune. Ideal pentru a adăuga zeci sau sute de clienți rapid.</div>
         </div>
       </div>
     </div>
@@ -913,24 +913,24 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <!-- Account Info Card -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;max-width:680px;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:var(--gold3);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð¤</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:var(--gold3);border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
       <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text);">InformaÈii cont</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Datele contului tÄu Ro Mega 4K</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);">Informații cont</div>
+        <div style="font-size:12px;color:var(--text2);margin-top:2px;">Datele contului tău Ro Mega 4K</div>
       </div>
     </div>
     <div style="display:grid;gap:10px;">
       <div style="background:var(--bg3);border-radius:12px;padding:.875rem 1rem;display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:12px;color:var(--text2);">Email</span>
-        <span id="settings-email" style="font-size:13px;font-weight:600;color:var(--text);">â</span>
+        <span id="settings-email" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
       </div>
       <div style="background:var(--bg3);border-radius:12px;padding:.875rem 1rem;display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:12px;color:var(--text2);">Nume</span>
-        <span id="settings-name" style="font-size:13px;font-weight:600;color:var(--text);">â</span>
+        <span id="settings-name" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
       </div>
       <div style="background:var(--bg3);border-radius:12px;padding:.875rem 1rem;display:flex;justify-content:space-between;align-items:center;">
         <span style="font-size:12px;color:var(--text2);">Chat ID Telegram</span>
-        <span id="settings-tgid" style="font-size:13px;font-weight:600;color:var(--text);">â</span>
+        <span id="settings-tgid" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
       </div>
     </div>
   </div>
@@ -942,15 +942,15 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <div id="page-admin" class="page">
 <div class="page-inner">
   <div class="topbar">
-    <div><div class="page-title">ð Admin Panel</div><div class="page-sub">Tabelul utilizatorilor Èi statistici generale</div></div>
+    <div><div class="page-title">🔐 Admin Panel</div><div class="page-sub">Tabelul utilizatorilor și statistici generale</div></div>
   </div>
 
   <!-- Users Table -->
   <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1.75rem;margin-bottom:1.25rem;">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">ð¥</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👥</div>
       <div>
-        <div style="font-size:15px;font-weight:700;color:var(--text);">Utilizatori Ã®nregistraÈi</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);">Utilizatori înregistrați</div>
         <div style="font-size:12px;color:var(--text2);margin-top:2px;"><span id="admin-user-count">0</span> conturi active</div>
       </div>
     </div>
@@ -961,13 +961,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
           <tr style="border-bottom:1px solid var(--border);font-weight:700;color:var(--electric2);">
             <th style="padding:.875rem;text-align:left;">Email</th>
             <th style="padding:.875rem;text-align:left;">Nume</th>
-            <th style="padding:.875rem;text-align:left;">Data Ã®nregistrare</th>
+            <th style="padding:.875rem;text-align:left;">Data înregistrare</th>
             <th style="padding:.875rem;text-align:left;">Chat ID Telegram</th>
-            <th style="padding:.875rem;text-align:left;">ClienÈi</th>
+            <th style="padding:.875rem;text-align:left;">Clienți</th>
           </tr>
         </thead>
         <tbody id="admin-users-table">
-          <tr><td colspan="5" style="padding:2rem;text-align:center;color:var(--text2);">Se Ã®ncarcÄ...</td></tr>
+          <tr><td colspan="5" style="padding:2rem;text-align:center;color:var(--text2);">Se încarcă...</td></tr>
         </tbody>
       </table>
     </div>
@@ -975,7 +975,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
   <!-- Refresh Button -->
   <div style="display:flex;gap:8px;">
-    <button class="btn btn-gold btn-sm" onclick="loadAdminUsers()">ð ReÃ®ncarcÄ lista</button>
+    <button class="btn btn-gold btn-sm" onclick="loadAdminUsers()">🔄 Reîncarcă lista</button>
   </div>
 
 </div>
@@ -992,16 +992,16 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   </button>
   <button class="bn-item" id="bn-clients" onclick="goPageMobile('clients')">
     <svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
-    ClienÈi
+    Clienți
   </button>
   <button class="bn-item" id="bn-notif" onclick="goPageMobile('notif')">
     <div class="bn-dot" id="bn-dot"></div>
     <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
-    NotificÄri
+    Notificări
   </button>
   <button class="bn-item" id="bn-settings" onclick="goPageMobile('settings')">
     <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
-    SetÄri
+    Setări
   </button>
   <button class="bn-item" id="bn-ghid" onclick="goPageMobile('ghid')">
     <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
@@ -1013,19 +1013,19 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <!-- MODAL INVITATIE -->
 <div class="overlay" id="mod-invite">
 <div class="modal" style="max-width:580px;">
-  <button class="modal-x" onclick="closeOv('mod-invite')">Ã</button>
-  <div class="mtitle">âï¸ InvitÄ un coleg</div>
+  <button class="modal-x" onclick="closeOv('mod-invite')">×</button>
+  <div class="mtitle">✉️ Invită un coleg</div>
   
   <div style="background:var(--electric3);border:1px solid var(--border2);border-radius:12px;padding:1rem 1.125rem;margin-bottom:1.25rem;font-size:12px;color:var(--electric2);font-weight:600;">
-    ð¡ CopiazÄ mesajul de mai jos Èi trimite-l colegului pe WhatsApp sau Telegram
+    💡 Copiază mesajul de mai jos și trimite-l colegului pe WhatsApp sau Telegram
   </div>
 
-  <div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;">Mesaj invitaÈie</div>
+  <div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;">Mesaj invitație</div>
   <div class="wa-msg-box" id="invite-msg" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;line-height:1.7;"></div>
 
   <div style="display:flex;gap:8px;margin-top:1rem;">
-    <button class="btn btn-ghost" onclick="closeOv('mod-invite')" style="flex:1;justify-content:center;">Ãnchide</button>
-    <button class="btn btn-ghost" onclick="copyInvite()" style="flex:1;justify-content:center;">ð CopiazÄ mesaj</button>
+    <button class="btn btn-ghost" onclick="closeOv('mod-invite')" style="flex:1;justify-content:center;">Închide</button>
+    <button class="btn btn-ghost" onclick="copyInvite()" style="flex:1;justify-content:center;">📋 Copiază mesaj</button>
     <a id="invite-wa-link" href="#" target="_blank" class="btn btn-wa" style="flex:1;justify-content:center;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       WhatsApp
@@ -1037,12 +1037,12 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <!-- MODAL IMPORT CSV -->
 <div class="overlay" id="mod-import">
 <div class="modal" style="max-width:600px;">
-  <button class="modal-x" onclick="closeOv('mod-import')">Ã</button>
+  <button class="modal-x" onclick="closeOv('mod-import')">×</button>
   <div class="mtitle">Import CSV</div>
   <div id="import-preview"></div>
   <div class="mfoot">
-    <button class="btn btn-ghost" onclick="closeOv('mod-import')">AnuleazÄ</button>
-    <button class="btn btn-gold" id="import-btn" onclick="confirmImport()">ImportÄ toÈi clienÈii</button>
+    <button class="btn btn-ghost" onclick="closeOv('mod-import')">Anulează</button>
+    <button class="btn btn-gold" id="import-btn" onclick="confirmImport()">Importă toți clienții</button>
   </div>
 </div>
 </div>
@@ -1050,7 +1050,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <!-- MODAL ADD/EDIT -->
 <div class="overlay" id="mod-add">
 <div class="modal">
-  <button class="modal-x" onclick="closeOv('mod-add')">Ã</button>
+  <button class="modal-x" onclick="closeOv('mod-add')">×</button>
   <div class="mtitle" id="mod-title">Client nou</div>
   <div class="fr2">
     <div class="fg"><label class="fl">Nume *</label><input class="fi" id="f-name" placeholder="Username"></div>
@@ -1059,15 +1059,15 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   <div class="fr2">
     <div class="fg"><label class="fl">Conexiuni max</label>
       <select class="fs" id="f-maxcon">
-        <option value="1">1 conexiune â 1 TV</option>
-        <option value="2">2 conexiuni â 2 TV</option>
-        <option value="3">3 conexiuni â 3 TV</option>
+        <option value="1">1 conexiune — 1 TV</option>
+        <option value="2">2 conexiuni — 2 TV</option>
+        <option value="3">3 conexiuni — 3 TV</option>
       </select>
     </div>
     <div class="fg">
       <label class="fl">Pachet rapid</label>
       <div id="pkg-rapid-container" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;">
-        <button type="button" class="pkg-btn" onclick="setPkg(1,this)">1 lunÄ</button>
+        <button type="button" class="pkg-btn" onclick="setPkg(1,this)">1 lună</button>
         <button type="button" class="pkg-btn" onclick="setPkg(4,this)">3+1 luni</button>
         <button type="button" class="pkg-btn" onclick="setPkg(7,this)">5+2 luni</button>
         <button type="button" class="pkg-btn" onclick="setPkg(12,this)">8+4 luni</button>
@@ -1077,46 +1077,46 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
     </div>
   </div>
   <div class="fr2">
-    <div class="fg"><label class="fl">ÈarÄ</label>
+    <div class="fg"><label class="fl">Țară</label>
       <select class="fs" id="f-country">
-        <option value="GB">ð¬ð§ UK (Â£)</option>
-        <option value="RO">ð·ð´ RomÃ¢nia</option>
-        <option value="IT">ð®ð¹ Italia (â¬)</option>
-        <option value="FR">ð«ð· FranÈa (â¬)</option>
-        <option value="DE">ð©ðª Germania (â¬)</option>
-        <option value="AT">ð¦ð¹ Austria (â¬)</option>
-        <option value="ES">ðªð¸ Spania (â¬)</option>
-        <option value="GR">ð¬ð· Grecia (â¬)</option>
-        <option value="NL">ð³ð± Olanda (â¬)</option>
-        <option value="BE">ð§ðª Belgia (â¬)</option>
-        <option value="PT">ðµð¹ Portugalia (â¬)</option>
-        <option value="SE">ð¸ðª Suedia (â¬)</option>
-        <option value="NO">ð³ð´ Norvegia (â¬)</option>
-        <option value="DK">ð©ð° Danemarca (â¬)</option>
-        <option value="FI">ð«ð® Finlanda (â¬)</option>
-        <option value="CH">ð¨ð­ ElveÈia (â¬)</option>
-        <option value="PL">ðµð± Polonia (â¬)</option>
-        <option value="CZ">ð¨ð¿ Cehia (â¬)</option>
-        <option value="HU">ð­ðº Ungaria (â¬)</option>
-        <option value="SK">ð¸ð° Slovacia (â¬)</option>
-        <option value="HR">ð­ð· CroaÈia (â¬)</option>
-        <option value="IE">ð®ðª Irlanda (â¬)</option>
-        <option value="LU">ð±ðº Luxemburg (â¬)</option>
-        <option value="CY">ð¨ð¾ Cipru (â¬)</option>
-        <option value="MT">ð²ð¹ Malta (â¬)</option>
-        <option value="SI">ð¸ð® Slovenia (â¬)</option>
-        <option value="BG">ð§ð¬ Bulgaria (â¬)</option>
-        <option value="LT">ð±ð¹ Lituania (â¬)</option>
-        <option value="LV">ð±ð» Letonia (â¬)</option>
-        <option value="EE">ðªðª Estonia (â¬)</option>
-        <option value="EU">ð AltÄ ÈarÄ EU (â¬)</option>
+        <option value="GB">🇬🇧 UK (£)</option>
+        <option value="RO">🇷🇴 România</option>
+        <option value="IT">🇮🇹 Italia (€)</option>
+        <option value="FR">🇫🇷 Franța (€)</option>
+        <option value="DE">🇩🇪 Germania (€)</option>
+        <option value="AT">🇦🇹 Austria (€)</option>
+        <option value="ES">🇪🇸 Spania (€)</option>
+        <option value="GR">🇬🇷 Grecia (€)</option>
+        <option value="NL">🇳🇱 Olanda (€)</option>
+        <option value="BE">🇧🇪 Belgia (€)</option>
+        <option value="PT">🇵🇹 Portugalia (€)</option>
+        <option value="SE">🇸🇪 Suedia (€)</option>
+        <option value="NO">🇳🇴 Norvegia (€)</option>
+        <option value="DK">🇩🇰 Danemarca (€)</option>
+        <option value="FI">🇫🇮 Finlanda (€)</option>
+        <option value="CH">🇨🇭 Elveția (€)</option>
+        <option value="PL">🇵🇱 Polonia (€)</option>
+        <option value="CZ">🇨🇿 Cehia (€)</option>
+        <option value="HU">🇭🇺 Ungaria (€)</option>
+        <option value="SK">🇸🇰 Slovacia (€)</option>
+        <option value="HR">🇭🇷 Croația (€)</option>
+        <option value="IE">🇮🇪 Irlanda (€)</option>
+        <option value="LU">🇱🇺 Luxemburg (€)</option>
+        <option value="CY">🇨🇾 Cipru (€)</option>
+        <option value="MT">🇲🇹 Malta (€)</option>
+        <option value="SI">🇸🇮 Slovenia (€)</option>
+        <option value="BG">🇧🇬 Bulgaria (€)</option>
+        <option value="LT">🇱🇹 Lituania (€)</option>
+        <option value="LV">🇱🇻 Letonia (€)</option>
+        <option value="EE">🇪🇪 Estonia (€)</option>
+        <option value="EU">🌍 Altă țară EU (€)</option>
       </select>
     </div>
-    <div class="fg"><label class="fl">Notes</label><input class="fi" id="f-notes" placeholder="ObservaÈii..."></div>
+    <div class="fg"><label class="fl">Notes</label><input class="fi" id="f-notes" placeholder="Observații..."></div>
   </div>
   <div class="mfoot">
-    <button class="btn btn-ghost" onclick="closeOv('mod-add')">AnuleazÄ</button>
-    <button class="btn btn-gold" id="save-btn" onclick="saveClient()">SalveazÄ</button>
+    <button class="btn btn-ghost" onclick="closeOv('mod-add')">Anulează</button>
+    <button class="btn btn-gold" id="save-btn" onclick="saveClient()">Salvează</button>
   </div>
 </div>
 </div>
@@ -1124,14 +1124,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 <!-- MODAL WA -->
 <div class="overlay" id="mod-wa">
 <div class="modal" style="max-width:560px;">
-  <button class="modal-x" onclick="closeOv('mod-wa')">Ã</button>
+  <button class="modal-x" onclick="closeOv('mod-wa')">×</button>
   <div class="mtitle">Mesaj WhatsApp</div>
   <div class="wa-info" id="wa-info"></div>
   <div id="wa-type-badge"></div>
   <div style="font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;">Previzualizare mesaj</div>
   <div class="wa-msg-box" id="wa-msg"></div>
   <div class="wact">
-    <button class="btn btn-ghost" onclick="closeOv('mod-wa')">Ãnchide</button>
+    <button class="btn btn-ghost" onclick="closeOv('mod-wa')">Închide</button>
     <a id="wa-link" href="#" target="_blank" class="btn btn-wa">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Trimite pe WhatsApp
@@ -1141,7 +1141,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 </div>
 
 <script>
-// ââ CONFIG â Ã®nlocuieÈte cu valorile tale de la Supabase ââ
+// ══ CONFIG — înlocuiește cu valorile tale de la Supabase ══
 const SUPABASE_URL = 'https://vzphxxqedcxnwnizcocj.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_C99VqSLFOstdc1UqEvGMFQ_krsAEXMU';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
@@ -1156,20 +1156,20 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
   }
 });
 
-// ââ CONSTANTS ââ
-const FLAGS={GB:'ð¬ð§',IT:'ð®ð¹',FR:'ð«ð·',DE:'ð©ðª',AT:'ð¦ð¹',ES:'ðªð¸',GR:'ð¬ð·',RO:'ð·ð´',NL:'ð³ð±',BE:'ð§ðª',PT:'ðµð¹',SE:'ð¸ðª',NO:'ð³ð´',DK:'ð©ð°',FI:'ð«ð®',CH:'ð¨ð­',PL:'ðµð±',CZ:'ð¨ð¿',HU:'ð­ðº',SK:'ð¸ð°',HR:'ð­ð·',IE:'ð®ðª',LU:'ð±ðº',CY:'ð¨ð¾',MT:'ð²ð¹',SI:'ð¸ð®',BG:'ð§ð¬',LT:'ð±ð¹',LV:'ð±ð»',EE:'ðªðª',EU:'ð'};
-const CNAMES={GB:'UK',IT:'Italia',FR:'FranÈa',DE:'Germania',AT:'Austria',ES:'Spania',GR:'Grecia',RO:'RomÃ¢nia',NL:'Olanda',BE:'Belgia',PT:'Portugalia',SE:'Suedia',NO:'Norvegia',DK:'Danemarca',FI:'Finlanda',CH:'ElveÈia',PL:'Polonia',CZ:'Cehia',HU:'Ungaria',SK:'Slovacia',HR:'CroaÈia',IE:'Irlanda',LU:'Luxemburg',CY:'Cipru',MT:'Malta',SI:'Slovenia',BG:'Bulgaria',LT:'Lituania',LV:'Letonia',EE:'Estonia',EU:'Europa'};
+// ══ CONSTANTS ══
+const FLAGS={GB:'🇬🇧',IT:'🇮🇹',FR:'🇫🇷',DE:'🇩🇪',AT:'🇦🇹',ES:'🇪🇸',GR:'🇬🇷',RO:'🇷🇴',NL:'🇳🇱',BE:'🇧🇪',PT:'🇵🇹',SE:'🇸🇪',NO:'🇳🇴',DK:'🇩🇰',FI:'🇫🇮',CH:'🇨🇭',PL:'🇵🇱',CZ:'🇨🇿',HU:'🇭🇺',SK:'🇸🇰',HR:'🇭🇷',IE:'🇮🇪',LU:'🇱🇺',CY:'🇨🇾',MT:'🇲🇹',SI:'🇸🇮',BG:'🇧🇬',LT:'🇱🇹',LV:'🇱🇻',EE:'🇪🇪',EU:'🌍'};
+const CNAMES={GB:'UK',IT:'Italia',FR:'Franța',DE:'Germania',AT:'Austria',ES:'Spania',GR:'Grecia',RO:'România',NL:'Olanda',BE:'Belgia',PT:'Portugalia',SE:'Suedia',NO:'Norvegia',DK:'Danemarca',FI:'Finlanda',CH:'Elveția',PL:'Polonia',CZ:'Cehia',HU:'Ungaria',SK:'Slovacia',HR:'Croația',IE:'Irlanda',LU:'Luxemburg',CY:'Cipru',MT:'Malta',SI:'Slovenia',BG:'Bulgaria',LT:'Lituania',LV:'Letonia',EE:'Estonia',EU:'Europa'};
 const ONLINE_SIDS=new Set([58673,51460,51455,51454,51451,51449,51448,51444,51443,51440,51438,51437,51436,51434,51432,51430,51428,51425,51424,51422,51419,51417,51415,51414,51412,51409,51406,51395,51392,51386,51379,51377,51375,51374,51366,51365,51364,51362,51357,51344,51342,51335,51333,51332,51331,51329,51327,51322,51318,51317,51316,51315,51313,51308,51307,51305,51299,37234,26211,22838,21198,20887,20696,17443,14959,12174,12150,5650,5343,3042,2164,1135,616]);
 
 let clients=[], editId=null, activeF='all', waClient=null;
 
-// ââ HELPERS ââ
+// ══ HELPERS ══
 function days(d){const n=new Date();n.setHours(0,0,0,0);const t=new Date(d);t.setHours(0,0,0,0);return Math.round((t-n)/86400000);}
-function fmt(d){if(!d)return'â';const[y,m,dy]=d.split('-');return`${dy}.${m}.${y}`;}
+function fmt(d){if(!d)return'—';const[y,m,dy]=d.split('-');return`${dy}.${m}.${y}`;}
 function stOf(d){
   if(d<0) return{lbl:'Expirat',cls:'b-red',t:'exp'};
   if(d===0)return{lbl:'Azi',cls:'b-red',t:'urg'};
-  if(d===1)return{lbl:'MÃ¢ine',cls:'b-red',t:'urg'};
+  if(d===1)return{lbl:'Mâine',cls:'b-red',t:'urg'};
   if(d<=3) return{lbl:d+' zile',cls:'b-amber',t:'warn'};
   if(d<=7) return{lbl:d+' zile',cls:'b-blue',t:'soon'};
   return{lbl:'Activ',cls:'b-green',t:'ok'};
@@ -1179,11 +1179,11 @@ function isEU(c){
   return c.country && !nonEU.includes(c.country);
 }
 function isOnline(c){return ONLINE_SIDS.has(Number(c.sid));}
-function flag(c){return FLAGS[c.country||'GB']||'ð';}
-function toBold(s){const m={'0':'ð¬','1':'ð­','2':'ð®','3':'ð¯','4':'ð°','5':'ð±','6':'ð²','7':'ð³','8':'ð´','9':'ðµ'};return String(s).split('').map(c=>m[c]||c).join('');}
-function sym(n,eu){return eu?`${toBold(n)}â¬`:`Â£${toBold(n)}`;}
+function flag(c){return FLAGS[c.country||'GB']||'🌍';}
+function toBold(s){const m={'0':'𝟬','1':'𝟭','2':'𝟮','3':'𝟯','4':'𝟰','5':'𝟱','6':'𝟲','7':'𝟳','8':'𝟴','9':'𝟵'};return String(s).split('').map(c=>m[c]||c).join('');}
+function sym(n,eu){return eu?`${toBold(n)}€`:`£${toBold(n)}`;}
 
-// ââ AUTH ââ
+// ══ AUTH ══
 function showLogin(){
   document.getElementById('form-login').style.display='block';
   document.getElementById('form-reg').style.display='none';
@@ -1198,9 +1198,9 @@ async function loginEmail(){
   const pass=document.getElementById('l-pass').value;
   const err=document.getElementById('l-err');
   err.style.display='none';
-  if(!email||!pass){err.textContent='CompleteazÄ email Èi parolÄ!';err.style.display='block';return;}
+  if(!email||!pass){err.textContent='Completează email și parolă!';err.style.display='block';return;}
   const{error}=await sb.auth.signInWithPassword({email,password:pass});
-  if(error){err.textContent='Email sau parolÄ incorectÄ.';err.style.display='block';}
+  if(error){err.textContent='Email sau parolă incorectă.';err.style.display='block';}
 }
 
 async function registerEmail(){
@@ -1210,8 +1210,8 @@ async function registerEmail(){
   const err=document.getElementById('r-err');
   const ok=document.getElementById('r-ok');
   err.style.display='none';ok.style.display='none';
-  if(!name||!email||!pass){err.textContent='CompleteazÄ toate cÃ¢mpurile!';err.style.display='block';return;}
-  if(pass.length<6){err.textContent='Parola trebuie sÄ aibÄ minim 6 caractere!';err.style.display='block';return;}
+  if(!name||!email||!pass){err.textContent='Completează toate câmpurile!';err.style.display='block';return;}
+  if(pass.length<6){err.textContent='Parola trebuie să aibă minim 6 caractere!';err.style.display='block';return;}
   const{error}=await sb.auth.signUp({email,password:pass,options:{data:{full_name:name}}});
   if(error){err.textContent=error.message;err.style.display='block';}
   else{ok.style.display='block';}
@@ -1230,7 +1230,7 @@ function showApp(session){
   const name=u.user_metadata?.full_name||u.email||'User';
   document.getElementById('sb-name').textContent=name;
   
-  // VerificÄ dacÄ user e admin
+  // Verifică dacă user e admin
   isAdmin = u.email === ADMIN_EMAIL;
   const adminBtn = document.getElementById('ni-admin');
   const mobAdminBtn = document.getElementById('mob-admin-btn');
@@ -1272,13 +1272,13 @@ let urgentClientIds = [];
 
 function renderUrgentPage(){
   const body = document.getElementById('urgent-body');
-  if(!urgentClientIds.length){body.innerHTML='<div class="empty">Nicio selecÈie urgentÄ.</div>';return;}
+  if(!urgentClientIds.length){body.innerHTML='<div class="empty">Nicio selecție urgentă.</div>';return;}
   const urgentClients = clients.filter(c=>urgentClientIds.includes(c.id));
-  if(!urgentClients.length){body.innerHTML='<div class="empty">ClienÈii nu mai sunt Ã®n alertÄ.</div>';return;}
+  if(!urgentClients.length){body.innerHTML='<div class="empty">Clienții nu mai sunt în alertă.</div>';return;}
   
   // Send all WhatsApp button
   let html = `<div style="background:var(--red2);border:1px solid rgba(248,113,113,.3);border-radius:14px;padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
-    <div style="font-size:13px;font-weight:700;color:var(--red);">ð´ ${urgentClients.length} clienÈi selectaÈi din notificare</div>
+    <div style="font-size:13px;font-weight:700;color:var(--red);">🔴 ${urgentClients.length} clienți selectați din notificare</div>
   </div>`;
   
   urgentClients.forEach(c=>{
@@ -1326,7 +1326,7 @@ sb.auth.onAuthStateChange((event,session)=>{
   }
 });
 
-// ââ DATA ââ
+// ══ DATA ══
 async function loadClients(){
   const{data,error}=await sb.from('clients').select('*').order('expiry',{ascending:true});
   if(error){console.error(error);return;}
@@ -1336,11 +1336,11 @@ async function loadClients(){
   renderNotif();
 }
 
-// ââ CLOCK ââ
+// ══ CLOCK ══
 function tick(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
 setInterval(tick,1000);tick();
 
-// ââ NAV ââ
+// ══ NAV ══
 function goPage(name,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
@@ -1367,7 +1367,7 @@ function syncBotNav(name){
   });
 }
 
-// ââ STATS ââ
+// ══ STATS ══
 function renderStats(){
   const exp=clients.filter(c=>days(c.expiry)<0).length;
   const urg=clients.filter(c=>{const d=days(c.expiry);return d>=0&&d<=1;}).length;
@@ -1377,22 +1377,22 @@ function renderStats(){
   document.getElementById('stats-grid').innerHTML=`
     <div class="stat s-red">
       <div class="stat-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=60')"></div>
-      <span class="stat-icon">ð</span><div class="stat-val">${exp}</div><div class="stat-lbl">Expirate</div>
+      <span class="stat-icon">💀</span><div class="stat-val">${exp}</div><div class="stat-lbl">Expirate</div>
     </div>
     <div class="stat s-red">
       <div class="stat-bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400&q=60')"></div>
-      <span class="stat-icon">ð´</span><div class="stat-val">${urg}</div><div class="stat-lbl">Azi / MÃ¢ine</div>
+      <span class="stat-icon">🔴</span><div class="stat-val">${urg}</div><div class="stat-lbl">Azi / Mâine</div>
     </div>
     <div class="stat s-amber">
       <div class="stat-bg" style="background-image:url('https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&q=60')"></div>
-      <span class="stat-icon">â¡</span><div class="stat-val">${warn}</div><div class="stat-lbl">Ãn 3 zile</div>
+      <span class="stat-icon">⚡</span><div class="stat-val">${warn}</div><div class="stat-lbl">În 3 zile</div>
     </div>
     <div class="stat s-green">
       <div class="stat-bg" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=60')"></div>
-      <span class="stat-icon">â</span><div class="stat-val">${ok}</div><div class="stat-lbl">Activi OK</div>
+      <span class="stat-icon">✅</span><div class="stat-val">${ok}</div><div class="stat-lbl">Activi OK</div>
     </div>`;
   document.getElementById('nb-tot').textContent=clients.length;
-  // Badge notificÄri NUMAI din checkNotificationsDaily/updateNotificationBadge, nu din renderStats
+  // Badge notificări NUMAI din checkNotificationsDaily/updateNotificationBadge, nu din renderStats
   const dot=document.getElementById('bn-dot');if(dot)dot.classList.toggle('show',clientsToNotifyToday.length>0);
   const ukC=clients.filter(c=>!isEU(c)&&days(c.expiry)>0).length;
   const euC=clients.filter(c=>isEU(c)).length;
@@ -1400,7 +1400,7 @@ function renderStats(){
   document.getElementById('mg-uk').textContent=ukC+' UK';
   document.getElementById('mg-eu').textContent=euC+' Europa';
   document.getElementById('mg-on').textContent=onC+' Online';
-  document.getElementById('hero-sub').textContent=`${clients.length} clienÈi Â· ${clientsToNotifyToday.length} alerte azi Â· ${onC} online acum`;
+  document.getElementById('hero-sub').textContent=`${clients.length} clienți · ${clientsToNotifyToday.length} alerte azi · ${onC} online acum`;
   // sidebar online
   const onList=clients.filter(c=>isOnline(c)&&days(c.expiry)>0).slice(0,6);
   document.getElementById('sb-online').innerHTML=
@@ -1408,38 +1408,38 @@ function renderStats(){
     onList.map(c=>`<div class="sb-online-item"><span>${flag(c)}</span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.name}</span></div>`).join('');
 }
 
-// ââ WA SVG ââ
+// ══ WA SVG ══
 const WSVG=`<svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
 
-// ââ ALERT CARD ââ
+// ══ ALERT CARD ══
 function acard(c,cc){
   const d=days(c.expiry);const st=stOf(d);const eu=isEU(c);const on=isOnline(c);const multi=(c.max_con||1)>=2;
   return `<div class="alert-card ${cc}">
     <div class="ac-av">${flag(c)}</div>
     <div class="ac-left">
       <div class="ac-name">${c.name}</div>
-      <div class="ac-meta">#${c.sid||''} Â· ${c.con||''} Â· expirÄ ${fmt(c.expiry)}${eu?' Â· '+(CNAMES[c.country]||''):''}${c.phone?' Â· '+c.phone:''}</div>
+      <div class="ac-meta">#${c.sid||''} · ${c.con||''} · expiră ${fmt(c.expiry)}${eu?' · '+(CNAMES[c.country]||''):''}${c.phone?' · '+c.phone:''}</div>
       ${c.notes?`<div class="ac-notes">${c.notes}</div>`:''}
     </div>
     <div class="ac-right">
       ${on?'<span class="b-on">Online</span>':''}
       <span class="badge ${st.cls}">${st.lbl}</span>
       <span class="bc ${multi?'bc-m':'bc-s'}">${multi?'2-3TV':'1TV'}</span>
-      ${eu?`<span class="b-eu">${flag(c)} â¬</span>`:''}
+      ${eu?`<span class="b-eu">${flag(c)} €</span>`:''}
       <button class="btn btn-wa btn-sm" onclick="openWa(${c.id})">${WSVG} WA</button>
       <button class="btn btn-ghost btn-xs btn-icon" onclick="openEdit(${c.id})"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
     </div>
   </div>`;
 }
 
-// ââ DASHBOARD ââ
+// ══ DASHBOARD ══
 async function renderDashboard(){
   const now=new Date();
   document.getElementById('dash-date').textContent=now.toLocaleDateString('ro-RO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   // Greeting based on hour
   const h=now.getHours();
-  const greeting=h<5?'BunÄ noaptea':h<12?'BunÄ dimineaÈa':h<18?'BunÄ ziua':'BunÄ seara';
-  const emoji=h<5?'ð':h<12?'ð':h<18?'ð':'ð';
+  const greeting=h<5?'Bună noaptea':h<12?'Bună dimineața':h<18?'Bună ziua':'Bună seara';
+  const emoji=h<5?'🌙':h<12?'🌅':h<18?'👋':'🌆';
   // Get name from session directly for reliability
   const{data:{session:greetSession}}=await sb.auth.getSession();
   const fullName=greetSession?.user?.user_metadata?.full_name||document.getElementById('sb-name').textContent||'';
@@ -1447,19 +1447,19 @@ async function renderDashboard(){
   const greetEl=document.getElementById('greeting-title');
   if(greetEl) greetEl.textContent=greeting+', '+firstName+' '+emoji;
   renderStats();
-  checkNotificationsDaily(); // Verific Èi afiÈez notificÄri
+  checkNotificationsDaily(); // Verific și afișez notificări
   const urgent=clients.filter(c=>days(c.expiry)<=3).sort((a,b)=>days(a.expiry)-days(b.expiry));
   const cont=document.getElementById('dash-alerts');
-  if(!urgent.length){cont.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;color:var(--text2);font-size:14px;">â Nicio alertÄ â toÈi clienÈii sunt activi!</div>`;return;}
+  if(!urgent.length){cont.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;color:var(--text2);font-size:14px;">✅ Nicio alertă — toți clienții sunt activi!</div>`;return;}
   const grp=(t,list,gc,cc)=>!list.length?'':
     `<div class="group-title">${t}<span class="gcnt ${gc}">${list.length}</span></div>`+list.map(c=>acard(c,cc)).join('');
   const ex=urgent.filter(c=>days(c.expiry)<0);
   const d01=urgent.filter(c=>{const d=days(c.expiry);return d>=0&&d<=1;});
   const d3=urgent.filter(c=>{const d=days(c.expiry);return d>=2&&d<=3;});
-  cont.innerHTML=grp('ð Expirat',ex,'gc-red','urg')+grp('ð´ Azi / MÃ¢ine â 24h',d01,'gc-red','urg')+grp('ð¡ ExpirÄ Ã®n 3 zile',d3,'gc-amber','warn');
+  cont.innerHTML=grp('💀 Expirat',ex,'gc-red','urg')+grp('🔴 Azi / Mâine — 24h',d01,'gc-red','urg')+grp('🟡 Expiră în 3 zile',d3,'gc-amber','warn');
 }
 
-// ââ CLIENTS TABLE ââ
+// ══ CLIENTS TABLE ══
 function setF(f){
   activeF=f;
   ['all','urg','3d','ok','exp','eu','on'].forEach(id=>{const el=document.getElementById('f-'+id);if(el)el.classList.toggle('active',id===f);});
@@ -1478,23 +1478,23 @@ function renderClients(){
     if(activeF==='on')  return isOnline(c);
     return true;
   }).sort((a,b)=>days(a.expiry)-days(b.expiry));
-  document.getElementById('clients-sub').textContent=`${list.length} client${list.length!==1?'i':''} afiÈat${list.length!==1?'i':''}`;
-  if(!list.length){document.getElementById('tbl-body').innerHTML=`<div class="empty">Niciun client gÄsit</div>`;return;}
+  document.getElementById('clients-sub').textContent=`${list.length} client${list.length!==1?'i':''} afișat${list.length!==1?'i':''}`;
+  if(!list.length){document.getElementById('tbl-body').innerHTML=`<div class="empty">Niciun client găsit</div>`;return;}
   document.getElementById('tbl-body').innerHTML=list.map(c=>{
     const d=days(c.expiry);const st=stOf(d);const eu=isEU(c);const on=isOnline(c);const multi=(c.max_con||1)>=2;
-    const dl=d<0?`â${Math.abs(d)}z`:d===0?'Azi':d===1?'MÃ¢ine':`${d}z`;
+    const dl=d<0?`−${Math.abs(d)}z`:d===0?'Azi':d===1?'Mâine':`${d}z`;
     const dc=d<=1?'var(--red)':d<=3?'var(--amber)':'var(--text2)';
     return `<div class="tbl-row">
       <div>
-        <div class="cn">${on?'<span class="b-on" style="font-size:9px;padding:1px 5px;margin-right:4px;vertical-align:middle;">â</span>':''}${c.name}</div>
-        <div class="cn2">${c.notes||'â'}</div>
+        <div class="cn">${on?'<span class="b-on" style="font-size:9px;padding:1px 5px;margin-right:4px;vertical-align:middle;">●</span>':''}${c.name}</div>
+        <div class="cn2">${c.notes||'—'}</div>
       </div>
-      <div><div class="cell" style="font-family:monospace;font-size:11px;">#${c.sid||'â'}</div><div style="margin-top:2px">${flag(c)}${eu?` <span class="b-eu" style="padding:1px 5px;font-size:9px;">${CNAMES[c.country]||''}</span>`:''}</div></div>
+      <div><div class="cell" style="font-family:monospace;font-size:11px;">#${c.sid||'—'}</div><div style="margin-top:2px">${flag(c)}${eu?` <span class="b-eu" style="padding:1px 5px;font-size:9px;">${CNAMES[c.country]||''}</span>`:''}</div></div>
       <div class="cell">${fmt(c.expiry)}</div>
       <div class="cell-days" style="color:${dc}">${dl}</div>
       <div>
         <span class="badge ${st.cls}">${st.lbl}</span>
-        <span class="bc ${multi?'bc-m':'bc-s'}" style="margin-top:3px;display:block;width:fit-content;">${c.con||'â'}</span>
+        <span class="bc ${multi?'bc-m':'bc-s'}" style="margin-top:3px;display:block;width:fit-content;">${c.con||'—'}</span>
       </div>
       <div class="cell-act">
         <button class="btn btn-wa btn-xs btn-icon" onclick="openWa(${c.id})" title="WhatsApp">${WSVG}</button>
@@ -1505,43 +1505,43 @@ function renderClients(){
   }).join('');
 }
 
-// ââ NOTIF ââ
+// ══ NOTIF ══
 function renderNotif(){
   renderStats();
   
-  // AfiÈez doar clienÈi care trebuie notificaÈi azi (din clientsToNotifyToday)
+  // Afișez doar clienți care trebuie notificați azi (din clientsToNotifyToday)
   if(!clientsToNotifyToday || clientsToNotifyToday.length === 0){
-    document.getElementById('notif-body').innerHTML=`<div style="text-align:center;padding:4rem;color:var(--text3)"><div style="font-size:3rem;margin-bottom:1rem">â</div><div style="font-size:15px;font-weight:500;color:var(--text2);margin-bottom:.5rem">Nicio notificare azi</div><div style="font-size:13px">ToÈi clienÈii sunt Ã®n siguranÈÄ!</div></div>`;
+    document.getElementById('notif-body').innerHTML=`<div style="text-align:center;padding:4rem;color:var(--text3)"><div style="font-size:3rem;margin-bottom:1rem">✅</div><div style="font-size:15px;font-weight:500;color:var(--text2);margin-bottom:.5rem">Nicio notificare azi</div><div style="font-size:13px">Toți clienții sunt în siguranță!</div></div>`;
     return;
   }
   
   const grp=(t,lst,gc,cc)=>!lst.length?'':
     `<div class="group-title">${t}<span class="gcnt ${gc}">${lst.length}</span></div>`+lst.map(c=>acard(c,cc)).join('')+'<div style="height:.75rem"></div>';
   
-  // Grupare pe zile pentru clienÈii de azi
+  // Grupare pe zile pentru clienții de azi
   const ex=clientsToNotifyToday.filter(c=>days(c.expiry)<0);
   const d01=clientsToNotifyToday.filter(c=>{const d=days(c.expiry);return d>=0&&d<=1;});
   const d3=clientsToNotifyToday.filter(c=>{const d=days(c.expiry);return d>=2&&d<=3;});
   const d7=clientsToNotifyToday.filter(c=>{const d=days(c.expiry);return d>=4&&d<=7;});
   
   let html='';
-  if(ex.length) html+=grp('ð ExpiraÈi â urgent',ex,'gc-red','urg');
-  if(d01.length) html+=grp('ð´ Azi / MÃ¢ine â 24h',d01,'gc-red','urg');
-  if(d3.length) html+=grp('ð¡ ExpirÄ Ã®n 3 zile',d3,'gc-amber','warn');
-  if(d7.length) html+=grp('ð ExpirÄ Ã®n 7 zile',d7,'gc-info','info');
+  if(ex.length) html+=grp('💀 Expirați — urgent',ex,'gc-red','urg');
+  if(d01.length) html+=grp('🔴 Azi / Mâine — 24h',d01,'gc-red','urg');
+  if(d3.length) html+=grp('🟡 Expiră în 3 zile',d3,'gc-amber','warn');
+  if(d7.length) html+=grp('📊 Expiră în 7 zile',d7,'gc-info','info');
   
   document.getElementById('notif-body').innerHTML=html;
 }
 
-// ââ WA MODAL ââ
+// ══ WA MODAL ══
 function buildMsg(c){
   const d=days(c.expiry);const eu=isEU(c);const multi=(c.max_con||1)>=2;
-  const urgLine=d<0?`â ï¸ *Serviciul tÄu a EXPIRAT acum ${Math.abs(d)} ${Math.abs(d)===1?'zi':'zile'}!*`
-    :d===0?`â ï¸ *Serviciul tÄu EXPIRÄ AZI!*`
-    :d===1?`â° *Serviciul tÄu expirÄ MÃINE!*`
-    :`â° *Serviciul tÄu expirÄ Ã®n ${d} zile* (${fmt(c.expiry)})`;
+  const urgLine=d<0?`⚠️ *Serviciul tău a EXPIRAT acum ${Math.abs(d)} ${Math.abs(d)===1?'zi':'zile'}!*`
+    :d===0?`⚠️ *Serviciul tău EXPIRĂ AZI!*`
+    :d===1?`⏰ *Serviciul tău expiră MÂINE!*`
+    :`⏰ *Serviciul tău expiră în ${d} zile* (${fmt(c.expiry)})`;
   const s=n=>sym(n,eu);
-  const footer=multi?`_(2-3 conexiuni pe aceeaÈi reÈea/casÄ)_`:`_(1 conexiune / 1 adresÄ IP)_`;
+  const footer=multi?`_(2-3 conexiuni pe aceeași rețea/casă)_`:`_(1 conexiune / 1 adresă IP)_`;
   const pkgs=userPackages||{};
   let pkgLines='';
   ALL_PACKAGES.forEach(p=>{
@@ -1559,21 +1559,21 @@ function buildMsg(c){
       else if(bonusMonths===3) bonus=' (+3 GRATUITE)';
       else if(bonusMonths===4) bonus=' (+4 GRATUITE)';
     }
-    pkgLines+=`â¢ ${p.label} â ${s(price)}${bonus}\n`;
+    pkgLines+=`• ${p.label} → ${s(price)}${bonus}\n`;
   });
   if(!pkgLines){
     const[a,b,cc2,dd]=multi?[15,46,75,120]:[13,36,65,100];
-    pkgLines=`â¢ 1 LunÄ â ${s(a)}\nâ¢ 3+1 Luni â ${s(b)} (+1 GRATIS)\nâ¢ 5+2 Luni â ${s(cc2)} (+2 GRATUITE)\nâ¢ 8+4 Luni â ${s(dd)} (+4 GRATUITE)\n`;
+    pkgLines=`• 1 Lună → ${s(a)}\n• 3+1 Luni → ${s(b)} (+1 GRATIS)\n• 5+2 Luni → ${s(cc2)} (+2 GRATUITE)\n• 8+4 Luni → ${s(dd)} (+4 GRATUITE)\n`;
   }
-  return `BunÄ ziua *${c.name}* ð\n\n${urgLine}\n\nââââââââââââââââââ\nð¦ *REÃNNOIRE ABONAMENT:*\n\n${pkgLines}\n${footer}\nââââââââââââââââââ\nð¬ AlegeÈi opÈiunea doritÄ Èi revenim cu detalii de platÄ!\n\nâ *Ro Mega 4K Team* ðº`;
+  return `Bună ziua *${c.name}* 👋\n\n${urgLine}\n\n━━━━━━━━━━━━━━━━━━\n📦 *REÎNNOIRE ABONAMENT:*\n\n${pkgLines}\n${footer}\n━━━━━━━━━━━━━━━━━━\n💬 Alegeți opțiunea dorită și revenim cu detalii de plată!\n\n— *Ro Mega 4K Team* 📺`;
 }
 function openWa(id){
   const c=clients.find(x=>x.id===id);if(!c)return;waClient=c;
   const eu=isEU(c);const multi=(c.max_con||1)>=2;
-  document.getElementById('wa-info').textContent=`${c.name} Â· #${c.sid||''} Â· ${c.con||''} Â· ${CNAMES[c.country||'GB']||'UK'} Â· ${c.phone||'fÄrÄ numÄr'}`;
-  const tl=eu?`${flag(c)} Client Europa â ${flag(c)} EUR`:(multi?'ðº 2-3 Conexiuni â Â£ GBP':'ðº 1 Conexiune â Â£ GBP');
+  document.getElementById('wa-info').textContent=`${c.name} · #${c.sid||''} · ${c.con||''} · ${CNAMES[c.country||'GB']||'UK'} · ${c.phone||'fără număr'}`;
+  const tl=eu?`${flag(c)} Client Europa — ${flag(c)} EUR`:(multi?'📺 2-3 Conexiuni — £ GBP':'📺 1 Conexiune — £ GBP');
   const tc=eu?'wt-eu':(multi?'wt-m':'wt-s');
-  document.getElementById('wa-type-badge').innerHTML=`<span class="wa-type ${tc}" style="margin-bottom:.875rem;">${tl} Â· clientul alege singur</span>`;
+  document.getElementById('wa-type-badge').innerHTML=`<span class="wa-type ${tc}" style="margin-bottom:.875rem;">${tl} · clientul alege singur</span>`;
   const msg=buildMsg(c);
   document.getElementById('wa-msg').textContent=msg;
   const phone=(c.phone||'').replace(/\D/g,'');
@@ -1581,7 +1581,7 @@ function openWa(id){
   document.getElementById('mod-wa').classList.add('open');
 }
 
-// ââ ADD / EDIT / DELETE ââ
+// ══ ADD / EDIT / DELETE ══
 function openAdd(){
   editId=null;
   document.getElementById('mod-title').textContent='Client nou';
@@ -1595,7 +1595,7 @@ function openAdd(){
 }
 function openEdit(id){
   editId=id;const c=clients.find(x=>x.id===id);if(!c)return;
-  document.getElementById('mod-title').textContent='EditeazÄ client';
+  document.getElementById('mod-title').textContent='Editează client';
   document.getElementById('f-name').value=c.name;
   document.getElementById('f-phone').value=c.phone||'';
   document.getElementById('f-maxcon').value=String(c.max_con||1);
@@ -1607,9 +1607,9 @@ function openEdit(id){
 async function saveClient(){
   const name=document.getElementById('f-name').value.trim();
   const expiry=document.getElementById('f-expiry').value;
-  if(!name||!expiry){alert('CompleteazÄ numele Èi data!');return;}
+  if(!name||!expiry){alert('Completează numele și data!');return;}
   const btn=document.getElementById('save-btn');
-  btn.textContent='Se salveazÄ...';btn.disabled=true;
+  btn.textContent='Se salvează...';btn.disabled=true;
   const maxCon=parseInt(document.getElementById('f-maxcon').value)||1;
   const country=document.getElementById('f-country').value;
   const payload={
@@ -1622,24 +1622,24 @@ async function saveClient(){
   let error;
   if(editId){({error}=await sb.from('clients').update(payload).eq('id',editId));}
   else{({error}=await sb.from('clients').insert(payload));}
-  btn.textContent='SalveazÄ';btn.disabled=false;
+  btn.textContent='Salvează';btn.disabled=false;
   if(error){alert('Eroare: '+error.message);return;}
   closeOv('mod-add');
   await loadClients();
 }
 async function delC(id){
   const c=clients.find(x=>x.id===id);
-  if(!c||!confirm(`Ètergi "${c.name}"?`))return;
+  if(!c||!confirm(`Ștergi "${c.name}"?`))return;
   await sb.from('clients').delete().eq('id',id);
   await loadClients();
 }
 
-// ââ OVERLAYS ââ
+// ══ OVERLAYS ══
 function closeOv(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.overlay').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)closeOv(el.id);});});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.open').forEach(m=>m.classList.remove('open'));});
 
-// ââ PACKAGE QUICK SELECT ââ
+// ── PACKAGE QUICK SELECT ──
 function setPkg(months, btn){
   const expiryField = document.getElementById('f-expiry');
   let base = new Date();
@@ -1665,7 +1665,7 @@ document.addEventListener('keydown',function(e){
   }
 });
 
-// ââ CSV IMPORT ââ
+// ══ CSV IMPORT ══
 let importData = [];
 
 function downloadTemplate(){
@@ -1701,8 +1701,8 @@ function importCSV(input){
       headers.forEach((h,idx)=>row[h]=vals[idx]||'');
       
       // Validate
-      if(!row.nume && !row.name){errors.push(`RÃ¢ndul ${i+1}: lipseÈte numele`);continue;}
-      if(!row.data_expirare && !row.expiry){errors.push(`RÃ¢ndul ${i+1}: lipseÈte data expirÄrii`);continue;}
+      if(!row.nume && !row.name){errors.push(`Rândul ${i+1}: lipsește numele`);continue;}
+      if(!row.data_expirare && !row.expiry){errors.push(`Rândul ${i+1}: lipsește data expirării`);continue;}
       
       const name = row.nume||row.name||'';
       const expiry = row.data_expirare||row.expiry||'';
@@ -1713,7 +1713,7 @@ function importCSV(input){
       
       // Validate date format
       if(!/^\d{4}-\d{2}-\d{2}$/.test(expiry)){
-        errors.push(`RÃ¢ndul ${i+1} (${name}): data trebuie sÄ fie YYYY-MM-DD (ex: 2026-06-01)`);
+        errors.push(`Rândul ${i+1} (${name}): data trebuie să fie YYYY-MM-DD (ex: 2026-06-01)`);
         continue;
       }
       
@@ -1726,38 +1726,38 @@ function importCSV(input){
     
     if(errors.length){
       html += `<div style="background:var(--red2);border:1px solid rgba(248,113,113,.3);border-radius:10px;padding:.875rem;margin-bottom:1rem;font-size:12px;color:var(--red);">
-        <strong>â ï¸ ${errors.length} erori gÄsite:</strong><br>${errors.join('<br>')}
+        <strong>⚠️ ${errors.length} erori găsite:</strong><br>${errors.join('<br>')}
       </div>`;
     }
     
     if(importData.length){
-      html += `<div style="font-size:12px;color:var(--green);margin-bottom:.75rem;font-weight:600;">â ${importData.length} clienÈi gata de import</div>`;
+      html += `<div style="font-size:12px;color:var(--green);margin-bottom:.75rem;font-weight:600;">✅ ${importData.length} clienți gata de import</div>`;
       html += `<div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;max-height:300px;overflow-y:auto;">`;
       html += `<table style="width:100%;border-collapse:collapse;font-size:11px;">
         <thead style="background:var(--bg4);">
           <tr>
             <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Nume</th>
             <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Telefon</th>
-            <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">ExpirÄ</th>
-            <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">ÈarÄ</th>
+            <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Expiră</th>
+            <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">Țară</th>
             <th style="padding:8px 10px;text-align:left;color:var(--text2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;">TV</th>
           </tr>
         </thead>
         <tbody>`;
       importData.forEach((c,i)=>{
-        const flags={GB:'ð¬ð§',IT:'ð®ð¹',FR:'ð«ð·',DE:'ð©ðª',AT:'ð¦ð¹',ES:'ðªð¸',GR:'ð¬ð·',RO:'ð·ð´'};
+        const flags={GB:'🇬🇧',IT:'🇮🇹',FR:'🇫🇷',DE:'🇩🇪',AT:'🇦🇹',ES:'🇪🇸',GR:'🇬🇷',RO:'🇷🇴'};
         html += `<tr style="border-top:1px solid var(--border);">
           <td style="padding:7px 10px;color:var(--text);font-weight:600;">${c.name}</td>
-          <td style="padding:7px 10px;color:var(--text2);">${c.phone||'â'}</td>
+          <td style="padding:7px 10px;color:var(--text2);">${c.phone||'—'}</td>
           <td style="padding:7px 10px;color:var(--text2);">${c.expiry}</td>
-          <td style="padding:7px 10px;">${flags[c.country]||'ð'} ${c.country}</td>
+          <td style="padding:7px 10px;">${flags[c.country]||'🌍'} ${c.country}</td>
           <td style="padding:7px 10px;color:var(--text2);">${c.max_con}</td>
         </tr>`;
       });
       html += '</tbody></table></div>';
-      document.getElementById('import-btn').textContent = `ImportÄ ${importData.length} clienÈi`;
+      document.getElementById('import-btn').textContent = `Importă ${importData.length} clienți`;
     } else {
-      html += '<div style="text-align:center;padding:2rem;color:var(--text3);">Niciun client valid gÄsit Ã®n fiÈier.</div>';
+      html += '<div style="text-align:center;padding:2rem;color:var(--text3);">Niciun client valid găsit în fișier.</div>';
       document.getElementById('import-btn').disabled = true;
     }
     
@@ -1771,7 +1771,7 @@ function importCSV(input){
 async function confirmImport(){
   if(!importData.length) return;
   const btn = document.getElementById('import-btn');
-  btn.textContent = 'Se importÄ...';
+  btn.textContent = 'Se importă...';
   btn.disabled = true;
   
   const{data:{session}} = await sb.auth.getSession();
@@ -1792,16 +1792,16 @@ async function confirmImport(){
   closeOv('mod-import');
   importData = [];
   await loadClients();
-  alert(`â ${imported} clienÈi importaÈi cu succes!`);
+  alert(`✅ ${imported} clienți importați cu succes!`);
 }
 
-// ââ SETTINGS ââ
+// ══ SETTINGS ══
 async function loadSettings(){
   const{data:{session}}=await sb.auth.getSession();
   if(!session) return;
   const u=session.user;
-  document.getElementById('settings-email').textContent=u.email||'â';
-  document.getElementById('settings-name').textContent=u.user_metadata?.full_name||'â';
+  document.getElementById('settings-email').textContent=u.email||'—';
+  document.getElementById('settings-name').textContent=u.user_metadata?.full_name||'—';
   loadPrices();
   loadNotifTime();
   loadNotifPeriods();
@@ -1834,7 +1834,7 @@ async function saveTelegramId(){
     status.style.display='block';
     status.style.background='var(--green2)';
     status.style.color='var(--green)';
-    status.textContent='â Chat ID salvat cu succes!';
+    status.textContent='✅ Chat ID salvat cu succes!';
     document.getElementById('settings-tgid').textContent=chatId||'Neconfigurat';
     setTimeout(()=>status.style.display='none',3000);
   }
@@ -1842,7 +1842,7 @@ async function saveTelegramId(){
 
 async function testTelegram(){
   const chatId=document.getElementById('tg-chat-id').value.trim();
-  if(!chatId){alert('Pune mai Ã®ntÃ¢i Chat ID-ul tÄu!');return;}
+  if(!chatId){alert('Pune mai întâi Chat ID-ul tău!');return;}
   
   const status=document.getElementById('tg-status');
   status.style.display='block';
@@ -1852,7 +1852,7 @@ async function testTelegram(){
   
   // Save first then test via a simple fetch to telegram API
   const token='8329239413:AAFzcJDrvaSjeHAqysAmBm7YekmlQo0rZBE';
-  const msg='ð *Test notificare Ro Mega 4K*\n\nFelicitÄri! NotificÄrile Telegram sunt configurate corect. Vei primi zilnic alertele pentru clienÈii tÄi.\n\nâ *Ro Mega 4K Team* ðº';
+  const msg='🔔 *Test notificare Ro Mega 4K*\n\nFelicitări! Notificările Telegram sunt configurate corect. Vei primi zilnic alertele pentru clienții tăi.\n\n— *Ro Mega 4K Team* 📺';
   
   try{
     const res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{
@@ -1864,23 +1864,23 @@ async function testTelegram(){
     if(data.ok){
       status.style.background='var(--green2)';
       status.style.color='var(--green)';
-      status.textContent='â Mesaj test trimis pe Telegram!';
+      status.textContent='✅ Mesaj test trimis pe Telegram!';
     } else {
       status.style.background='var(--red2)';
       status.style.color='var(--red)';
-      status.textContent='â Chat ID invalid. VerificÄ Èi Ã®ncearcÄ din nou.';
+      status.textContent='❌ Chat ID invalid. Verifică și încearcă din nou.';
     }
   } catch(e){
     status.style.background='var(--red2)';
     status.style.color='var(--red)';
-    status.textContent='â Eroare de conexiune.';
+    status.textContent='❌ Eroare de conexiune.';
   }
 }
 
 async function saveNotifTime(){
   const hour=document.getElementById('notif-hour').value;
   const timezone=document.getElementById('notif-timezone').value;
-  if(!hour||!timezone){alert('SelecteazÄ ora Èi fusul orar!');return;}
+  if(!hour||!timezone){alert('Selectează ora și fusul orar!');return;}
   
   const{data:{session}}=await sb.auth.getSession();
   if(!session) return;
@@ -1896,19 +1896,19 @@ async function saveNotifTime(){
       status.style.display='block';
       status.style.background='var(--red2)';
       status.style.color='var(--red)';
-      status.textContent='â Eroare: '+error.message;
+      status.textContent='❌ Eroare: '+error.message;
     } else {
       status.style.display='block';
       status.style.background='var(--green2)';
       status.style.color='var(--green)';
-      status.textContent='â Ora Èi fusul orar salvate! Vei primi notificarea la exact '+hour+' ora ta.';
+      status.textContent='✅ Ora și fusul orar salvate! Vei primi notificarea la exact '+hour+' ora ta.';
       setTimeout(()=>status.style.display='none',4000);
     }
   }catch(e){
     status.style.display='block';
     status.style.background='var(--red2)';
     status.style.color='var(--red)';
-    status.textContent='â Eroare: '+e.message;
+    status.textContent='❌ Eroare: '+e.message;
   }
 }
 
@@ -1927,7 +1927,7 @@ async function loadNotifTime(){
       // Auto-detectare timezone din browser pe prima logare
       const tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
       document.getElementById('notif-timezone').value=tz||'UTC';
-      // Auto-salveazÄ timezone detectat
+      // Auto-salvează timezone detectat
       setTimeout(()=>saveNotifTime(), 500);
     }
   }catch(e){
@@ -1983,7 +1983,7 @@ async function saveNotifPeriods(){
     status.style.display='block';
     status.style.background='var(--green2)';
     status.style.color='var(--green)';
-    status.textContent='â Perioade salvate! Vei fi alertat pentru: '+selected.join(', ');
+    status.textContent='✅ Perioade salvate! Vei fi alertat pentru: '+selected.join(', ');
     setTimeout(()=>status.style.display='none',4000);
   }
 }
@@ -2007,15 +2007,15 @@ async function loadNotifPeriods(){
   }
 }
 
-// ââ NOTIFICÄRI ââ
-let clientsToNotifyToday = []; // ClienÈi care trebuie notificaÈi azi
+// ══ NOTIFICĂRI ══
+let clientsToNotifyToday = []; // Clienți care trebuie notificați azi
 
 async function checkNotificationsDaily(){
   try{
     const{data:{session}}=await sb.auth.getSession();
     if(!session) return;
     
-    // FiltreazÄ clienÈi ce expirÄ Ã®n baza perioadelor selectate
+    // Filtrează clienți ce expiră în baza perioadelor selectate
     let maxDays = 0;
     if(notifPeriods.notif_7d) maxDays = 7;
     if(notifPeriods.notif_3d) maxDays = Math.max(maxDays, 3);
@@ -2024,30 +2024,30 @@ async function checkNotificationsDaily(){
     if(maxDays === 0) {
       clientsToNotifyToday = [];
       updateNotificationBadge();
-      return; // Nicio perioadÄ activÄ
+      return; // Nicio perioadă activă
     }
     
     clientsToNotifyToday = clients.filter(c=>{
       const d = days(c.expiry);
-      return d >= 0 && d <= maxDays; // Doar clienÈi care expirÄ Ã®n perioadele selectate
+      return d >= 0 && d <= maxDays; // Doar clienți care expiră în perioadele selectate
     }).sort((a,b)=>days(a.expiry)-days(b.expiry));
     
     // Update badge
     updateNotificationBadge();
     
     if(clientsToNotifyToday.length > 0){
-      // Verific dacÄ notificarea e trimisÄ azi (localStorage check)
+      // Verific dacă notificarea e trimisă azi (localStorage check)
       const today = new Date().toISOString().split('T')[0];
       const lastNotif = localStorage.getItem('app_notif_sent_'+session.user.id);
       
       if(lastNotif !== today){
-        // AfiÈez banner vizual
+        // Afișez banner vizual
         showNotificationBanner(clientsToNotifyToday.length);
         
         // Trimite OneSignal push
         sendOneSignalNotification(clientsToNotifyToday.length);
         
-        // SalveazÄ cÄ notificarea e arÄtatÄ azi
+        // Salvează că notificarea e arătată azi
         localStorage.setItem('app_notif_sent_'+session.user.id, today);
       }
     }
@@ -2077,7 +2077,7 @@ function sendOneSignalNotification(count){
         headings:{'en':'Ro Mega 4K','ro':'Ro Mega 4K'},
         contents:{
           'en':count + ' client(s) need renewal today!',
-          'ro':count + ' client(i) trebuie reÃ®nnoiÈi azi!'
+          'ro':count + ' client(i) trebuie reînnoiți azi!'
         },
         data:{'type':'clients_expiring', 'count': count},
         big_picture:'https://images.unsplash.com/photo-1593784991095-a205069470b6?w=600&q=80'
@@ -2112,12 +2112,12 @@ function showNotificationBanner(count){
   
   banner.innerHTML = `
     <div style="display: flex; gap: 12px; align-items: center;">
-      <span style="font-size: 20px;">ð</span>
+      <span style="font-size: 20px;">🔔</span>
       <div>
-        <strong>${count} client(i) trebuie reÃ®nnoiÈi azi!</strong>
-        <div style="font-size: 12px; opacity: 0.9; margin-top: 4px;">Mergi la NotificÄri pentru detalii</div>
+        <strong>${count} client(i) trebuie reînnoiți azi!</strong>
+        <div style="font-size: 12px; opacity: 0.9; margin-top: 4px;">Mergi la Notificări pentru detalii</div>
       </div>
-      <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-left: 12px;">â</button>
+      <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; margin-left: 12px;">✕</button>
     </div>
   `;
   
@@ -2138,12 +2138,12 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ââ ADMIN ââ
+// ══ ADMIN ══
 async function loadAdminUsers(){
   if(!isAdmin) return;
   
   const table = document.getElementById('admin-users-table');
-  table.innerHTML = '<tr><td colspan="5" style="padding:2rem;text-align:center;color:var(--text2);">Se Ã®ncarcÄ utilizatorii...</td></tr>';
+  table.innerHTML = '<tr><td colspan="5" style="padding:2rem;text-align:center;color:var(--text2);">Se încarcă utilizatorii...</td></tr>';
   
   try{
     const{data:users} = await sb.from('auth.users').select('id,email,user_metadata,created_at');
@@ -2157,7 +2157,7 @@ async function loadAdminUsers(){
     const profileMap = {};
     (profiles||[]).forEach(p=>{ profileMap[p.id] = p; });
     
-    // Adaug info din clients table (count clienÈi per user)
+    // Adaug info din clients table (count clienți per user)
     const{data:allClients} = await sb.from('clients').select('user_id');
     const clientMap = {};
     (allClients||[]).forEach(c=>{ clientMap[c.user_id] = (clientMap[c.user_id]||0)+1; });
@@ -2165,8 +2165,8 @@ async function loadAdminUsers(){
     let html = '';
     users.forEach(u=>{
       const profile = profileMap[u.id] || {};
-      const name = u.user_metadata?.full_name || 'â';
-      const tgId = profile.telegram_chat_id || 'â';
+      const name = u.user_metadata?.full_name || '—';
+      const tgId = profile.telegram_chat_id || '—';
       const clientCount = clientMap[u.id] || 0;
       const dateCreated = new Date(u.created_at).toLocaleDateString('ro-RO');
       
@@ -2186,33 +2186,33 @@ async function loadAdminUsers(){
   }
 }
 
-// ââ INVITE ââ
+// ══ INVITE ══
 function openInvite(){
   const link = 'https://manager-clienti-pro.netlify.app';
-  const msg = `Salut! ð
+  const msg = `Salut! 👋
 
-Te invit sÄ foloseÈti aplicaÈia noastrÄ de management clienÈi abonamente â *Ro Mega 4K Manager* ðº
+Te invit să folosești aplicația noastră de management clienți abonamente — *Ro Mega 4K Manager* 📺
 
-â *Ce face aceastÄ aplicaÈie:*
-â¢ ÃÈi Èine evidenÈa tuturor clienÈilor tÄi abonamente
-â¢ Te alerteazÄ automat cÃ¢nd un abonament expirÄ Ã®n 3 zile sau 24h
-â¢ GenereazÄ mesajele WhatsApp gata de trimis la clienÈi
-â¢ PrimeÈti notificÄri pe Telegram la ora pe care o alegi â orice fus orar
-â¢ FuncÈioneazÄ de pe orice device â telefon, tabletÄ, laptop/PC
+✅ *Ce face această aplicație:*
+• Îți ține evidența tuturor clienților tăi abonamente
+• Te alertează automat când un abonament expiră în 3 zile sau 24h
+• Generează mesajele WhatsApp gata de trimis la clienți
+• Primești notificări pe Telegram la ora pe care o alegi — orice fus orar
+• Funcționează de pe orice device — telefon, tabletă, laptop/PC
 
-ð *Cum funcÈioneazÄ notificÄrile:*
-Zilnic, la ora pe care o setezi Ã®n SetÄri, primeÈti pe Telegram lista cu clienÈii ce expirÄ + mesajul WhatsApp gata de copiat. Tu doar Ã®l trimiÈi clientului!
+🔔 *Cum funcționează notificările:*
+Zilnic, la ora pe care o setezi în Setări, primești pe Telegram lista cu clienții ce expiră + mesajul WhatsApp gata de copiat. Tu doar îl trimiți clientului!
 
-ð *Cum te Ã®nregistrezi:*
-1. AcceseazÄ linkul de mai jos
-2. ApasÄ "CreeazÄ cont" Èi pune emailul + o parolÄ
-3. AdaugÄ clienÈii tÄi
-4. Mergi la SetÄri â configureazÄ Telegram pentru notificÄri
+🚀 *Cum te înregistrezi:*
+1. Accesează linkul de mai jos
+2. Apasă "Creează cont" și pune emailul + o parolă
+3. Adaugă clienții tăi
+4. Mergi la Setări → configurează Telegram pentru notificări
 
-ð Link aplicaÈie:
+🔗 Link aplicație:
 ${link}
 
-â *Ro Mega 4K Team* ðº`;
+— *Ro Mega 4K Team* 📺`;
 
   document.getElementById('invite-msg').textContent = msg;
   document.getElementById('invite-wa-link').href = 'https://wa.me/?text=' + encodeURIComponent(msg);
@@ -2224,7 +2224,7 @@ function copyInvite(){
   navigator.clipboard.writeText(msg).then(()=>{
     const btn = event.target;
     const orig = btn.textContent;
-    btn.textContent = 'â Copiat!';
+    btn.textContent = '✅ Copiat!';
     btn.style.color = 'var(--green)';
     setTimeout(()=>{btn.textContent=orig;btn.style.color='';},2000);
   });
@@ -2242,10 +2242,10 @@ function togglePass(inputId, eyeId){
   }
 }
 
-// ââ PACKAGES & PRICES ââ
+// ══ PACKAGES & PRICES ══
 // All available packages: {id, label, months, defaultPrice, defaultOn}
 const ALL_PACKAGES = [
-  {id:'1m',   label:'1 LunÄ',      months:1,  ds:13,  dm:15,  on:true},
+  {id:'1m',   label:'1 Lună',      months:1,  ds:13,  dm:15,  on:true},
   {id:'2m',   label:'2 Luni',      months:2,  ds:0,   dm:0,   on:false},
   {id:'3m',   label:'3 Luni',      months:3,  ds:0,   dm:0,   on:false},
   {id:'3p1',  label:'3+1 Luni',    months:4,  ds:36,  dm:46,  on:true},
@@ -2260,7 +2260,7 @@ const ALL_PACKAGES = [
 let userPackages = {};
 let notifPeriods = {notif_7d: false, notif_3d: true, notif_24h: true}; // Default: 3d + 24h
 
-// ââ ADMIN ââ
+// ══ ADMIN ══
 const ADMIN_EMAIL = 'romega4k@gmail.com'; // Email-ul admin
 let isAdmin = false;
 
@@ -2295,7 +2295,7 @@ function renderPackageInputs(){
       <input id="ps-${p.id}" type="number" value="${pkg.single||''}" placeholder="0" min="0"
         style="width:70px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-size:16px;font-family:inherit;color:var(--text);outline:none;opacity:${opacity};" 
         ${isOn?'':'disabled'}>
-      <span style="font-size:11px;color:var(--text3);opacity:${opacity};">Â£/â¬</span>
+      <span style="font-size:11px;color:var(--text3);opacity:${opacity};">£/€</span>
     </div>`;
 
     const rowM = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -2306,7 +2306,7 @@ function renderPackageInputs(){
       <input id="pm-${p.id}" type="number" value="${pkg.multi||''}" placeholder="0" min="0"
         style="width:70px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-size:16px;font-family:inherit;color:var(--text);outline:none;opacity:${opacity};"
         ${isOn?'':'disabled'}>
-      <span style="font-size:11px;color:var(--text3);opacity:${opacity};">Â£/â¬</span>
+      <span style="font-size:11px;color:var(--text3);opacity:${opacity};">£/€</span>
     </div>`;
 
     sHtml += rowS;
@@ -2324,11 +2324,11 @@ function togglePkg(id){
   }
   userPackages[id].on = !userPackages[id].on;
   renderPackageInputs();
-  updateWaMsg(); // RegenereazÄ mesajul imediat dacÄ e modalul deschis
+  updateWaMsg(); // Regenerează mesajul imediat dacă e modalul deschis
 }
 
 function updateWaMsg(){
-  // RegenereazÄ mesajul WhatsApp din modal cu pachetele curente activate
+  // Regenerează mesajul WhatsApp din modal cu pachetele curente activate
   if(waClient && document.getElementById('mod-wa').classList.contains('open')){
     const msg=buildMsg(waClient);
     document.getElementById('wa-msg').textContent=msg;
@@ -2370,8 +2370,8 @@ async function savePrices(){
     status.textContent='Eroare: '+error.message;
   } else {
     status.style.display='block';status.style.background='var(--green2)';status.style.color='var(--green)';
-    status.textContent='â Pachetele salvate! Mesajele WhatsApp vor folosi aceste preÈuri.';
-    updateWaMsg(); // RegenereazÄ mesajul din modal imediat
+    status.textContent='✅ Pachetele salvate! Mesajele WhatsApp vor folosi aceste prețuri.';
+    updateWaMsg(); // Regenerează mesajul din modal imediat
     setTimeout(()=>status.style.display='none',3000);
   }
 }
@@ -2379,7 +2379,7 @@ async function savePrices(){
 function resetPrices(){
   userPackages = getDefaultPackages();
   renderPackageInputs();
-  updateWaMsg(); // RegenereazÄ mesajul din modal imediat
+  updateWaMsg(); // Regenerează mesajul din modal imediat
 }
 
 async function loadUserPrices(){

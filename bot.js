@@ -98,7 +98,7 @@ async function main() {
 
     console.log(`👤 ${profile.full_name} | clienti relevanti: ${relevant.length}`);
 
-    if (!relevant.length) continue;
+   if (!relevant.length) return;
 
     // Construieste mesajul
     const lines = relevant.map(c => {

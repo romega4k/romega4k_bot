@@ -49,11 +49,22 @@ async function tgSend(chatId, text) {
   const r = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' })
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[
+          {
+            text: '📱 Deschide Ro Mega 4K',
+            url: 'https://manager-clienti-pro.netlify.app'
+          }
+        ]]
+      }
+    })
   });
   const j = await r.json();
   if (!j.ok) console.error('TG error:', j.description);
-  return j;
 }
 
 async function main() {
@@ -117,12 +128,18 @@ async function main() {
       `- ${c.name}: ${c.expiry}`
     ).join('\n');
 
-    const wa = `${salut()}! Clienți cu abonament care expiră curând:\n\n${waLines}\n\nPentru reînnoire contactați clientul.`;
+    const today = new Date().toLocaleDateString('ro-RO', {
+  timeZone: 'Europe/Bucharest',
+  day: '2-digit', month: '2-digit', year: 'numeric'
+});
 
-    const text = `${salut()} *${profile.full_name}* 👋\n\n` +
-      `📋 *Clienți care expiră curând:*\n${lines}\n\n` +
-      `📱 *Mesaj WhatsApp:*\n\`\`\`\n${wa}\n\`\`\``;
+const lines = relevant.map(c => {
+  const d = daysUntil(c.expiry);
+  const bar = d <= 1 ? '🔴' : d <= 3 ? '🟡' : '🟢';
+  return `${bar} ${c.name} — ${d} zile`;
+}).join('\n');
 
+const text = `${salut()} *${profile.full_name}* 👋\n\n📊 *Raport zilnic — ${today}:*\n\n${lines}\n\n__Mergi în app pentru a copia mesajul WhatsApp__ 📲`;
     await tgSend(profile.telegram_chat_id, text);
     console.log(`✅ Trimis: ${profile.full_name} (${relevant.length} clienti)`);
     sent++;

@@ -118,15 +118,7 @@ async function main() {
     if (!relevant.length) continue;
 
     // Construieste mesajul
-    const lines = relevant.map(c => {
-      const d = daysUntil(c.expiry);
-      const bar = d <= 1 ? '🔴' : d <= 3 ? '🟡' : '🟢';
-      return `${bar} *${c.name}* ${flag(c.country)} — *${d} zile* (${c.expiry})`;
-    }).join('\n');
-
-    const waLines = relevant.map(c =>
-      `- ${c.name}: ${c.expiry}`
-    ).join('\n');
+   
 
     const today = new Date().toLocaleDateString('ro-RO', {
   timeZone: 'Europe/Bucharest',

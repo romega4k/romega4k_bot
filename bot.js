@@ -83,7 +83,7 @@ async function main() {
       .select('name, expiry, country, pkg_type')
       .eq('user_id', profile.id);
 
-    if (cliErr) { console.error('❌ clients error:', cliErr.message); continue; }
+    if (cliErr) { console.error('❌ clients error:', cliErr.message); return; }
 
     // Filtreaza dupa setarile de notificare
     const relevant = (clients || []).filter(c => {

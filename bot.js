@@ -75,7 +75,13 @@ async function main() {
 
   let sent = 0;
 
- 
+  for (const profile of profiles) {
+    const notifTime = (profile.notif_time || '').substring(0, 5);
+
+    if (notifTime && notifTime !== horaRO) {
+      console.log(`⏭ ${profile.full_name} | ora setată: ${notifTime} | ora RO: ${horaRO} — sărim`);
+      continue;
+    }
 
     // Citeste clientii acestui user
     const { data: clients, error: cliErr } = await sb
@@ -83,7 +89,7 @@ async function main() {
       .select('name, expiry, country, pkg_type')
       .eq('user_id', profile.id);
 
-    if (cliErr) { console.error('❌ clients error:', cliErr.message); return; }
+    if (cliErr) { console.error('❌ clients error:', cliErr.message); continue; }
 
     // Filtreaza dupa setarile de notificare
     const relevant = (clients || []).filter(c => {
@@ -98,7 +104,7 @@ async function main() {
 
     console.log(`👤 ${profile.full_name} | clienti relevanti: ${relevant.length}`);
 
-   if (!relevant.length) return;
+    if (!relevant.length) continue;
 
     // Construieste mesajul
     const lines = relevant.map(c => {

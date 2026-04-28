@@ -75,13 +75,7 @@ async function main() {
 
   let sent = 0;
 
-  for (const profile of profiles) {
-    const notifTime = (profile.notif_time || '').substring(0, 5);
-
-    if (notifTime && notifTime !== horaRO) {
-      console.log(`⏭ ${profile.full_name} | ora setată: ${notifTime} | ora RO: ${horaRO} — sărim`);
-      continue;
-    }
+ 
 
     // Citeste clientii acestui user
     const { data: clients, error: cliErr } = await sb

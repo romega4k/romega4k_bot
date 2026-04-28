@@ -1197,7 +1197,7 @@ function showReg(){
 async function resetPassword() {
   const email = document.getElementById('l-email').value;
   if (!email) { alert('Introdu email-ul mai întâi!'); return; }
-  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: 'https://manager-clienti-pro.netlify.app' });
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: 'https://manager-clienti-pro.netlify.app' });
   if (error) alert('Eroare: ' + error.message);
   else alert('Email de recuperare trimis!');
 }
@@ -1205,7 +1205,7 @@ async function resetPassword() {
 async function loginEmail(){
   const email = document.getElementById('l-email').value;
   if (!email) { alert('Introdu email-ul mai întâi!'); return; }
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
     redirectTo: 'https://manager-clienti-pro.netlify.app'
   });
   if (error) alert('Eroare: ' + error.message);

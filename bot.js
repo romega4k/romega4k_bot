@@ -78,7 +78,7 @@ async function main() {
   for (const profile of profiles) {
     const notifTime = (profile.notif_time || '').substring(0, 5);
 
-    if (notifTime && notifTime !== horaRO) {
+    if (false) {
       console.log(`⏭ ${profile.full_name} | ora setată: ${notifTime} | ora RO: ${horaRO} — sărim`);
       continue;
     }

@@ -1,28 +1,22 @@
 name: Ro Mega 4K - Notificari Telegram
-
 on:
   workflow_dispatch:
   repository_dispatch:
     types: [cron-trigger]
-
 jobs:
   notify:
     name: Trimite notificari Telegram
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     steps:
       - name: Checkout cod
         uses: actions/checkout@v4
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
       - name: Instaleaza dependente
         run: npm install
-
       - name: Ruleaza botul
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -30,3 +24,4 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
           TRIGGERED_BY: ${{ github.event_name }}
+        run: node bot.js

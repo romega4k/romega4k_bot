@@ -1,5 +1,7 @@
 name: Ro Mega 4K - Notificari Telegram
 on:
+  schedule:
+    - cron: '0 10 * * *'  # 10:00 UTC = 12:00 Romania (vara)
   workflow_dispatch:
   repository_dispatch:
     types: [cron-trigger]

@@ -2,14 +2,17 @@ name: Ro Mega 4K - Notificari Telegram
 on:
   schedule:
     - cron: '0 10 * * *'  # 10:00 UTC = 12:00 Romania (vara)
+    - cron: '0 12 1 * *'  # Auto-commit in prima zi a fiecarei luni
   workflow_dispatch:
   repository_dispatch:
     types: [cron-trigger]
+
 jobs:
   notify:
     name: Trimite notificari Telegram
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: github.event_name != 'schedule' || github.event.schedule == '0 10 * * *'
     steps:
       - name: Checkout cod
         uses: actions/checkout@v4
@@ -27,3 +30,21 @@ jobs:
           ONESIGNAL_API_KEY: ${{ secrets.ONESIGNAL_API_KEY }}
           TRIGGERED_BY: ${{ github.event_name }}
         run: node bot.js
+
+  keep-alive:
+    name: Auto-commit lunar
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 12 1 * *'
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit automat
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "keep-alive: $(date)" > .keep-alive
+          git add .keep-alive
+          git commit -m "chore: keep-alive $(date +'%Y-%m')"
+          git push

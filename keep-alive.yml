@@ -1,0 +1,21 @@
+name: Keep Alive
+on:
+  schedule:
+    - cron: '0 12 1 * *'  # Prima zi a fiecarei luni
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    name: Auto-commit lunar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout cod
+        uses: actions/checkout@v4
+      - name: Commit automat
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "keep-alive: $(date)" > .keep-alive
+          git add .keep-alive
+          git commit -m "chore: keep-alive $(date +'%Y-%m')"
+          git push
